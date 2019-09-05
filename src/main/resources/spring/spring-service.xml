@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!--导入hibernate-->
+    <import resource="spring-hibernate.xml"/>
+    <!--配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!--配置声明式事务-->
+    <tx:advice id="transactionInterceptor" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*"/>
+            <tx:method name="save*" />
+            <tx:method name="append*" />
+            <tx:method name="insert*" />
+            <tx:method name="upd*" />
+            <tx:method name="edit*" />
+            <tx:method name="del*" />
+            <tx:method name="remove*" />
+            <tx:method name="repair*" />
+
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="list" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="query" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="search*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="show*" propagation="SUPPORTS" read-only="true" />
+
+            <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--配置切点-->
+    <aop:config>
+
+        <aop:advisor advice-ref="transactionInterceptor" pointcut="execution(* com.zdsub.service.*.*.*(..))
+        ||execution(* com.zdsub.service.*.*.*.*(..))"/>
+    </aop:config>
+</beans>
