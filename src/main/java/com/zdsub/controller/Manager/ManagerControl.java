@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/manager/")
 public class ManagerControl {
-   /* protected Logger logger = LoggerFactory.getLogger(getClass());
+    protected Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
     ManagerService managerService;
     @RequestMapping(value = "2233",produces="text/html; charset=UTF-8")
@@ -45,5 +45,5 @@ public class ManagerControl {
     @RequestMapping("page")
     public ResponseBean page(){
         return ResponseBean.PAGESUCCESS(managerService.page(new Page()));
-    }*/
+    }
 }
