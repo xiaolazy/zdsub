@@ -25,6 +25,8 @@ ext{
     langV='2.6'
     mybatisV='3.4.6'
     mybatisSpringV='1.3.2'
+    ioV='2.4'
+    fileuploadV='1.3.1'
 }
 // Apply the java-library plugin to add support for Java Library
 //apply plugin: 'java-library'
@@ -74,6 +76,8 @@ dependencies {
         //mybatis
         "org.mybatis:mybatis:$mybatisV",
         "org.mybatis:mybatis-spring:$mybatisSpringV",
+        "commons-io:commons-io:$ioV",
+        "commons-fileupload:commons-fileupload:$fileuploadV"
     )
     compileOnly(
         //servlet
