@@ -1,3 +1,5 @@
+import com.zdsub.utils.Md5Util;
+
 import java.math.BigDecimal;
 import java.util.ConcurrentModificationException;
 import java.util.HashMap;
@@ -92,9 +94,9 @@ public class Test {
     }
     @org.junit.Test
     public strictfp void haha(){
-        String ss = "111";
-        int i = Integer.parseInt(ss, 8);
-        System.out.println(i);
+        System.out.println(Md5Util.Md5("2233445566"));
+        System.out.println(Md5Util.Md5("8888888888llll"));
+        System.out.println(Md5Util.Md5("wewewewewewe"));
     }
 }
 

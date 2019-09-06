@@ -88,8 +88,15 @@ public class Md5Util {
             }
             return digestHexStr;
         }
-
-
+        /*@description：加密
+         *@Date：2019/9/6 10:44
+         *@Param laws
+         *@Return String
+         *@Author lyy
+         */
+        public static String Md5(String laws){
+            return new Md5Util().getMD5ofStr(laws);
+        }
 
         /* md5Init是一个初始化函数，初始化核心变量，装入标准的幻数 */
         private void md5Init() {
