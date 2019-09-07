@@ -83,4 +83,7 @@ public class ResponseBean implements Serializable {
         this.status = status;
         this.page = page;
     }
+    public static ResponseBean responseException(int status,String msg){
+        return new ResponseBean(status,msg);
+    }
 }
