@@ -23,11 +23,7 @@ public class ValidLog {
     @Around("pointCut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         BindingResult bindingResult = null;
-        System.out.println("00000000000000000000000000000000");
-        System.out.println("target:::::::::"+joinPoint.getTarget());
-        System.out.println("target:::::::::"+joinPoint.getArgs().toString());
-        Object[] args = joinPoint.getArgs();
-        for (Object object : args) {
+        for (Object object : joinPoint.getArgs()) {
             if (object instanceof BindingResult) {
                 bindingResult = (BindingResult) object;
             }
