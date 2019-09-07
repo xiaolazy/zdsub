@@ -18,4 +18,6 @@
     <mvc:annotation-driven>
         <mvc:path-matching suffix-pattern="false" />
     </mvc:annotation-driven>
+    <!--开启Aspect风格的AOP注解-->
+    <aop:aspectj-autoproxy/>
 </beans>

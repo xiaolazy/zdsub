@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @program: zdsub
@@ -25,6 +27,7 @@ public class Manager {
     @GenericGenerator(name = "uuid",strategy = "uuid")
     @GeneratedValue(generator = "uuid")
     protected String id;
+    @NotBlank(message = "userNAME不能为空！！")
     protected String user_name;
     protected String pass_word;
     protected String sch_id;
