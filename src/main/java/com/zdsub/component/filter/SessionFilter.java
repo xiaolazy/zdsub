@@ -27,8 +27,10 @@ public class SessionFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Object activity = session.getAttribute(session.getId());
+
         String servletPath = request.getServletPath();
         String protalURL = protalURL(servletPath);
+
         if (servletPath.equals(LOINGURL)||protalURL.equals(ROOT)||servletPath.equals(REGISTERURL)||protalURL.equals(PORTALURL))
             filterChain.doFilter(request, response);
         else if (!protalURL.equals(PORTALURL) && null != activity)

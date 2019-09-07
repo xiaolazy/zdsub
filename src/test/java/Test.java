@@ -97,7 +97,8 @@ public class Test {
         System.out.println(Md5Util.Md5("2233445566"));
         System.out.println(Md5Util.Md5("8888888888llll"));
         System.out.println(Md5Util.Md5("wewewewewewe"));
-        /*git branch --set-upstream-to=origin/master master*/
+        System.out.println("/home".substring(0,5));
+        /*git branch --set-upstream-to=zdsub/master master*/
     }
 }
 
