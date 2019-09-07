@@ -2,7 +2,7 @@ package com.zdsub.controller.recruitment;
 
 import com.zdsub.common.ResultBean.ResponseBean;
 import com.zdsub.component.Hibernate.Page;
-import com.zdsub.entity.recruitment.Increase.AdverInc;
+import com.zdsub.entity.recruitment.increase.AdverInc;
 import com.zdsub.service.recruitment.AdverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;

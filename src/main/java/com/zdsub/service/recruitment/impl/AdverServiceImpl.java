@@ -1,4 +1,4 @@
-package com.zdsub.service.recruitment.Impl;
+package com.zdsub.service.recruitment.impl;
 
 import com.zdsub.common.constant.Common;
 import com.zdsub.component.Hibernate.Page;
@@ -6,7 +6,7 @@ import com.zdsub.component.exception.GlobalException;
 import com.zdsub.dao.recruitment.AdverDao;
 import com.zdsub.dao.supportTibet.SchoolDao;
 import com.zdsub.entity.recruitment.Adver;
-import com.zdsub.entity.recruitment.Increase.AdverInc;
+import com.zdsub.entity.recruitment.increase.AdverInc;
 import com.zdsub.entity.university.School;
 import com.zdsub.service.recruitment.AdverService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @BelongsProject: zdsub
- * @BelongsPackage: com.zdsub.service.recruitment.Impl
+ * @BelongsPackage: com.zdsub.service.recruitment.impl
  * @Author: ly
  * @CreateTime: 2019-09-06 20:30
  * @Description:

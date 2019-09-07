@@ -1,7 +1,7 @@
 package com.zdsub.service.university;
 
 import com.zdsub.component.Hibernate.Page;
-import com.zdsub.entity.university.Increase.SchoolInc;
+import com.zdsub.entity.university.increase.SchoolInc;
 import com.zdsub.entity.university.School;
 
 import java.util.List;

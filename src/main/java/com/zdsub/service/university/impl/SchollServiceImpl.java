@@ -1,10 +1,9 @@
-package com.zdsub.service.university.Impl;
+package com.zdsub.service.university.impl;
 
-import com.zdsub.common.constant.Common;
 import com.zdsub.component.Hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.dao.supportTibet.SchoolDao;
-import com.zdsub.entity.university.Increase.SchoolInc;
+import com.zdsub.entity.university.increase.SchoolInc;
 import com.zdsub.entity.university.School;
 import com.zdsub.service.university.SchollService;
 import com.zdsub.utils.DateUtil;
@@ -17,7 +16,7 @@ import java.util.List;
 
 /**
  * @BelongsProject: zdsub
- * @BelongsPackage: com.zdsub.service.university.Impl
+ * @BelongsPackage: com.zdsub.service.university.impl
  * @Author: ly
  * @CreateTime: 2019-09-06 11:05
  * @Description:

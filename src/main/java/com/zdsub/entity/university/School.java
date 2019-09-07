@@ -1,10 +1,8 @@
 package com.zdsub.entity.university;
 
-import com.zdsub.entity.university.Increase.SchoolInc;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.beans.BeanUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

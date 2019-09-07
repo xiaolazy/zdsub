@@ -1,4 +1,4 @@
-package com.zdsub.entity.work.Increase;
+package com.zdsub.entity.work.increase;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @BelongsProject: zdsub
- * @BelongsPackage: com.zdsub.entity.work.Increase
+ * @BelongsPackage: com.zdsub.entity.work.increase
  * @Author: ly
  * @CreateTime: 2019-09-07 15:27
  * @Description:

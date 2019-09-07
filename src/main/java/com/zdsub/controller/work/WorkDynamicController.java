@@ -2,9 +2,11 @@ package com.zdsub.controller.work;
 
 import com.zdsub.common.ResultBean.ResponseBean;
 import com.zdsub.component.Hibernate.Page;
-import com.zdsub.entity.work.increase.ProcessInc;
 import com.zdsub.entity.work.Process;
+import com.zdsub.entity.work.WorkDynamic;
+import com.zdsub.entity.work.increase.ProcessInc;
 import com.zdsub.service.work.ProcessService;
+import com.zdsub.service.work.WorkDynamicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,40 +16,40 @@ import javax.validation.Valid;
  * @BelongsProject: zdsub
  * @BelongsPackage: com.zdsub.controller.work
  * @Author: ly
- * @CreateTime: 2019-09-07 09:29
+ * @CreateTime: 2019-09-07 22:24
  * @Description:
  */
 @RestController
-@RequestMapping("/process/")
-public class ProcessController {
+@RequestMapping("/workDynamic/")
+public class WorkDynamicController {
     @Autowired
-    private ProcessService processService;
+    private WorkDynamicService workDynamicService;
 
     @PostMapping("add")
-    public ResponseBean add(@RequestBody @Valid ProcessInc processInc) {
-        processService.add(processInc);
+    public ResponseBean add(@RequestBody @Valid WorkDynamic workDynamic) {
+        workDynamicService.add(workDynamic);
         return ResponseBean.SUCCESS();
     }
 
     @PostMapping("edit")
-    public ResponseBean edit(@RequestBody @Valid ProcessInc processInc) {
-        processService.edit(processInc);
+    public ResponseBean edit(@RequestBody @Valid WorkDynamic workDynamic) {
+        workDynamicService.edit(workDynamic);
         return ResponseBean.SUCCESS();
     }
 
-    @GetMapping("/remove")
+    @GetMapping("remove")
     public ResponseBean remove(String id) {
-        processService.remove(id);
+        workDynamicService.remove(id);
         return ResponseBean.SUCCESS();
     }
 
-    @GetMapping("/get")
+    @GetMapping("get")
     public ResponseBean get(String id) {
-        return ResponseBean.SUCCESS(processService.get(id));
+        return ResponseBean.SUCCESS(workDynamicService.get(id));
     }
 
     @PostMapping("page")
-    public ResponseBean page(Page<Process> page) {
-        return ResponseBean.SUCCESS(processService.page(page));
+    public ResponseBean page(Page<WorkDynamic> page) {
+        return ResponseBean.SUCCESS(workDynamicService.page(page));
     }
 }

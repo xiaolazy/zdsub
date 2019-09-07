@@ -1,9 +1,9 @@
-package com.zdsub.service.work.Impl;
+package com.zdsub.service.work.impl;
 
 import com.zdsub.component.Hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.dao.work.ProcessDao;
-import com.zdsub.entity.work.Increase.ProcessInc;
+import com.zdsub.entity.work.increase.ProcessInc;
 import com.zdsub.entity.work.Process;
 import com.zdsub.service.work.ProcessService;
 import com.zdsub.utils.DateUtil;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @BelongsProject: zdsub
- * @BelongsPackage: com.zdsub.service.work.Impl
+ * @BelongsPackage: com.zdsub.service.work.impl
  * @Author: ly
  * @CreateTime: 2019-09-07 09:22
  * @Description:

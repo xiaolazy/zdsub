@@ -1,7 +1,7 @@
 package com.zdsub.service.work;
 
 import com.zdsub.component.Hibernate.Page;
-import com.zdsub.entity.work.Increase.ProcessInc;
+import com.zdsub.entity.work.increase.ProcessInc;
 import com.zdsub.entity.work.Process;
 
 /**
