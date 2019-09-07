@@ -13,4 +13,15 @@ public interface Common {
     static final String ASC = "ASC";
     //降序排序
     static final String DESC = "DESC";
+    //门户展示URL
+    static final String PORTALURL="/home";
+    //根路径
+    static final String ROOT = "/";
+    //登录路径
+    static final String LOINGURL="/manager/login";
+    //注册路径
+    static final String REGISTERURL="/manager/register";
+    //路径截取的长度
+    static final int SUBSTRING_LENG_START = 0;
+    static final int SUBSTRING_LENG_END = 5;
 }

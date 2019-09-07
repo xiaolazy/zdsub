@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /**
  * @program: i-workspace
- * @description: 跨域请求处理拦截器
+ * @description: 跨域请求处理过滤器
  * @author: lyy
  * @generate: 2019-05-14 12:25
  **/
