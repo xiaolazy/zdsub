@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -22,6 +23,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 public class School {
+    @Id
     @GenericGenerator(strategy = "uuid", name = "uuidGen")
     @GeneratedValue(generator = "uuidGen")
     protected String id ;
