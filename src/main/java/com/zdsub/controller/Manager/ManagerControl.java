@@ -2,6 +2,7 @@ package com.zdsub.controller.Manager;
 
 import com.zdsub.common.ResultBean.ResponseBean;
 import com.zdsub.component.Hibernate.Page;
+import com.zdsub.component.exception.GlobalException;
 import com.zdsub.service.Manager.ManagerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.Email;
 import java.util.List;
 
 /**
@@ -29,6 +31,9 @@ public class ManagerControl {
     }
     @RequestMapping("test")
     public List<?> test(){
+        String te= "22";
+        if("22".equals(te))
+            throw new GlobalException(888,"测试异常测试异常");
         System.out.println("5566");
         logger.debug("4444444444444");
         logger.info("ooooooooooooooo");
