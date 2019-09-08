@@ -27,9 +27,9 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
 
     @Override
     public void add(WorkDynamic workDynamic) {
-        workDynamic.setCreate_time(DateUtil.getDate());
+        workDynamic.setCreate_time(DateUtil.getDateTime());
         workDynamic.setCreate_user("===========");
-        workDynamic.setUpdate_time(DateUtil.getDate());
+        workDynamic.setUpdate_time(DateUtil.getDateTime());
         workDynamic.setUpdate_user("===========");
         workDynamicDao.save(workDynamic);
     }
@@ -38,7 +38,7 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
     public void edit(WorkDynamic workDynamic) {
         get(workDynamic.getId());
         workDynamic.setUpdate_user("=========");
-        workDynamic.setUpdate_time(DateUtil.getDate());
+        workDynamic.setUpdate_time(DateUtil.getDateTime());
         workDynamicDao.update(workDynamic);
     }
 

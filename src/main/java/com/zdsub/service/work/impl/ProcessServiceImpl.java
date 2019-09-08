@@ -29,9 +29,9 @@ public class ProcessServiceImpl implements ProcessService {
     public void add(ProcessInc processInc) {
         Process process = new Process();
         BeanUtils.copyProperties(processInc, process);
-        process.setCreate_time(DateUtil.getDate());
+        process.setCreate_time(DateUtil.getDateTime());
         process.setCreate_user("===========");
-        process.setUpdate_time(DateUtil.getDate());
+        process.setUpdate_time(DateUtil.getDateTime());
         process.setUpdate_user("===========");
         processDao.save(process);
     }
@@ -41,7 +41,7 @@ public class ProcessServiceImpl implements ProcessService {
         Process process = get(processInc.getId());
         BeanUtils.copyProperties(processInc, process);
         process.setUpdate_user("=========");
-        process.setUpdate_time(DateUtil.getDate());
+        process.setUpdate_time(DateUtil.getDateTime());
         processDao.update(process);
     }
 

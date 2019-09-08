@@ -2,6 +2,7 @@ package com.zdsub.controller.work;
 
 import com.zdsub.common.ResultBean.ResponseBean;
 import com.zdsub.component.Hibernate.Page;
+import com.zdsub.component.annotion.ValidLog;
 import com.zdsub.entity.work.Process;
 import com.zdsub.entity.work.WorkDynamic;
 import com.zdsub.entity.work.increase.ProcessInc;
@@ -26,33 +27,32 @@ public class WorkDynamicController {
     private WorkDynamicService workDynamicService;
 
     @PostMapping("add")
+    @ValidLog
     public ResponseBean add(@RequestBody @Valid WorkDynamic workDynamic) {
         workDynamicService.add(workDynamic);
         return ResponseBean.SUCCESS();
     }
 
     @PostMapping("edit")
+    @ValidLog
     public ResponseBean edit(@RequestBody @Valid WorkDynamic workDynamic) {
         workDynamicService.edit(workDynamic);
         return ResponseBean.SUCCESS();
     }
 
-    @GetMapping("remove")
-    public ResponseBean remove(String id) {
+    @GetMapping("remove/{id}")
+    public ResponseBean remove(@PathVariable  String id) {
         workDynamicService.remove(id);
         return ResponseBean.SUCCESS();
     }
-    @GetMapping("/toAdverShow")
-    public ResponseBean toAdverShow(String id) {
-        return ResponseBean.SUCCESS(workDynamicService.toAdverShow(id));
-    }
-    @GetMapping("get")
-    public ResponseBean get(String id) {
+
+    @GetMapping("get/{id}")
+    public ResponseBean get(@PathVariable String id) {
         return ResponseBean.SUCCESS(workDynamicService.get(id));
     }
 
     @PostMapping("page")
-    public ResponseBean page(Page<WorkDynamic> page) {
+    public ResponseBean page(@RequestBody Page<WorkDynamic> page) {
         return ResponseBean.SUCCESS(workDynamicService.page(page));
     }
 }
