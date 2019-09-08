@@ -27,7 +27,7 @@ public class SchollController {
 
     @PostMapping("add")
     @ValidLog
-    public ResponseBean add(@RequestBody @Valid SchoolInc schoolInc, BindingResult bindingResult) {
+    public ResponseBean add(@Valid @RequestBody  SchoolInc schoolInc, BindingResult bindingResult) {
         schollService.add(schoolInc);
         return ResponseBean.SUCCESS();
     }

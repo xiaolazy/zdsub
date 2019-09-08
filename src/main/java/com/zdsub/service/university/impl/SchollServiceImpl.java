@@ -56,8 +56,10 @@ public class SchollServiceImpl implements SchollService {
 
     @Override
     public Page<School> page(Page page) {
-        School school = (School) page.getCondition();
-        school.setSch_name("%" + school.getSch_name() + "%");
+        if(page.getCondition()!=null){
+            School school = (School) page.getCondition();
+            school.setSch_name("%" + school.getSch_name() + "%");
+        }
         return schoolDao.page(page);
     }
 

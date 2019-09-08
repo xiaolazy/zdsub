@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @BelongsProject: zdsub
@@ -25,9 +26,9 @@ public class SchoolInc {
     protected String sup_history;
     @NotBlank(message = "援藏学校信息不能为空")
     protected String message;
-    @NotBlank(message = "是否为接受援助高校不能为空")
+    @NotNull(message = "是否为接受援助高校不能为空")
     protected Integer rec_school;
-    @NotBlank(message = "是否为援藏高校不能为空")
+    @NotNull(message = "是否为援藏高校不能为空")
     protected Integer is_zup;
 
 }
