@@ -1,7 +1,7 @@
 package com.zdsub.controller.work;
 
 import com.zdsub.common.ResultBean.ResponseBean;
-import com.zdsub.component.Hibernate.Page;
+import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.annotion.ValidLog;
 import com.zdsub.entity.work.Process;
 import com.zdsub.entity.work.WorkDynamic;

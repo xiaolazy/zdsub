@@ -1,6 +1,6 @@
 package com.zdsub.service.university.impl;
 
-import com.zdsub.component.Hibernate.Page;
+import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.dao.supportTibet.SchoolDao;
 import com.zdsub.entity.university.School;
