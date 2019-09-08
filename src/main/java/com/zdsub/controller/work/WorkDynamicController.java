@@ -42,7 +42,10 @@ public class WorkDynamicController {
         workDynamicService.remove(id);
         return ResponseBean.SUCCESS();
     }
-
+    @GetMapping("/toAdverShow")
+    public ResponseBean toAdverShow(String id) {
+        return ResponseBean.SUCCESS(workDynamicService.toAdverShow(id));
+    }
     @GetMapping("get")
     public ResponseBean get(String id) {
         return ResponseBean.SUCCESS(workDynamicService.get(id));

@@ -22,8 +22,8 @@ import org.springframework.stereotype.Service;
  * @CreateTime: 2019-09-06 20:30
  * @Description:
  */
-@Service
 @Slf4j
+@Service
 public class AdverServiceImpl implements AdverService {
     @Autowired
     private AdverDao adverDao;
@@ -87,6 +87,8 @@ public class AdverServiceImpl implements AdverService {
 
     @Override
     public Page<Adver> page(Page page) {
+        Adver adver = (Adver) page.getCondition();
+        adver.setTitle("%" + adver.getTitle() + "%");
         return adverDao.findPage(page);
     }
 

@@ -47,4 +47,12 @@ public interface WorkDynamicService {
      * @return
      */
     WorkDynamic get(String id);
+
+    /**
+     * 查看工作动态并增加阅读数
+     *
+     * @param id
+     * @return
+     */
+    WorkDynamic toAdverShow(String id);
 }

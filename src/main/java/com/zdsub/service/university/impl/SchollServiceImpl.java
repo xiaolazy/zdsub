@@ -5,6 +5,7 @@ import com.zdsub.component.exception.GlobalException;
 import com.zdsub.dao.supportTibet.SchoolDao;
 import com.zdsub.entity.university.increase.SchoolInc;
 import com.zdsub.entity.university.School;
+import com.zdsub.entity.work.WorkDynamic;
 import com.zdsub.service.university.SchollService;
 import com.zdsub.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +57,8 @@ public class SchollServiceImpl implements SchollService {
 
     @Override
     public Page<School> page(Page page) {
+        School school = (School) page.getCondition();
+        school.setSch_name("%" + school.getSch_name() + "%");
         return schoolDao.page(page);
     }
 
