@@ -1,9 +1,12 @@
 package com.zdsub.service.menu.impl;
 
+import com.zdsub.dao.menu.MenuDao;
+import com.zdsub.entity.menu.Menu;
 import com.zdsub.entity.menu.increase.MenuInc;
 import com.zdsub.service.menu.MenuService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -14,8 +17,12 @@ import java.util.List;
  **/
 @Service
 public class MenuServiceImpl implements MenuService {
+    @Resource
+    private MenuDao menuDao;
     @Override
     public List<MenuInc> getMenuTree() {
+        List<Menu> parent = menuDao.getByPid("0");
+        parent.forEach(System.out::println);
         return null;
     }
 }

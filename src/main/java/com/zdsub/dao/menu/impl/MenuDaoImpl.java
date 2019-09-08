@@ -3,7 +3,12 @@ package com.zdsub.dao.menu.impl;
 import com.zdsub.component.hibernate.BaseDaoImpl;
 import com.zdsub.dao.menu.MenuDao;
 import com.zdsub.entity.menu.Menu;
+import com.zdsub.entity.menu.increase.MenuInc;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * @program: zdsub
@@ -13,4 +18,9 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 public class MenuDaoImpl extends BaseDaoImpl<Menu,String > implements MenuDao {
+    @Override
+    public List<Menu> getByPid(String pid) {
+        return getSession().createQuery("from Menu where pid = ?").
+                setParameter(0, pid).list();
+    }
 }

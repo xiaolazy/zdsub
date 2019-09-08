@@ -1,10 +1,12 @@
 package com.zdsub.controller.menu;
 
 import com.zdsub.common.ResultBean.ResponseBean;
+import com.zdsub.service.menu.MenuService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -16,8 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/menu/")
 public class MenuControl {
+    @Resource
+    private MenuService menuService;
     @GetMapping("menuTree")
     public ResponseBean menuTree(HttpServletRequest req){
+        menuService.getMenuTree();
         return null;
     }
 
