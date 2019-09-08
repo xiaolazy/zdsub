@@ -1,7 +1,7 @@
 package com.zdsub.component.filter;
 
 
-import com.zdsub.entity.Manager.Manager;
+import com.zdsub.entity.manager.Manager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -26,17 +26,28 @@ public class SessionFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Object activity = session.getAttribute(session.getId());
+        Manager manager = (Manager)session.getAttribute(session.getId());
 
         String servletPath = request.getServletPath();
         String protalURL = protalURL(servletPath);
-
+        if(null != manager)
+            System.out.println(manager.getUser_name()+"-------------------------");
+        else
+            System.out.println(9999999999999L);
         if (servletPath.equals(LOINGURL)||protalURL.equals(ROOT)||servletPath.equals(REGISTERURL)||protalURL.equals(PORTALURL))
+        {
             filterChain.doFilter(request, response);
-        else if (!protalURL.equals(PORTALURL) && null != activity)
+        }
+        else if(null != manager){
+            filterChain.doFilter(request,response);
+        }
+
+        else if (!protalURL.equals(PORTALURL) && null != manager){
             filterChain.doFilter(request, response);
+        }
         else
             logger.error("路径"+servletPath+"非法访问被拦截");
+
     }
     /*@description：URL判断
      *@Date：2019/9/7 16:32

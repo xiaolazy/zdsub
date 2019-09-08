@@ -2,7 +2,8 @@ package com.zdsub.service.Manager.Impl;
 
 import com.zdsub.component.Hibernate.Page;
 import com.zdsub.dao.Manager.ManagerDao;
-import com.zdsub.entity.Manager.Manager;
+import com.zdsub.entity.manager.Increase.ManagerInc;
+import com.zdsub.entity.manager.Manager;
 import com.zdsub.service.Manager.ManagerService;
 import org.springframework.stereotype.Service;
 
@@ -19,20 +20,9 @@ import java.util.List;
 public class ManagerServiceImpl implements ManagerService {
     @Resource
     ManagerDao managerDao;
-    @Override
-    public List<?> listAll() {
-        List<?> objects = managerDao.listAll();
-        System.out.println("size:-----------------------"+objects.size());
-        return objects;
-    }
 
     @Override
-    public Object findManager(String id) {
-        return managerDao.findManager(id);
-    }
-
-    @Override
-    public Page<Manager> page(Page page) {
-        return managerDao.page(page);
+    public Manager findUseLogin(ManagerInc m) {
+        return managerDao.findUserByNameAndPwd(m.getUser_name(),m.getPass_word());
     }
 }
