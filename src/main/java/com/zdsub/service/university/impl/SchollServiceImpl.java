@@ -1,10 +1,10 @@
 package com.zdsub.service.university.impl;
 
-import com.zdsub.component.hibernate.Page;
+import com.zdsub.component.Hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.dao.supportTibet.SchoolDao;
-import com.zdsub.entity.university.increase.SchoolInc;
 import com.zdsub.entity.university.School;
+import com.zdsub.entity.university.increase.SchoolInc;
 import com.zdsub.service.university.SchollService;
 import com.zdsub.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -32,9 +32,9 @@ public class SchollServiceImpl implements SchollService {
     public void add(SchoolInc schoolInc) {
         School school = new School();
         BeanUtils.copyProperties(schoolInc, school);
-        school.setCreate_time(DateUtil.getDate());
+        school.setCreate_time(DateUtil.getDateTime());
         school.setCreate_user("===========");
-        school.setUpdate_time(DateUtil.getDate());
+        school.setUpdate_time(DateUtil.getDateTime());
         school.setUpdate_user("===========");
         schoolDao.save(school);
     }
@@ -43,7 +43,7 @@ public class SchollServiceImpl implements SchollService {
     public void edit(SchoolInc schoolInc) {
         School school = get(schoolInc.getId());
         BeanUtils.copyProperties(schoolInc, school);
-        school.setUpdate_time(DateUtil.getDate());
+        school.setUpdate_time(DateUtil.getDateTime());
         school.setUpdate_user("----------");
         schoolDao.update(school);
     }
@@ -56,8 +56,10 @@ public class SchollServiceImpl implements SchollService {
 
     @Override
     public Page<School> page(Page page) {
-        School school = (School) page.getCondition();
-        school.setSch_name("%" + school.getSch_name() + "%");
+        if(page.getCondition()!=null){
+            School school = (School) page.getCondition();
+            school.setSch_name("%" + school.getSch_name() + "%");
+        }
         return schoolDao.page(page);
     }
 

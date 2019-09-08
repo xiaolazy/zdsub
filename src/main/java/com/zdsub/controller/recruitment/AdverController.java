@@ -1,7 +1,8 @@
 package com.zdsub.controller.recruitment;
 
 import com.zdsub.common.ResultBean.ResponseBean;
-import com.zdsub.component.hibernate.Page;
+import com.zdsub.component.Hibernate.Page;
+import com.zdsub.component.annotion.ValidLog;
 import com.zdsub.entity.recruitment.increase.AdverInc;
 import com.zdsub.service.recruitment.AdverService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,30 +25,32 @@ public class AdverController {
     private AdverService adverService;
 
     @PostMapping("add")
+    @ValidLog
     public ResponseBean add(@RequestBody @Valid AdverInc adverInc, BindingResult bindingResult) {
         adverService.add(adverInc);
         return ResponseBean.SUCCESS();
     }
 
     @PostMapping("edit")
+    @ValidLog
     public ResponseBean edit(@RequestBody @Valid AdverInc adverInc, BindingResult bindingResult) {
         adverService.edit(adverInc);
         return ResponseBean.SUCCESS();
     }
 
-    @GetMapping("/remove")
-    public ResponseBean remove(String id) {
+    @GetMapping("remove/{id}")
+    public ResponseBean remove(@PathVariable String id) {
         adverService.remove(id);
         return ResponseBean.SUCCESS();
     }
 
-    @GetMapping("/get")
-    public ResponseBean get(String id) {
+    @GetMapping("get/{id}")
+    public ResponseBean get(@PathVariable String id) {
         return ResponseBean.SUCCESS(adverService.get(id));
     }
 
-    @GetMapping("/toAdverShow")
-    public ResponseBean toAdverShow(String id) {
+    @GetMapping("/toAdverShow/{id}")
+    public ResponseBean toAdverShow(@PathVariable String id) {
         return ResponseBean.SUCCESS(adverService.toAdverShow(id));
     }
 
