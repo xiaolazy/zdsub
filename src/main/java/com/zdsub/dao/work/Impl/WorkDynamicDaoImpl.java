@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @BelongsProject: zdsub
- * @BelongsPackage: com.zdsub.dao.work.Impl
+ * @BelongsPackage: com.zdsub.dao.work.impl
  * @Author: ly
  * @CreateTime: 2019-09-07 21:53
  * @Description:

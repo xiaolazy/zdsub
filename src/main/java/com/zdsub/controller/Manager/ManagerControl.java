@@ -1,6 +1,7 @@
 package com.zdsub.controller.Manager;
 
 import com.zdsub.common.ResultBean.ResponseBean;
+import com.zdsub.component.annotion.ValidLog;
 import com.zdsub.entity.manager.Increase.ManagerInc;
 import com.zdsub.entity.manager.Manager;
 import com.zdsub.service.Manager.ManagerService;
@@ -28,6 +29,7 @@ public class ManagerControl {
     @Resource
     ManagerService managerService;
     @RequestMapping("login")
+    @ValidLog
     public ResponseBean ss(@Valid @RequestBody ManagerInc m, BindingResult b, HttpSession session,
                            HttpServletRequest req){
         m.setPass_word(Md5(m.getPass_word()));

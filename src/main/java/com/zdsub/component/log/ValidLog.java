@@ -18,7 +18,8 @@ import org.springframework.validation.FieldError;
 @Component
 @Aspect
 public class ValidLog {
-    @Pointcut("execution(* com.zdsub.controller.*.*(..))||execution(* com.zdsub.controller.*.*.*(..))||execution(* com.zdsub.controller.*.*.*.*(..))")
+//    @Pointcut("execution(* com.zdsub.controller.*.*(..))||execution(* com.zdsub.controller.*.*.*(..))||execution(* com.zdsub.controller.*.*.*.*(..))")
+@Pointcut("@annotation(com.zdsub.component.annotion.ValidLog)")
     public void pointCut(){ }
     @Around("pointCut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {

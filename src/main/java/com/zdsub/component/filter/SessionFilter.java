@@ -30,25 +30,25 @@ public class SessionFilter extends OncePerRequestFilter {
 
         String servletPath = request.getServletPath();
         String protalURL = protalURL(servletPath);
-        if(null != manager)
-            System.out.println(manager.getUser_name()+"-------------------------");
-        else
-            System.out.println(9999999999999L);
         if (servletPath.equals(LOINGURL)||protalURL.equals(ROOT)||servletPath.equals(REGISTERURL)||protalURL.equals(PORTALURL))
         {
-            filterChain.doFilter(request, response);
-        }
-        else if(null != manager){
             filterChain.doFilter(request,response);
         }
-
-        else if (!protalURL.equals(PORTALURL) && null != manager){
-            filterChain.doFilter(request, response);
+        else if(null != manager)
+        {
+            System.out.println("8888888888888888");
+            filterChain.doFilter(request,response);
+            System.out.println("9999999999999999");
+        }
+        else if (!protalURL.equals(PORTALURL) && null != manager)
+        {
+            filterChain.doFilter(request,response);
         }
         else
             logger.error("路径"+servletPath+"非法访问被拦截");
 
     }
+
     /*@description：URL判断
      *@Date：2019/9/7 16:32
      *@Param url
@@ -61,4 +61,5 @@ public class SessionFilter extends OncePerRequestFilter {
         else
             return url.substring(SUBSTRING_LENG_START,SUBSTRING_LENG_END);
     }
+
 }
