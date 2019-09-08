@@ -3,6 +3,7 @@ package com.zdsub.service.work.impl;
 import com.zdsub.component.Hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.dao.work.WorkDynamicDao;
+import com.zdsub.entity.recruitment.Adver;
 import com.zdsub.entity.work.WorkDynamic;
 import com.zdsub.service.work.WorkDynamicService;
 import com.zdsub.utils.DateUtil;
@@ -66,6 +67,14 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
             log.error("查询id为" + id + "的工作状态，已不再数据库中了");
             throw new GlobalException("该条工作状态已被删除了");
         }
+        return workDynamic;
+    }
+
+    @Override
+    public WorkDynamic toAdverShow(String id) {
+        WorkDynamic workDynamic = get(id);
+        workDynamic.setRead_num(workDynamic.getRead_num() + 1);
+        workDynamicDao.update(workDynamic);
         return workDynamic;
     }
 }

@@ -31,6 +31,6 @@ public class Process {
     protected String create_time;
     protected String create_user;
     protected String update_time;
-    protected String   update_user;
+    protected String update_user;
 
 }
