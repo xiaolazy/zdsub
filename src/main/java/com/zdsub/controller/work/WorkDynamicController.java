@@ -1,11 +1,8 @@
 package com.zdsub.controller.work;
 
 import com.zdsub.common.ResultBean.ResponseBean;
-import com.zdsub.component.Hibernate.Page;
-import com.zdsub.entity.work.Process;
+import com.zdsub.component.hibernate.Page;
 import com.zdsub.entity.work.WorkDynamic;
-import com.zdsub.entity.work.increase.ProcessInc;
-import com.zdsub.service.work.ProcessService;
 import com.zdsub.service.work.WorkDynamicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

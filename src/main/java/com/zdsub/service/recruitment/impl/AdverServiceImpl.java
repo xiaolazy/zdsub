@@ -1,7 +1,7 @@
 package com.zdsub.service.recruitment.impl;
 
 import com.zdsub.common.constant.Common;
-import com.zdsub.component.Hibernate.Page;
+import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.dao.recruitment.AdverDao;
 import com.zdsub.dao.supportTibet.SchoolDao;

@@ -1,4 +1,4 @@
-package com.zdsub.component.Hibernate;
+package com.zdsub.component.hibernate;
 
 import lombok.Getter;
 import lombok.Setter;

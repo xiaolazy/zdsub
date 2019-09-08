@@ -1,9 +1,8 @@
 package com.zdsub.service.work.impl;
 
-import com.zdsub.component.Hibernate.Page;
+import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.dao.work.WorkDynamicDao;
-import com.zdsub.entity.recruitment.Adver;
 import com.zdsub.entity.work.WorkDynamic;
 import com.zdsub.service.work.WorkDynamicService;
 import com.zdsub.utils.DateUtil;

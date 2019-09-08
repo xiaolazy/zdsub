@@ -1,11 +1,10 @@
-package com.zdsub.controller.Manager;
+package com.zdsub.controller.manager;
 
 import com.zdsub.common.ResultBean.ResponseBean;
 import com.zdsub.component.annotion.ValidLog;
-import com.zdsub.entity.manager.Increase.ManagerInc;
+import com.zdsub.entity.manager.increase.ManagerInc;
 import com.zdsub.entity.manager.Manager;
-import com.zdsub.service.Manager.ManagerService;
-import com.zdsub.service.Manager.ManagerService;
+import com.zdsub.service.manager.ManagerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
@@ -42,12 +41,5 @@ public class ManagerControl {
         System.out.println(session.getId());
         logger.debug(manager.getUser_name()+"成功登录系统");
         return ResponseBean.SUCCESS("登录成功！");
-    }
-    @RequestMapping("test")
-    public void test(){
-        System.out.println("----------------------00000000000000");
-       /* System.out.println(req.getSession().getId());
-        Manager attribute = (Manager) session.getAttribute(req.getSession().getId());
-        System.out.println(attribute.getUser_name()+":::userName");*/
     }
 }

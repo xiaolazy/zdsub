@@ -1,6 +1,6 @@
-package com.zdsub.dao.Manager;
+package com.zdsub.dao.manager;
 
-import com.zdsub.component.Hibernate.BaseDao;
+import com.zdsub.component.hibernate.BaseDao;
 import com.zdsub.entity.manager.Manager;
 
 public interface ManagerDao extends BaseDao<Manager,String> {

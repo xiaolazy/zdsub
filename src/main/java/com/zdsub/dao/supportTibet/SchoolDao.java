@@ -1,7 +1,7 @@
 package com.zdsub.dao.supportTibet;
 
-import com.zdsub.component.Hibernate.BaseDao;
-import com.zdsub.component.Hibernate.Page;
+import com.zdsub.component.hibernate.BaseDao;
+import com.zdsub.component.hibernate.Page;
 import com.zdsub.entity.university.School;
 
 /**

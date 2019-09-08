@@ -1,7 +1,7 @@
 package com.zdsub.controller.university;
 
 import com.zdsub.common.ResultBean.ResponseBean;
-import com.zdsub.component.Hibernate.Page;
+import com.zdsub.component.hibernate.Page;
 import com.zdsub.entity.university.increase.SchoolInc;
 import com.zdsub.service.university.SchollService;
 import org.springframework.beans.factory.annotation.Autowired;

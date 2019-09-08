@@ -1,15 +1,15 @@
 package com.zdsub.entity.manager;
 
 
+import com.zdsub.entity.role.Role;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @program: zdsub
@@ -35,4 +35,9 @@ public class Manager {
     protected String role_id;
     protected String create_time;
     protected String create_user;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Manager_Role",
+    joinColumns = @JoinColumn(name = "MANAGER_ID"),
+    inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})
+    protected Set<Role> roles = new HashSet<>();
 }

@@ -1,7 +1,7 @@
-package com.zdsub.dao.Manager.Impl;
+package com.zdsub.dao.manager.impl;
 
-import com.zdsub.component.Hibernate.BaseDaoImpl;
-import com.zdsub.dao.Manager.ManagerDao;
+import com.zdsub.component.hibernate.BaseDaoImpl;
+import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.entity.manager.Manager;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +16,8 @@ public class ManagerDaoImpl extends BaseDaoImpl<Manager,String> implements Manag
 
     @Override
     public Manager findUserByNameAndPwd(String account,String password) {
-        return (Manager) getSession().createQuery("from Manager where user_name = ? and pass_word = ?")
+        String hql = "from Manager where user_name = ? and pass_word = ?";
+        return (Manager) getSession().createQuery(hql)
                 .setParameter(0, account).setParameter(1, password).uniqueResult();
     }
 

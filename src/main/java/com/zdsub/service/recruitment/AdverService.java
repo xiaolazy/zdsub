@@ -1,6 +1,6 @@
 package com.zdsub.service.recruitment;
 
-import com.zdsub.component.Hibernate.Page;
+import com.zdsub.component.hibernate.Page;
 import com.zdsub.entity.recruitment.Adver;
 import com.zdsub.entity.recruitment.increase.AdverInc;
 

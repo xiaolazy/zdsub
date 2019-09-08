@@ -1,10 +1,10 @@
-package com.zdsub.service.Manager.Impl;
+package com.zdsub.service.manager.impl;
 
-import com.zdsub.component.Hibernate.Page;
-import com.zdsub.dao.Manager.ManagerDao;
-import com.zdsub.entity.manager.Increase.ManagerInc;
+import com.zdsub.dao.manager.ManagerDao;
+import com.zdsub.entity.manager.increase.ManagerInc;
 import com.zdsub.entity.manager.Manager;
-import com.zdsub.service.Manager.ManagerService;
+import com.zdsub.entity.menu.increase.MenuInc;
+import com.zdsub.service.manager.ManagerService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -1,4 +1,4 @@
-package com.zdsub.component.Hibernate;
+package com.zdsub.component.hibernate;
 
 
 import com.zdsub.utils.Reflection;
@@ -10,13 +10,11 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.internal.CriteriaImpl;
-import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

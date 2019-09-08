@@ -1,6 +1,6 @@
 package com.zdsub.dao.recruitment;
 
-import com.zdsub.component.Hibernate.BaseDao;
+import com.zdsub.component.hibernate.BaseDao;
 import com.zdsub.entity.recruitment.Adver;
 
 /**

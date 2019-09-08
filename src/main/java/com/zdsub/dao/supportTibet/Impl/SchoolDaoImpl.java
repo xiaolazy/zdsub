@@ -1,7 +1,7 @@
 package com.zdsub.dao.supportTibet.Impl;
 
-import com.zdsub.component.Hibernate.BaseDaoImpl;
-import com.zdsub.component.Hibernate.Page;
+import com.zdsub.component.hibernate.BaseDaoImpl;
+import com.zdsub.component.hibernate.Page;
 import com.zdsub.dao.supportTibet.SchoolDao;
 import com.zdsub.entity.university.School;
 import org.springframework.stereotype.Repository;

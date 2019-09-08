@@ -1,7 +1,7 @@
 package com.zdsub.common.ResultBean;
 
 import static com.zdsub.common.constant.Common.*;
-import com.zdsub.component.Hibernate.Page;
+import com.zdsub.component.hibernate.Page;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -63,6 +63,7 @@ public class ResponseBean implements Serializable {
     public static ResponseBean FAILD(String msg){
         return new ResponseBean(FAIL,msg);
     }
+
     public ResponseBean(int status){
         this.status = status;
     }

@@ -1,6 +1,6 @@
 package com.zdsub.dao.work.Impl;
 
-import com.zdsub.component.Hibernate.BaseDaoImpl;
+import com.zdsub.component.hibernate.BaseDaoImpl;
 import com.zdsub.dao.work.ProcessDao;
 import com.zdsub.entity.work.Process;
 import org.springframework.stereotype.Repository;

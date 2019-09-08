@@ -1,10 +1,9 @@
-package com.zdsub.component.Hibernate;
+package com.zdsub.component.hibernate;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**

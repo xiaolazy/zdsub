@@ -1,4 +1,4 @@
-package com.zdsub.entity.manager.Increase;
+package com.zdsub.entity.manager.increase;
 
 import com.zdsub.entity.manager.Manager;
 

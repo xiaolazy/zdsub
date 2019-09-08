@@ -1,6 +1,6 @@
 package com.zdsub.dao.work.Impl;
 
-import com.zdsub.component.Hibernate.BaseDaoImpl;
+import com.zdsub.component.hibernate.BaseDaoImpl;
 import com.zdsub.dao.work.WorkDynamicDao;
 import com.zdsub.entity.work.WorkDynamic;
 import org.springframework.stereotype.Repository;

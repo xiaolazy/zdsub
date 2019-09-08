@@ -36,16 +36,16 @@ public class SessionFilter extends OncePerRequestFilter {
         }
         else if(null != manager)
         {
-            System.out.println("8888888888888888");
             filterChain.doFilter(request,response);
-            System.out.println("9999999999999999");
         }
         else if (!protalURL.equals(PORTALURL) && null != manager)
         {
             filterChain.doFilter(request,response);
         }
-        else
+        else{
             logger.error("路径"+servletPath+"非法访问被拦截");
+            response.setStatus(USER_NOT_LOGIN);
+        }
 
     }
 

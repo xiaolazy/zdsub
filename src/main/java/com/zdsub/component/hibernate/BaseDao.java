@@ -1,4 +1,4 @@
-package com.zdsub.component.Hibernate;
+package com.zdsub.component.hibernate;
 
 import java.io.Serializable;
 import java.util.List;
