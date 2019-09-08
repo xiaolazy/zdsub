@@ -2,6 +2,7 @@ package com.zdsub.service.university.impl;
 
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
+import com.zdsub.component.hibernate.PageCondition;
 import com.zdsub.dao.supportTibet.SchoolDao;
 import com.zdsub.entity.university.School;
 import com.zdsub.entity.university.increase.SchoolInc;
@@ -55,12 +56,12 @@ public class SchollServiceImpl implements SchollService {
     }
 
     @Override
-    public Page<School> page(Page page) {
+    public Page<School> page(PageCondition<School> page) {
         if(page.getCondition()!=null){
-            School school = (School) page.getCondition();
+            School school = page.getCondition();
             school.setSch_name("%" + school.getSch_name() + "%");
         }
-        return schoolDao.page(page);
+        return schoolDao.page(page.toPage());
     }
 
     @Override

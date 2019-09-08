@@ -3,6 +3,7 @@ package com.zdsub.controller.university;
 import com.zdsub.common.ResultBean.ResponseBean;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.annotion.ValidLog;
+import com.zdsub.entity.university.School;
 import com.zdsub.entity.university.increase.SchoolInc;
 import com.zdsub.service.university.SchollService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class SchollController {
     }
 
     @PostMapping("page")
-    public ResponseBean page(@RequestBody Page page) {
+    public ResponseBean page(@RequestBody Page<School> page) {
         return ResponseBean.SUCCESS(schollService.page(page));
     }
 }

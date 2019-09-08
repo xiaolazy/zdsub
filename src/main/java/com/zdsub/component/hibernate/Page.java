@@ -14,7 +14,7 @@ import java.util.List;
  **/
 @Getter
 @Setter
-public class Page<T> extends PageCondition {
+public class Page<T extends Object> extends PageCondition {
 
     /*********分页参数**********/
     protected int pageNo= 1;
@@ -43,5 +43,10 @@ public class Page<T> extends PageCondition {
     }
     public Page(PageCondition condition){
         this.condition = condition;
+    }
+
+    @Override
+    public Page toPage() {
+        return this;
     }
 }

@@ -22,8 +22,8 @@ public class MenuControl {
     private MenuService menuService;
     @GetMapping("menuTree")
     public ResponseBean menuTree(HttpServletRequest req){
-        menuService.getMenuTree();
-        return null;
+        String account = req.getRequestedSessionId();
+        return ResponseBean.SUCCESS(menuService.getMenuTree(account));
     }
 
 }

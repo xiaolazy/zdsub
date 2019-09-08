@@ -21,4 +21,10 @@ public class ManagerDaoImpl extends BaseDaoImpl<Manager,String> implements Manag
                 .setParameter(0, account).setParameter(1, password).uniqueResult();
     }
 
+    @Override
+    public Manager findUserByName(String account) {
+        return (Manager) getSession().createQuery("from Manager where user_name = ?")
+                .setParameter(0, account).uniqueResult();
+    }
+
 }

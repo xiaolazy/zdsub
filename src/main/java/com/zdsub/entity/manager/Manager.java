@@ -1,6 +1,7 @@
 package com.zdsub.entity.manager;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zdsub.entity.role.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,7 @@ public class Manager {
     protected String create_time;
     protected String create_user;
     @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinTable(name = "Manager_Role",
     joinColumns = @JoinColumn(name = "MANAGER_ID"),
     inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})

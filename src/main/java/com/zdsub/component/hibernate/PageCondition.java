@@ -11,6 +11,7 @@ import lombok.Setter;
  **/
 @Getter
 @Setter
-public class PageCondition<T extends Object> {
+public abstract class PageCondition<T extends Object> {
     protected T condition;
+    public abstract Page toPage();
 }

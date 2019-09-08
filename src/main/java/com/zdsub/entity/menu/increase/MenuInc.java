@@ -15,5 +15,6 @@ import java.util.List;
 @Getter
 @Setter
 public class MenuInc extends Menu {
+    protected Menu menu;
     protected List<MenuInc> childrens;
 }

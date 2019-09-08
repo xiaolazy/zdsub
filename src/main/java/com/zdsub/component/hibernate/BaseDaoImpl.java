@@ -10,11 +10,13 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.internal.CriteriaImpl;
+import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -149,7 +151,7 @@ public class BaseDaoImpl<T,PK extends Serializable> implements BaseDao<T,PK> {
      * @Date: 2019/9/4 23:05
      */
 
-    protected long countCriteriaResult(final Criteria c) {
+    /*protected long countCriteriaResult(final Criteria c) {
         CriteriaImpl impl = (CriteriaImpl) c;
 
         // 先把Projection取出来,清空后再执行Count操作
@@ -163,8 +165,8 @@ public class BaseDaoImpl<T,PK extends Serializable> implements BaseDao<T,PK> {
             c.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
         }
         return totalCount;
-    }
-   /* protected long countCriteriaResult(final Criteria c) {
+    }*/
+    protected long countCriteriaResult(final Criteria c) {
         CriteriaImpl impl = (CriteriaImpl) c;
 
         // 先把Projection、ResultTransformer、OrderBy取出来,清空三者后再执行Count操作
@@ -173,7 +175,7 @@ public class BaseDaoImpl<T,PK extends Serializable> implements BaseDao<T,PK> {
 
         List<CriteriaImpl.OrderEntry> orderEntries = null;
         try {
-            orderEntries = (List<OrderEntry>) Reflection.getFieldValue(impl, "orderEntries");
+            orderEntries = (List<CriteriaImpl.OrderEntry>) Reflection.getFieldValue(impl, "orderEntries");
             Reflection.setFieldValue(impl, "orderEntries", new ArrayList());
         } catch (Exception e) {
             logger.error("不可能抛出的异常:{}", e.getMessage());
@@ -197,7 +199,6 @@ public class BaseDaoImpl<T,PK extends Serializable> implements BaseDao<T,PK> {
         } catch (Exception e) {
             logger.error("不可能抛出的异常:{}", e.getMessage());
         }
-
         return totalCount;
-    }*/
+    }
 }

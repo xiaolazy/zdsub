@@ -27,6 +27,7 @@ public class SessionFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         HttpSession session = request.getSession();
+
         Manager manager = (Manager)session.getAttribute(session.getId());
 
         String servletPath = request.getServletPath();

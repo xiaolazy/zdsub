@@ -1,5 +1,6 @@
 package com.zdsub.entity.menu;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zdsub.entity.role.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,7 @@ public class Menu {
     protected String update_user;
     protected String pid;
     @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinTable(name = "MENU_ROLE",
     joinColumns = @JoinColumn(name = "MENU_ID"),
     inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))

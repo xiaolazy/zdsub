@@ -29,6 +29,7 @@ ext{
     fileuploadV='1.3.1'
     vaApiV='2.0.1.Final'
     hiberVaV='6.0.16.Final'
+    jjwtV='0.9.0'
 }
 // Apply the java-library plugin to add support for Java Library
 //apply plugin: 'java-library'
@@ -84,7 +85,9 @@ dependencies {
         "javax.validation:validation-api:$vaApiV",
 //        "org.hibernate:'hibernate-validator:$hiberValiV",
 //        "org.hibernate.validator:hibernate-validator:$hiberVaV",
-        "org.hibernate:hibernate-validator:6.0.12.Final"
+        "org.hibernate:hibernate-validator:6.0.12.Final",
+        //jwt TOKEN验证
+        "io.jsonwebtoken:jjwt:$jjwtV",
     )
     compileOnly(
         //servlet

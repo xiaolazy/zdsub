@@ -45,7 +45,7 @@ public class CorsFilter implements Filter {
              * *或者Origin字段的值---指服务器支持哪些域名可进行跨域请求
          **/
 //        res.setHeader("Access-Control-Allow-Origin",getOrigin(origin));
-        res.setHeader("Access-Control-Allow-Origin",origin);
+        res.setHeader("Access-Control-Allow-Origin","*");
         /**
              * 如果浏览器请求包括Access-Control-Request-Headers字段，
              * 则Access-Control-Allow-Headers字段是非可选的。
