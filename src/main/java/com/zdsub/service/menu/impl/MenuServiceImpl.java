@@ -30,7 +30,7 @@ public class MenuServiceImpl implements MenuService {
     private MenuIncDao menuIncDao;
     @Override
     public List<MenuInc> getMenuTree(String account) {
-        managerDao.findUserByName(account);
+//        managerDao.findUserByName(account);
         List<Menu> parent = menuDao.getByPid("0");
         List<MenuInc> trees = Lists.newArrayList();
         parent.forEach(s-> {
