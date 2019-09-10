@@ -3,12 +3,10 @@ package com.zdsub.controller.work;
 import com.zdsub.common.ResultBean.ResponseBean;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.annotion.ValidLog;
-import com.zdsub.entity.work.Process;
 import com.zdsub.entity.work.WorkDynamic;
-import com.zdsub.entity.work.increase.ProcessInc;
-import com.zdsub.service.work.ProcessService;
 import com.zdsub.service.work.WorkDynamicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,14 +26,14 @@ public class WorkDynamicController {
 
     @PostMapping("add")
     @ValidLog
-    public ResponseBean add(@RequestBody @Valid WorkDynamic workDynamic) {
+    public ResponseBean add(@RequestBody @Valid WorkDynamic workDynamic, BindingResult bindingResult) {
         workDynamicService.add(workDynamic);
         return ResponseBean.SUCCESS();
     }
 
     @PostMapping("edit")
     @ValidLog
-    public ResponseBean edit(@RequestBody @Valid WorkDynamic workDynamic) {
+    public ResponseBean edit(@RequestBody @Valid WorkDynamic workDynamic,BindingResult bindingResult) {
         workDynamicService.edit(workDynamic);
         return ResponseBean.SUCCESS();
     }

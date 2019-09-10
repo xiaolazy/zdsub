@@ -50,8 +50,10 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
 
     @Override
     public Page<WorkDynamic> page(Page<WorkDynamic> page) {
-        WorkDynamic workDynamic = (WorkDynamic) page.getCondition();
-        workDynamic.setTitle("%" + workDynamic.getTitle() + "%");
+        if (page.getCondition() != null) {
+            WorkDynamic workDynamic = (WorkDynamic) page.getCondition();
+            workDynamic.setTitle("%" + workDynamic.getTitle() + "%");
+        }
         return workDynamicDao.findPage(page);
     }
 

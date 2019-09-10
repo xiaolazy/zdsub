@@ -9,6 +9,7 @@ import com.zdsub.entity.recruitment.Adver;
 import com.zdsub.entity.recruitment.increase.AdverInc;
 import com.zdsub.entity.university.School;
 import com.zdsub.service.recruitment.AdverService;
+import com.zdsub.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +38,17 @@ public class AdverServiceImpl implements AdverService {
         BeanUtils.copyProperties(adverInc, adver);
         School school = getSchool(adverInc);
         adver.setSchool(school);
+        adver.setCreate_time(DateUtil.getDateTime());
+        adver.setCreate_user("===========");
+        adver.setUpdate_time(DateUtil.getDateTime());
+        adver.setUpdate_user("===========");
         adverDao.save(adver);
     }
 
     @Override
     public void edit(AdverInc adverInc) {
-        get(adverInc.getId());
+        Adver adver = get(adverInc.getId());
         School school = getSchool(adverInc);
-        Adver adver = new Adver();
         BeanUtils.copyProperties(adverInc, adver);
         adver.setSchool(school);
         adverDao.update(adver);
@@ -87,8 +91,10 @@ public class AdverServiceImpl implements AdverService {
 
     @Override
     public Page<Adver> page(Page page) {
-        Adver adver = (Adver) page.getCondition();
-        adver.setTitle("%" + adver.getTitle() + "%");
+        if (page.getCondition() != null) {
+            Adver adver = (Adver) page.getCondition();
+            adver.setTitle("%" + adver.getTitle() + "%");
+        }
         return adverDao.findPage(page);
     }
 

@@ -3,8 +3,8 @@ package com.zdsub.service.work.impl;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.dao.work.ProcessDao;
-import com.zdsub.entity.work.increase.ProcessInc;
 import com.zdsub.entity.work.Process;
+import com.zdsub.entity.work.increase.ProcessInc;
 import com.zdsub.service.work.ProcessService;
 import com.zdsub.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -53,8 +53,10 @@ public class ProcessServiceImpl implements ProcessService {
 
     @Override
     public Page<Process> page(Page<Process> page) {
-        Process process = (Process) page.getCondition();
-        process.setPath_name("%" + process.getPath_name() + "%");
+        if(page.getCondition()!=null){
+            Process process = (Process) page.getCondition();
+            process.setPath_name("%" + process.getPath_name() + "%");
+        }
         return processDao.findPage(page);
     }
 

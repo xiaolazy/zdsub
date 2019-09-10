@@ -2,6 +2,7 @@ package com.zdsub.dao.supportTibet;
 
 import com.zdsub.component.hibernate.BaseDao;
 import com.zdsub.component.hibernate.Page;
+import com.zdsub.entity.PageCondition;
 import com.zdsub.entity.university.School;
 
 /**
@@ -13,6 +14,5 @@ import com.zdsub.entity.university.School;
  */
 public interface SchoolDao extends BaseDao<School,String> {
 
-    Page<School> page(Page page);
-
+    Page<School> queryByName(PageCondition pageCondition);
 }

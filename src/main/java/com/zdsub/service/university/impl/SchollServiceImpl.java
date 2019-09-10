@@ -2,8 +2,8 @@ package com.zdsub.service.university.impl;
 
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
-import com.zdsub.component.hibernate.PageCondition;
 import com.zdsub.dao.supportTibet.SchoolDao;
+import com.zdsub.entity.PageCondition;
 import com.zdsub.entity.university.School;
 import com.zdsub.entity.university.increase.SchoolInc;
 import com.zdsub.service.university.SchollService;
@@ -31,12 +31,14 @@ public class SchollServiceImpl implements SchollService {
 
     @Override
     public void add(SchoolInc schoolInc) {
+        System.out.println("----------------------------");
         School school = new School();
         BeanUtils.copyProperties(schoolInc, school);
         school.setCreate_time(DateUtil.getDateTime());
         school.setCreate_user("===========");
         school.setUpdate_time(DateUtil.getDateTime());
         school.setUpdate_user("===========");
+        System.out.println("----------------------------" + school.getSch_name());
         schoolDao.save(school);
     }
 
@@ -56,12 +58,8 @@ public class SchollServiceImpl implements SchollService {
     }
 
     @Override
-    public Page<School> page(PageCondition<School> page) {
-        if(page.getCondition()!=null){
-            School school = page.getCondition();
-            school.setSch_name("%" + school.getSch_name() + "%");
-        }
-        return schoolDao.page(page.toPage());
+    public Page<School> page(PageCondition<School> schoolPageCondition) {
+        return schoolDao.queryByName(schoolPageCondition);
     }
 
     @Override

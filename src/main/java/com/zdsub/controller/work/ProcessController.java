@@ -3,10 +3,11 @@ package com.zdsub.controller.work;
 import com.zdsub.common.ResultBean.ResponseBean;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.annotion.ValidLog;
-import com.zdsub.entity.work.increase.ProcessInc;
 import com.zdsub.entity.work.Process;
+import com.zdsub.entity.work.increase.ProcessInc;
 import com.zdsub.service.work.ProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,14 +27,14 @@ public class ProcessController {
 
     @PostMapping("add")
     @ValidLog
-    public ResponseBean add(@RequestBody @Valid ProcessInc processInc) {
+    public ResponseBean add(@RequestBody @Valid ProcessInc processInc, BindingResult bindingResult) {
         processService.add(processInc);
         return ResponseBean.SUCCESS();
     }
 
     @PostMapping("edit")
     @ValidLog
-    public ResponseBean edit(@RequestBody @Valid ProcessInc processInc) {
+    public ResponseBean edit(@RequestBody @Valid ProcessInc processInc,BindingResult bindingResult) {
         processService.edit(processInc);
         return ResponseBean.SUCCESS();
     }

@@ -27,9 +27,9 @@ public class Adver {
     protected String title;
     protected String context;
     protected int read_num;//阅读数
-    protected Date createTime;
+    protected String create_time;
     protected String create_user;
-    protected Date update_time;
+    protected String update_time;
     protected String update_user;
     @ManyToOne
     @JoinColumn(name = "sch_id")
