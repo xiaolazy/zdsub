@@ -8,6 +8,7 @@ import com.zdsub.entity.manager.increase.ManagerInc;
 import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.menu.increase.MenuInc;
 import com.zdsub.service.manager.ManagerService;
+import com.zdsub.utils.PageUtil;
 import lombok.val;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
@@ -15,6 +16,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import static com.zdsub.utils.ExceptionUtil.*;
 import javax.annotation.Resource;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @program: zdsub
@@ -39,10 +41,9 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public Page<Manager> getPage(Page<Manager> page) {
-
-        return managerDao.findPage(page);
+        Manager condition = (Manager) page.getCondition();
+        return managerDao.findPage(page, PageUtil.getRestri("user_name",condition.getUser_name()));
     }
-
     @Override
     public Manager getById(String id) {
         isBlank(id,"用户查询ID不能为空");

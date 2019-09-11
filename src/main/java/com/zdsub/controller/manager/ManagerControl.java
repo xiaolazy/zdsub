@@ -49,7 +49,7 @@ public class ManagerControl {
         res.setHeader("Access-Control-Expose-Headers", Common.AUTHORIZATION);
         res.setHeader(AUTHORIZATION,jwt);
         logger.debug(m.getUser_name()+"成功登录系统");
-        return ResponseBean.SUCCESS("登录成功！");
+        return ResponseBean.SUCCESS("登录成功！",manager.getUser_name());
     }
     /*@description：带条件分页查询
      *@Date：2019/9/11 17:16

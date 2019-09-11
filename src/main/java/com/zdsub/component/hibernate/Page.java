@@ -14,7 +14,7 @@ import java.util.List;
  **/
 @Getter
 @Setter
-public class Page<T extends Object> extends PageCondition {
+public class Page<T extends Object>{
 
     /*********分页参数**********/
     protected int pageNo= 1;
@@ -22,6 +22,7 @@ public class Page<T extends Object> extends PageCondition {
     protected String orderBy;
     protected String order;
     protected long totalCount=-1;
+    protected T condition;
     /**********参数列表*********/
     protected List<T> resultList = Lists.newArrayList();
 
@@ -40,8 +41,5 @@ public class Page<T extends Object> extends PageCondition {
         this.pageSize = pageSize;
         this.order = order;
         this.orderBy = orderBy;
-    }
-    public Page(PageCondition<T> condition){
-        this.condition = condition;
     }
 }
