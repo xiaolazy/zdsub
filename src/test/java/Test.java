@@ -1,11 +1,16 @@
+import com.zdsub.component.exception.GlobalException;
+import com.zdsub.component.token.TokenBean;
+import com.zdsub.utils.Base64Util;
+import com.zdsub.utils.Jwt;
 import com.zdsub.utils.Md5Util;
+import io.jsonwebtoken.Claims;
 
 import java.math.BigDecimal;
-import java.util.ConcurrentModificationException;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static com.zdsub.common.constant.Common.SALT;
+import static com.zdsub.common.constant.Common.USER_LOGIN_TIME;
 
 /**
  * @program: zdsub
@@ -94,10 +99,26 @@ public class Test {
     }
     @org.junit.Test
     public strictfp void haha(){
-        System.out.println(Md5Util.Md5("2233445566"));
-        System.out.println(Md5Util.Md5("8888888888llll"));
-        System.out.println(Md5Util.Md5("wewewewewewe"));
-        System.out.println("/home".substring(0,5));
+        String token = Jwt.createJWT("lyy", "2233", "lyy", USER_LOGIN_TIME, Base64Util.Encoder(SALT));
+        TokenBean instance = TokenBean.getInstance();
+        instance.put(token, token);
+        Claims claims = Jwt.parseJWT((String) instance.get(token), Base64Util.Encoder(SALT));
+        System.out.println(claims.getExpiration());
+        claims.setExpiration(new Date(System.currentTimeMillis()+46));
+        String to = (String) TokenBean.getInstance().get((String) instance.get(token));
+        Claims claims1 = Jwt.parseJWT(to, Base64Util.Encoder(SALT));
+        System.out.println("----------------");
+        System.out.println(claims1.getExpiration());
+        System.out.println(new Date(System.currentTimeMillis()+46));
+//        System.out.println(jwt);
+//        System.out.println(Jwt.parseJWT(jwt,"lyy+"));
+//        String encoder = Base64Util.Encoder(null);
+//        System.out.println(encoder);
+//        System.out.println(Base64Util.Decoder(encoder));
+//        System.out.println(Md5Util.Md5("2233445566"));
+//        System.out.println(Md5Util.Md5("8888888888llll"));
+//        System.out.println(Md5Util.Md5("wewewewewewe"));
+//        System.out.println("/home".substring(0,5));
         /*git branch --set-upstream-to=zdsub/master master*/
     }
 }

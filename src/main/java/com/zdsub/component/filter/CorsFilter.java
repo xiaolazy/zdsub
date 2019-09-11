@@ -1,5 +1,7 @@
 package com.zdsub.component.filter;
 
+import com.zdsub.common.constant.Common;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +47,7 @@ public class CorsFilter implements Filter {
              * *或者Origin字段的值---指服务器支持哪些域名可进行跨域请求
          **/
 //        res.setHeader("Access-Control-Allow-Origin",getOrigin(origin));
-        res.setHeader("Access-Control-Allow-Origin","*");
+        res.setHeader("Access-Control-Allow-Origin", Common.ORIGIN);
         /**
              * 如果浏览器请求包括Access-Control-Request-Headers字段，
              * 则Access-Control-Allow-Headers字段是非可选的。
@@ -67,7 +69,7 @@ public class CorsFilter implements Filter {
              * 注意，返回的是所有支持的方法，而不单是浏览器请求的那个方法。这是为了避免多次"预检"请求。
              * 可按需指定：GET,POST,PUT,DELETE（无特殊情况时）
          **/
-        res.setHeader("Access-Control-Allow-Methods","*");
+        res.setHeader("Access-Control-Allow-Methods","GET,POST,PUT,DELETE");
         /**
              * 默认情况下，Cookie不包括在CORS请求之中
              * 设为true，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。

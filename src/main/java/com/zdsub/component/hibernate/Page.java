@@ -41,12 +41,7 @@ public class Page<T extends Object> extends PageCondition {
         this.order = order;
         this.orderBy = orderBy;
     }
-    public Page(PageCondition condition){
+    public Page(PageCondition<T> condition){
         this.condition = condition;
-    }
-
-    @Override
-    public Page toPage() {
-        return this;
     }
 }

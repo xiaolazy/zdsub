@@ -7,6 +7,8 @@ public interface Common {
     static final int FAIL = 500;
     //用户没有登录
     static final int USER_NOT_LOGIN = 401;
+    //用户登录时间限制
+    static final int USER_LOGIN_TIME=1800000;
     //用户密码的盐
     static final String SALT = "lyy+";
     //升序排序
@@ -21,7 +23,9 @@ public interface Common {
     static final String LOINGURL="/manager/login";
     //注册路径
     static final String REGISTERURL="/manager/register";
+    static final String ORIGIN = "http://localhost:2333";
     //路径截取的长度
     static final int SUBSTRING_LENG_START = 0;
     static final int SUBSTRING_LENG_END = 5;
+    static final String AUTHORIZATION="Authorization";
 }

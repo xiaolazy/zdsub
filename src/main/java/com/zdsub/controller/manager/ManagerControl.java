@@ -2,14 +2,19 @@ package com.zdsub.controller.manager;
 
 import com.zdsub.common.ResultBean.ResponseBean;
 import com.zdsub.component.annotion.ValidLog;
+import com.zdsub.component.hibernate.Page;
+import com.zdsub.component.hibernate.PageCondition;
+import com.zdsub.component.token.TokenBean;
 import com.zdsub.entity.manager.increase.ManagerInc;
 import com.zdsub.entity.manager.Manager;
 import com.zdsub.service.manager.ManagerService;
+import com.zdsub.utils.Base64Util;
+import com.zdsub.utils.Jwt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
+import static com.zdsub.common.constant.Common.*;
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -28,51 +33,40 @@ import static com.zdsub.utils.Md5Util.*;
 public class ManagerControl {
     protected Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
-    ManagerService managerService;
+    private ManagerService managerService;
     @RequestMapping("login")
     @ValidLog
-    public ResponseBean ss(@Valid @RequestBody ManagerInc m, BindingResult b, HttpSession session,
-                           HttpServletRequest req, HttpServletResponse res){
-        m.setPass_word(Md5(m.getPass_word()));
-        Manager manager = managerService.findUseLogin(m);
-        if(null == manager)
+    public ResponseBean login(@Valid @RequestBody ManagerInc manager, BindingResult b,
+                           HttpServletResponse res){
+        manager.setPass_word(Md5(manager.getPass_word()));
+        Manager m = managerService.findUseLogin(manager);
+        if(null == m)
             return ResponseBean.FAILD("用户名或密码错误！");
-        //从客户端得到所有cookie信息
-        System.out.println("-----------------------------------------------------------");
-        Cookie[] allCookies = req.getCookies();
-
-        int i = 0;
-        //如果allCookies不为空...
-        if (allCookies != null) {
-
-            //从中取出cookie
-            for (i = 0; i < allCookies.length; i++) {
-
-                //依次取出
-                Cookie temp = allCookies[i];
-                if (temp.getName().equals("color1")) {
-
-                    //得到cookie的值
-                    String val = temp.getValue();
-
-                    System.out.println("color1=====================" + val);
-                    break;
-
-                } else {
-                    System.out.println("----------------------------------");
-                    Cookie myCookie = new Cookie("color1", "red");
-
-                    //2. 该cookie存在的时间 以秒为单位
-                    myCookie.setMaxAge(30000);
-                    res.addCookie(myCookie);
-                }
-            }
-        }
-        session.setAttribute(req.getSession().getId(),manager);
-        System.out.println(req.hashCode() == session.hashCode());
-        System.out.println(req.getSession().getId()+"req.get----");
-        System.out.println(session.getId());
-        logger.debug(manager.getUser_name()+"成功登录系统");
+        String jwt = Jwt.createJWT(m.getUser_name(), m.getId(),
+                m.getUser_name(), USER_LOGIN_TIME, Base64Util.Encoder(SALT));
+        TokenBean.getInstance().put(jwt,jwt);
+        res.setHeader(AUTHORIZATION,jwt);
+        logger.debug(m.getUser_name()+"成功登录系统");
         return ResponseBean.SUCCESS("登录成功！");
+    }
+    /*@description：带条件分页查询
+     *@Date：2019/9/11 17:16
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
+    @PostMapping("getPage")
+    public ResponseBean getPage(@RequestBody Page<Manager> page){
+        return ResponseBean.SUCCESS(managerService.getPage(page));
+    }
+    /*@description：通过ID查询
+     *@Date：2019/9/11 17:16
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
+    @GetMapping("getById")
+    public ResponseBean getById(String id){
+        return ResponseBean.SUCCESS();
     }
 }
