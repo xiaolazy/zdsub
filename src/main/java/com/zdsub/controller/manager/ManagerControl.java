@@ -1,6 +1,7 @@
 package com.zdsub.controller.manager;
 
 import com.zdsub.common.ResultBean.ResponseBean;
+import com.zdsub.common.constant.Common;
 import com.zdsub.component.annotion.ValidLog;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.hibernate.PageCondition;
@@ -45,6 +46,7 @@ public class ManagerControl {
         String jwt = Jwt.createJWT(m.getUser_name(), m.getId(),
                 m.getUser_name(), USER_LOGIN_TIME, Base64Util.Encoder(SALT));
         TokenBean.getInstance().put(jwt,jwt);
+        res.setHeader("Access-Control-Expose-Headers", Common.AUTHORIZATION);
         res.setHeader(AUTHORIZATION,jwt);
         logger.debug(m.getUser_name()+"成功登录系统");
         return ResponseBean.SUCCESS("登录成功！");

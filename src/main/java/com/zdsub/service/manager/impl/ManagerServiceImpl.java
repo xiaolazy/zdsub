@@ -9,6 +9,9 @@ import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.menu.increase.MenuInc;
 import com.zdsub.service.manager.ManagerService;
 import lombok.val;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import static com.zdsub.utils.ExceptionUtil.*;
 import javax.annotation.Resource;
@@ -37,6 +40,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public Page<Manager> getPage(Page<Manager> page) {
         page.getCondition();
+        Restrictions.like("","");
         return managerDao.findPage(page);
     }
 
