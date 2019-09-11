@@ -15,6 +15,7 @@ import static com.zdsub.utils.ExceptionUtil.*;
 
 import com.zdsub.utils.SpringUtil;
 import io.jsonwebtoken.Claims;
+import lombok.val;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,10 @@ public class AuthenticateFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+        if(request.getMethod().equals("OPTIONS")){
+            filterChain.doFilter(request,response);
+            return;
+        }
         String subject = "";
         Date expiration = null;
         String servletPath = request.getServletPath();

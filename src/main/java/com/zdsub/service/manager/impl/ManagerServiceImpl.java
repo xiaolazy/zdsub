@@ -39,7 +39,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public Page<Manager> getPage(Page<Manager> page) {
-        page.getCondition();
+
         return managerDao.findPage(page);
     }
 
