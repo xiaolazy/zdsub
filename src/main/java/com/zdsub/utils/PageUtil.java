@@ -13,7 +13,7 @@ import org.hibernate.criterion.SimpleExpression;
 public class PageUtil {
     public static SimpleExpression getRestri(String name,String val){
         if(StringUtils.isNotBlank(val))
-            return Restrictions.like(name, val);
-        return null;
+            return Restrictions.like(name, "%"+val+"%");
+        return Restrictions.like(name, "%%");
     }
 }

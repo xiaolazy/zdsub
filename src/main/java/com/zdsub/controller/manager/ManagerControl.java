@@ -59,7 +59,7 @@ public class ManagerControl {
      */
     @PostMapping("getPage")
     public ResponseBean getPage(@RequestBody Page<Manager> page){
-        return ResponseBean.SUCCESS(managerService.getPage(page));
+        return ResponseBean.PAGESUCCESS(managerService.getPage(page));
     }
     /*@description：通过ID查询
      *@Date：2019/9/11 17:16

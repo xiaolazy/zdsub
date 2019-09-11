@@ -41,8 +41,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public Page<Manager> getPage(Page<Manager> page) {
-        Manager condition = (Manager) page.getCondition();
-        return managerDao.findPage(page, PageUtil.getRestri("user_name",condition.getUser_name()));
+        return managerDao.findPage(page, PageUtil.getRestri("user_name",page.getCondition().getUser_name()));
     }
     @Override
     public Manager getById(String id) {
