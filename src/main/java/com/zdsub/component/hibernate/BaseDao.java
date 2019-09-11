@@ -1,5 +1,7 @@
 package com.zdsub.component.hibernate;
 
+import org.hibernate.criterion.Criterion;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -41,7 +43,7 @@ public interface BaseDao <T,PK extends Serializable> {
     /**
      * 分页查询
      * */
-    Page<T> findPage(Page<T> page);
+    Page<T> findPage(Page<T> page,final Criterion... criterions);
     /**
      * 刷新session
      * */

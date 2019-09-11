@@ -25,6 +25,11 @@ public class ExceptionUtil {
         if(StringUtils.isBlank(context))
             throw new GlobalException(errorCode,msg);
     }
+    public static boolean isBlank(String context){
+        if(StringUtils.isBlank(context))
+            return true;
+        return false;
+    }
     /*@description：对象为NULL则抛出异常
      *@Date：2019/9/11 11:07
      *@Param
@@ -39,7 +44,12 @@ public class ExceptionUtil {
         if(null == o)
             throw new GlobalException(errorCode,msg);
     }
-    /*@description：判断两个String不同报错
+    public static boolean isNull(Object o){
+        if(null == o)
+            return true;
+        return false;
+    }
+    /*@description：
      *@Date：2019/9/11 16:38
      *@Param：
      *@Return：

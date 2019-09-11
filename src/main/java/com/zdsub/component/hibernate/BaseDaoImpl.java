@@ -5,10 +5,7 @@ import com.zdsub.utils.Reflection;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Projection;
-import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.*;
 import org.hibernate.internal.CriteriaImpl;
 import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
@@ -59,8 +56,8 @@ public class BaseDaoImpl<T,PK extends Serializable> implements BaseDao<T,PK> {
     }
 
     @Override
-    public Page<T> findPage(final Page<T> page) {
-        return getPage(page);
+    public Page<T> findPage(final Page<T> page,final Criterion... criterions) {
+        return getPage(page,criterions);
     }
     @Override
     public void delete(PK id) {

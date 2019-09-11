@@ -1,6 +1,7 @@
 package com.zdsub.component.filter;
 
 
+import com.zdsub.common.ResultBean.ResponseBean;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.manager.ManagerDao;
@@ -50,33 +51,42 @@ public class AuthenticateFilter extends OncePerRequestFilter {
         if (servletPath.equals(LOINGURL)||protalURL.equals(ROOT)||servletPath.equals(REGISTERURL)||protalURL.equals(PORTALURL))
             filterChain.doFilter(request,response);
         else if(protalURL.equals(PORTALURL) && StringUtils.isNotBlank(authorization)){
-            setAndUpdateJwt(authenticate(authorization));
-            filterChain.doFilter(request,response);
+            Claims claims = authenticate(authorization);
+            if(claims == null)
+                response.setStatus(USER_NOT_LOGIN);
+            else{
+                setAndUpdateJwt(claims);
+                filterChain.doFilter(request,response);
+            }
         }else if(!protalURL.equals(PORTALURL)){
             Claims claims = authenticate(authorization);
-            try{
-                subject = claims.getSubject();
-                expiration = claims.getExpiration();
-            }catch (java.lang.NullPointerException n){
-                TokenBean.getInstance().remove(authorization);
-                throw new GlobalException(USER_NOT_LOGIN,"身份验证错误,请重新登录!");
-            }
-            if(new Date().before(expiration)){
-                ManagerService managerService = SpringUtil.getBean(ManagerService.class);
-                Manager m = managerService.findById(subject);
-                if(null != m){
-                    String newToken = Jwt.createJWT(claims.getIssuer(),claims.getSubject(),
-                            claims.getIssuer(),USER_LOGIN_TIME,Base64Util.Encoder(SALT));
-                    upTokenTime(authorization,newToken);
-                    filterChain.doFilter(request,response);
-                }else{
-                    TokenBean.getInstance().remove(authorization);
-                    throw new GlobalException(USER_NOT_LOGIN,"用户可能已被删除,请重新尝试登录或联系系统管理员!");
-                }
-            }
+            if(null == claims)
+                response.setStatus(USER_NOT_LOGIN);
             else{
-                TokenBean.getInstance().remove(authorization);
-                throw new GlobalException(USER_NOT_LOGIN,"用户登录超时！请重新登录");
+                try{
+                    subject = claims.getSubject();
+                    expiration = claims.getExpiration();
+                }catch (java.lang.NullPointerException n){
+                    TokenBean.getInstance().remove(authorization);
+                    response.setStatus(USER_NOT_LOGIN);
+                }
+                if(new Date().before(expiration)){
+                    ManagerService managerService = SpringUtil.getBean(ManagerService.class);
+                    Manager m = managerService.findById(subject);
+                    if(null != m){
+                        String newToken = Jwt.createJWT(claims.getIssuer(),claims.getSubject(),
+                                claims.getIssuer(),USER_LOGIN_TIME,Base64Util.Encoder(SALT));
+                        upTokenTime(authorization,newToken);
+                        filterChain.doFilter(request,response);
+                    }else{
+                        TokenBean.getInstance().remove(authorization);
+                        response.setStatus(USER_NOT_LOGIN);
+                    }
+                }
+                else{
+                    TokenBean.getInstance().remove(authorization);
+                    response.setStatus(USER_NOT_LOGIN);
+                }
             }
         }
         else{
@@ -106,11 +116,14 @@ public class AuthenticateFilter extends OncePerRequestFilter {
      *@Author lyy
      */
     private static Claims authenticate(String authorization) {
-        isBlank(authorization,USER_NOT_LOGIN, "此次连接属于非法访问！");
+        if(isBlank(authorization))
+            return null;
         String token = (String) TokenBean.getInstance().get(authorization);
-        isBlank(token, USER_NOT_LOGIN,"此次连接属于非法访问！");
+        if(isBlank(token))
+            return null;
         Claims claims = Jwt.parseJWT(token, Base64Util.Encoder(SALT));
-        isNull(claims,USER_NOT_LOGIN, "身份认证失效，请重新登录！");
+        if(isNull(claims))
+            return null;
         return claims;
     }
 

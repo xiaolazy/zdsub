@@ -40,7 +40,6 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public Page<Manager> getPage(Page<Manager> page) {
         page.getCondition();
-        Restrictions.like("","");
         return managerDao.findPage(page);
     }
 
