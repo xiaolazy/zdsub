@@ -25,6 +25,7 @@ public interface Common {
     static final String LOINGURL="/manager/login";
     //注册路径
     static final String REGISTERURL="/manager/register";
+    static final String LOGOUT = "logout";
     static final String ORIGIN = "http://localhost:2333";
     //路径截取的长度
     static final int SUBSTRING_LENG_START = 1;

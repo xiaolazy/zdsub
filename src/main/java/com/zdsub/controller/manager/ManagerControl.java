@@ -68,7 +68,21 @@ public class ManagerControl {
         logger.debug(m.getUser_name() + "成功登录系统");
         return ResponseBean.SUCCESS("登录成功！", manager.getUser_name());
     }
-
+    /*@description：登出系统
+     *@Date：2019/9/12 22:21
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
+    @GetMapping("logout")
+    public ResponseBean logout(String key){
+        if(TokenBean.getInstance().remove(key) == null)
+            return ResponseBean.FAILD("注销失败,用户信息不存在!");
+        TokenBean.activeUserId.set("");
+        TokenBean.activeUser.set("");
+        TokenPermission.getInstance().clear();
+        return ResponseBean.SUCCESS("欢迎下次再来!");
+    }
     /*@description：带条件分页查询
      *@Date：2019/9/11 17:16
      *@Param：

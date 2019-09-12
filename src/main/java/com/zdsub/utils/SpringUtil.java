@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @program: zdsub
- * @description:
+ * @description:spring注入工具
  * @author: lyy
  * @generate: 2019-09-11 15:50
  **/

@@ -8,15 +8,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @program: zdsub
- * @description:
+ * @description: 废弃
  * @author: lyy
  * @generate: 2019-09-08 16:46
  **/
 public class ManagerUtil {
-    /*public static Manager getActitveManager (HttpServletRequest req){
-        ServletContext servletContext = new ServletContext() {
-        }
-        HttpSession session = req.getSession();
-
-    }*/
 }

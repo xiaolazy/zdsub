@@ -2,6 +2,8 @@ package com.zdsub.component.token;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Set;
 
 /**
  * @program: zdsub
@@ -9,7 +11,7 @@ import java.util.HashSet;
  * @author: lyy
  * @generate: 2019-09-12 17:44
  **/
-public class TokenPermission<T extends Object> extends HashSet<T> {
+public class TokenPermission<K extends Object,V extends Set> extends Hashtable {
     private TokenPermission(){}
     public static TokenPermission getInstance(){
         return build.BUILD.builder;

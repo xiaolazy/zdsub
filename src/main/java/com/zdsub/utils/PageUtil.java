@@ -6,7 +6,7 @@ import org.hibernate.criterion.SimpleExpression;
 
 /**
  * @program: zdsub
- * @description:
+ * @description: 目前可用的page简单工具
  * @author: lyy
  * @generate: 2019-09-11 20:16
  **/

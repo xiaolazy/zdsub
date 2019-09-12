@@ -38,6 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -188,7 +189,8 @@ public class AuthenticateFilter extends OncePerRequestFilter {
         //权限认证
         if(TokenPermission.getInstance().isEmpty())
             return false;
-        for (Object url : TokenPermission.getInstance()) {
+        HashSet hashSet = (HashSet) TokenPermission.getInstance().get(TokenBean.activeUserId);
+        for (Object url : hashSet) {
             if (url.equals(protalURL))
                 return true;
         }

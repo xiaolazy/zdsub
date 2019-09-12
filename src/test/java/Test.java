@@ -1,3 +1,4 @@
+import com.google.common.hash.Hasher;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.token.TokenBean;
 import com.zdsub.utils.Base64Util;

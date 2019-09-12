@@ -39,11 +39,12 @@ public class RoleServiceImpl implements RoleService {
     private RoleDao roleDao;
     @Resource
     private MenuDao menuDao;
+
     @Override
     public Page<Role> getPage(Page<Role> page) {
-        if(page.getCondition() == null)
+        if (page.getCondition() == null)
             return roleDao.findPage(page);
-        return roleDao.findPage(page,getRestrictions("role_name",page.getCondition().getRole_name()));
+        return roleDao.findPage(page, getRestrictions("role_name", page.getCondition().getRole_name()));
     }
 
     @Override
@@ -53,48 +54,66 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role findById(String id) {
-        isBlank(id,"查询权限Id不能为空！");
+        isBlank(id, "查询权限Id不能为空！");
         return roleDao.find(id);
     }
 
     @Override
-    public void add(Role role)throws Exception {
+    public void add(Role role) throws Exception {
         List<Menu> all = menuDao.findAll();
         role.setMenus(all);
         roleDao.save(role);
     }
 
     @Override
-    public void update(RoleInc role)throws Exception {
+    public void update(RoleInc role) throws Exception {
         Role newRole = roleDao.find(role.getId());
         List<Menu> menus = Lists.newArrayList();
-        role.getIds().forEach(e->{
+        HashSet<String> urls = Sets.newHashSet();
+        role.getIds().forEach(e -> {
             Menu menu = menuDao.find(e);
-            isNull(menu,"权限所选菜单不存在！");
+            isNull(menu, "权限所选菜单不存在！");
             //修改权限时更新当前用户的权限
-            TokenPermission.getInstance().add(menu.getMenu_url());
+            if (!menu.getMenu_url().equals(Common.ROOT))
+                urls.add(menu.getMenu_url());
             menus.add(menu);
         });
-        BeanUtils.copyProperties(role,newRole);
+        SetPermission(urls);
+        BeanUtils.copyProperties(role, newRole);
         newRole.setMenus(menus);
         roleDao.update(newRole);
     }
+
     @Override
     public void delById(String id) throws Exception {
-        isBlank(id,"用户Id不能为空！");
+        isBlank(id, "用户Id不能为空！");
         Role role = roleDao.find(id);
-        isNull(role,"用户不存在！");
+        isNull(role, "用户不存在！");
         role.setMenus(null);
         roleDao.delete(role);
     }
+
 
     @Override
     public void showActivePermission(String id) {
         Role role = roleDao.find(id);
         List<Menu> menus = role.getMenus();
-        menus.forEach(e->{
-            TokenPermission.getInstance().add(e.getMenu_url());
+        HashSet<String> urls = Sets.newHashSet();
+        menus.forEach(e -> {
+            if (!e.getMenu_url().equals(Common.ROOT))
+                urls.add(e.getMenu_url());
         });
-        TokenPermission.getInstance().add(Common.MENU);
+        SetPermission(urls);
+    }
+    /*@description：设置权限的默认信息
+     *@Date：2019/9/12 22:18
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
+    public static void SetPermission(HashSet<String> urls){
+        urls.add(Common.MENU);
+        urls.add(Common.LOGOUT);
+        TokenPermission.getInstance().put(TokenBean.activeUserId,urls);
     }
 }
