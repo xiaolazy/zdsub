@@ -24,8 +24,8 @@ import java.util.Set;
 @Setter
 public class Manager {
     @Id
-    @GenericGenerator(name = "native",strategy = "native")
-    @GeneratedValue(generator = "native")
+    @GenericGenerator(name = "uuid",strategy = "uuid")
+    @GeneratedValue(generator = "uuid")
     protected String id;
     @NotBlank(message = "用户名不能为空！！")
     protected String user_name;

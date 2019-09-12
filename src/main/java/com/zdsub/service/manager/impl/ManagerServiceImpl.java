@@ -48,9 +48,15 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public Manager findById(String id) {
+    public ManagerInc findById(String id) {
         isBlank(id,"查询用户Id不能为空！");
-        return managerDao.find(id);
+        ManagerInc res = new ManagerInc();
+        Manager m = managerDao.find(id);
+        res.setSchName(schoolDao.find(m.getSch_id()).getSch_name());
+        res.setRoleName(roleDao.find(m.getRole_id()).getRole_name());
+        res.setCreateName(managerDao.find(m.getCreate_user()).getUser_name());
+        copyProperties(m,res);
+        return res;
     }
 
     @Override

@@ -17,7 +17,7 @@ public interface ManagerService {
      *@Author lyy
      */
     Manager findUseLogin(ManagerInc m);
-    Manager findById(String id);
+    ManagerInc findById(String id);
     /*@description：带条件分页查询
      *@Date：2019/9/11 16:24
      *@Param
