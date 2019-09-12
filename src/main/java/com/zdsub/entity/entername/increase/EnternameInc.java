@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @program: zdsub
@@ -15,4 +16,6 @@ import javax.persistence.Table;
  **/
 @Getter@Setter
 public class EnternameInc extends Entername {
+    @NotBlank(message = "学校ID不能为空！")
+    protected String sch_id;
 }

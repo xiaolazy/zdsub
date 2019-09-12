@@ -80,7 +80,7 @@ public class ManagerControl {
             return ResponseBean.FAILD("注销失败,用户信息不存在!");
         TokenBean.activeUserId.set("");
         TokenBean.activeUser.set("");
-        if(TokenPermission.getInstance().remove(key) == null)
+        if(TokenPermission.getInstance().remove(TokenBean.activeUserId) == null)
             return ResponseBean.FAILD("用户权限信息不存在，但是已强制为您注销！");
         return ResponseBean.SUCCESS("欢迎下次再来!");
     }

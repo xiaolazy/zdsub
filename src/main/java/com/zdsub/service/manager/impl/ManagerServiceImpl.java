@@ -77,6 +77,7 @@ public class ManagerServiceImpl implements ManagerService {
         });
         managerIncPage.setPageNo(rPage.getPageNo());
         managerIncPage.setPageSize(rPage.getPageSize());
+        managerIncPage.setTotalCount(rPage.getTotalCount());
         managerIncPage.setResultList(res);
         return managerIncPage;
     }
