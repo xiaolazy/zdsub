@@ -117,7 +117,6 @@ public class ManagerServiceImpl implements ManagerService {
         managerDao.save(manager);
     }
     public static void setManager(ManagerSaveInc source,Manager target,School school,Role role){
-        System.out.println(888888888);
         copyProperties(source,target);
         target.setSch_id(school.getId());
         target.setRole_id(role.getId());

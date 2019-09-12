@@ -18,4 +18,6 @@ public class ManagerSaveInc extends Manager {
     protected String schId;
     @NotBlank(message = "用户权限Id不能为空！")
     protected String roleId;
+    @NotBlank(message = "电话号码不能为空！")
+    protected String telephone;
 }
