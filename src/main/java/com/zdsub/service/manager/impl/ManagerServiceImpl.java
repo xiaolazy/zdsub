@@ -2,6 +2,7 @@ package com.zdsub.service.manager.impl;
 
 import com.google.common.base.Supplier;
 import com.zdsub.component.hibernate.Page;
+import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.role.RoleDao;
 import com.zdsub.dao.supportTibet.SchoolDao;
@@ -13,6 +14,7 @@ import com.zdsub.entity.menu.increase.MenuInc;
 import com.zdsub.entity.role.Role;
 import com.zdsub.entity.university.School;
 import com.zdsub.service.manager.ManagerService;
+import com.zdsub.utils.DateUtil;
 import com.zdsub.utils.PageUtil;
 import static org.springframework.beans.BeanUtils.*;
 
@@ -65,6 +67,8 @@ public class ManagerServiceImpl implements ManagerService {
             ManagerInc m = new ManagerInc();
             Role role = roleDao.find(e.getRole_id());
             School school = schoolDao.find(e.getSch_id());
+            Manager manager = managerDao.find(e.getCreate_user());
+            m.setCreateName(manager.getUser_name());
             m.setRoleName(role.getRole_name());
             m.setSchName(school.getSch_name());
             copyProperties(e,m);
@@ -93,8 +97,6 @@ public class ManagerServiceImpl implements ManagerService {
     public void add(ManagerSaveInc m) throws Exception {
         String schId = m.getSchId();
         isNull(m,"所添加用户信息丢失，请稍候重试或联系管理员！");
-        isBlank(m.getRoleId(),"权限Id不能为空！");
-        isBlank(schId,"学校Id不能为空！");
         Role role = roleDao.find(m.getRoleId());
         School school = schoolDao.find(schId);
         isNull("新增用户时，所查询学校/权限不存在！",role,school);
@@ -107,8 +109,6 @@ public class ManagerServiceImpl implements ManagerService {
     public void update(ManagerSaveInc m) throws Exception {
         String schId = m.getSchId();
         isNull(m,"所修改用户信息丢失，请稍候重试或联系管理员！");
-        isBlank(m.getRoleId(),"权限Id不能为空！");
-        isBlank(schId,"学校Id不能为空！");
         Role role = roleDao.find(m.getRoleId());
         School school = schoolDao.find(schId);
         Manager manager = managerDao.find(m.getId());
@@ -117,8 +117,11 @@ public class ManagerServiceImpl implements ManagerService {
         managerDao.save(manager);
     }
     public static void setManager(ManagerSaveInc source,Manager target,School school,Role role){
+        System.out.println(888888888);
         copyProperties(source,target);
         target.setSch_id(school.getId());
         target.setRole_id(role.getId());
+        target.setCreate_time(DateUtil.getDate());
+        target.setCreate_user(TokenBean.activeUser.get());
     }
 }

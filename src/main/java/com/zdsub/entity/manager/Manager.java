@@ -32,6 +32,7 @@ public class Manager {
     @NotBlank(message = "密码不能为空！！")
     protected String pass_word;
     protected String sch_id;
+    @NotBlank(message = "电话号码不能为空！")
     protected String telephone;
     protected String role_id;
     protected String create_time;

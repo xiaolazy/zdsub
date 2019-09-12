@@ -14,4 +14,5 @@ import lombok.Setter;
 public class ManagerInc extends Manager {
     protected String schName;
     protected String RoleName;
+    protected String createName;
 }

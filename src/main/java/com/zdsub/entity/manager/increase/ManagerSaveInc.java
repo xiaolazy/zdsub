@@ -4,6 +4,8 @@ import com.zdsub.entity.manager.Manager;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @program: zdsub
  * @description:
@@ -12,6 +14,8 @@ import lombok.Setter;
  **/
 @Getter@Setter
 public class ManagerSaveInc extends Manager {
+    @NotBlank(message = "用户学校Id不能为空！")
     protected String schId;
+    @NotBlank(message = "用户权限Id不能为空！")
     protected String roleId;
 }
