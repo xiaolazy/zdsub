@@ -121,5 +121,10 @@ public class Test {
 //        System.out.println("/home".substring(0,5));
         /*git branch --set-upstream-to=zdsub/master master*/
     }
+    @org.junit.Test
+    public void t(){
+        String protalURL = "/manager";
+        System.out.println(protalURL.substring(protalURL.indexOf("/")+1,protalURL.length()));
+    }
 }
 

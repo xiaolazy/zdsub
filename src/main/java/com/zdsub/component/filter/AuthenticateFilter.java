@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @program: zdsub
@@ -43,8 +44,8 @@ public class AuthenticateFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if(request.getMethod().equals("OPTIONS")){
-            filterChain.doFilter(request,response);
+        if (request.getMethod().equals("OPTIONS")) {
+            filterChain.doFilter(request, response);
             return;
         }
         String subject = "";
@@ -52,47 +53,53 @@ public class AuthenticateFilter extends OncePerRequestFilter {
         String servletPath = request.getServletPath();
         String protalURL = protalURL(servletPath);
         String authorization = request.getHeader(AUTHORIZATION);
-        if (servletPath.equals(LOINGURL)||protalURL.equals(ROOT)||servletPath.equals(REGISTERURL)||protalURL.equals(PORTALURL))
-            filterChain.doFilter(request,response);
-        else if(protalURL.equals(PORTALURL) && StringUtils.isNotBlank(authorization)){
+        if (servletPath.equals(LOINGURL) || protalURL.equals(ROOT) || servletPath.equals(REGISTERURL) || protalURL.equals(PORTALURL))
+            filterChain.doFilter(request, response);
+        else if (protalURL.equals(PORTALURL) && StringUtils.isNotBlank(authorization)) {
             Claims claims = authenticate(authorization);
-            if(claims == null)
-                response.setStatus(USER_NOT_LOGIN);
-            else{
-                setAndUpdateJwt(claims);
-                filterChain.doFilter(request,response);
+            if (!permission(protalURL)){
+                response.setStatus(USER_NOT_PERMISSION);
+                return;
             }
-        }else if(!protalURL.equals(PORTALURL)){
-            Claims claims = authenticate(authorization);
-            if(null == claims)
+            if (claims == null)
                 response.setStatus(USER_NOT_LOGIN);
-            else{
-                try{
+            else {
+                setAndUpdateJwt(claims);
+                filterChain.doFilter(request, response);
+            }
+        } else if (!protalURL.equals(PORTALURL)) {
+            Claims claims = authenticate(authorization);
+            if (!permission(protalURL)){
+                response.setStatus(USER_NOT_PERMISSION);
+                return;
+            }
+            if (null == claims)
+                response.setStatus(USER_NOT_LOGIN);
+            else {
+                try {
                     subject = claims.getSubject();
                     expiration = claims.getExpiration();
-                }catch (java.lang.NullPointerException n){
+                } catch (java.lang.NullPointerException n) {
                     TokenBean.getInstance().remove(authorization);
                     response.setStatus(USER_NOT_LOGIN);
                 }
-                if(new Date().before(expiration)){
+                if (new Date().before(expiration)) {
                     ManagerService managerService = SpringUtil.getBean(ManagerService.class);
                     Manager m = managerService.findById(subject);
-                    if(null != m){
+                    if (null != m) {
                         setAndUpdateJwt(claims);
-                        filterChain.doFilter(request,response);
-                    }else{
+                        filterChain.doFilter(request, response);
+                    } else {
                         TokenBean.getInstance().remove(authorization);
                         response.setStatus(USER_NOT_LOGIN);
                     }
-                }
-                else{
+                } else {
                     TokenBean.getInstance().remove(authorization);
                     response.setStatus(USER_NOT_LOGIN);
                 }
             }
-        }
-        else{
-            logger.error("路径"+servletPath+"非法访问被拦截");
+        } else {
+            logger.error("路径" + servletPath + "非法访问被拦截");
             response.setStatus(USER_NOT_LOGIN);
         }
 
@@ -118,13 +125,13 @@ public class AuthenticateFilter extends OncePerRequestFilter {
      *@Author lyy
      */
     private static Claims authenticate(String authorization) {
-        if(isBlank(authorization))
+        if (isBlank(authorization))
             return null;
         String token = (String) TokenBean.getInstance().get(authorization);
-        if(isBlank(token))
+        if (isBlank(token))
             return null;
         Claims claims = Jwt.parseJWT(token, Base64Util.Encoder(SALT));
-        if(isNull(claims))
+        if (isNull(claims))
             return null;
         return claims;
     }
@@ -138,17 +145,35 @@ public class AuthenticateFilter extends OncePerRequestFilter {
     private static void upTokenTime(String key, String val) {
         TokenBean.getInstance().put(key, val);
     }
+
     /*@description：设置并创建JWT
      *@Date：2019/9/11 16:08
      *@Param
      *@Return
      *@Author lyy
      */
-    private static void setAndUpdateJwt(Claims claims){
-       String token = Jwt.createJWT(claims.getIssuer(),claims.getSubject(),
-                claims.getIssuer(),USER_LOGIN_TIME,Base64Util.Encoder(SALT));
-       TokenBean.activeUser.set(claims.getIssuer());
-       TokenBean.activeUserId.set(claims.getSubject());
-        upTokenTime(token,token);
+    private static void setAndUpdateJwt(Claims claims) {
+        String token = Jwt.createJWT(claims.getIssuer(), claims.getSubject(),
+                claims.getIssuer(), USER_LOGIN_TIME, Base64Util.Encoder(SALT));
+        TokenBean.activeUser.set(claims.getIssuer());
+        TokenBean.activeUserId.set(claims.getSubject());
+        upTokenTime(token, token);
+    }
+
+    /*@description：权限认证，拦截非法的REQUEST
+     *@Date：2019/9/12 15:44
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
+    private static boolean permission(String protalURL) {
+        protalURL = protalURL.substring(protalURL.indexOf("/")+1,protalURL.length());
+        if(TokenBean.activePermission.get() == null)
+            return false;
+        for (String url : TokenBean.activePermission.get()) {
+            if (url.equals(protalURL))
+                return true;
+        }
+        return false;
     }
 }

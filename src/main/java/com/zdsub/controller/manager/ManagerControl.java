@@ -11,6 +11,7 @@ import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.manager.increase.ManagerSaveInc;
 import com.zdsub.entity.role.Role;
 import com.zdsub.service.manager.ManagerService;
+import com.zdsub.service.role.RoleService;
 import com.zdsub.utils.Base64Util;
 import com.zdsub.utils.Jwt;
 import org.slf4j.Logger;
@@ -34,7 +35,8 @@ public class ManagerControl {
     protected Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
     private ManagerService managerService;
-
+    @Resource
+    private RoleService roleService;
     /*@description：分页
      *@Date：2019/9/12 12:31
      *@Param：
@@ -51,12 +53,15 @@ public class ManagerControl {
             return ResponseBean.FAILD("用户名或密码错误！");
         String jwt = Jwt.createJWT(m.getUser_name(), m.getId(),
                 m.getUser_name(), USER_LOGIN_TIME, Base64Util.Encoder(SALT));
+
         //存入用户登录的TOKEN
         TokenBean.getInstance().put(jwt, jwt);
         //用于前台可接收响应头中的TOKEN信息
         res.setHeader("Access-Control-Expose-Headers", Common.AUTHORIZATION);
         //设置响应头
         res.setHeader(AUTHORIZATION, jwt);
+        //Permission
+        roleService.showActivePermission(m.getRole_id());
         logger.debug(m.getUser_name() + "成功登录系统");
         return ResponseBean.SUCCESS("登录成功！", manager.getUser_name());
     }

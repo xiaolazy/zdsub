@@ -3,6 +3,7 @@ package com.zdsub.component.token;
 import jdk.nashorn.internal.objects.Global;
 
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * @program: zdsub
@@ -24,4 +25,5 @@ public class TokenBean<K,V> extends Hashtable {
     }
     public static ThreadLocal<String> activeUser = new ThreadLocal<>();
     public static ThreadLocal<String> activeUserId = new ThreadLocal<>();
+    public static ThreadLocal<List<String>> activePermission = new ThreadLocal<>();
 }

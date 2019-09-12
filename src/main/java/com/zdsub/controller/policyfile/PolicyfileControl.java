@@ -32,7 +32,7 @@ import static com.zdsub.common.constant.Common.*;
  * @generate: 2019-09-12 13:31
  **/
 @RestController
-@RequestMapping("/policyfile/")
+@RequestMapping("/policy/")
 public class PolicyfileControl {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Resource

@@ -3,6 +3,7 @@ package com.zdsub.service.role.impl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.zdsub.component.hibernate.Page;
+import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.menu.MenuDao;
 import com.zdsub.dao.role.RoleDao;
 import com.zdsub.entity.manager.Manager;
@@ -14,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -79,5 +81,16 @@ public class RoleServiceImpl implements RoleService {
         isNull(role,"用户不存在！");
         role.setMenus(null);
         roleDao.delete(role);
+    }
+
+    @Override
+    public void showActivePermission(String id) {
+        Role role = roleDao.find(id);
+        List<Menu> menus = role.getMenus();
+        List<String> permissions = Lists.newArrayList();
+        menus.forEach(e->{
+            permissions.add(e.getMenu_url());
+        });
+        TokenBean.activePermission.set(permissions);
     }
 }

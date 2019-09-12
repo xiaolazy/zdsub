@@ -14,4 +14,5 @@ public interface RoleService {
     void add(Role role)throws Exception;
     void update(RoleInc role) throws Exception;
     void delById(String id) throws Exception;
+    void showActivePermission(String id);
 }

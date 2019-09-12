@@ -7,6 +7,7 @@ public interface Common {
     static final int FAIL = 500;
     //用户没有登录
     static final int USER_NOT_LOGIN = 401;
+    static final int USER_NOT_PERMISSION = 402;
     //用户登录时间限制
     static final int USER_LOGIN_TIME=1800000;
     //用户密码的盐
