@@ -127,6 +127,6 @@ public class ManagerServiceImpl implements ManagerService {
         target.setSch_id(school.getId());
         target.setRole_id(role.getId());
         target.setCreate_time(DateUtil.getDate());
-        target.setCreate_user(TokenBean.activeUser.get());
+        target.setCreate_user(TokenBean.activeUserId.get());
     }
 }
