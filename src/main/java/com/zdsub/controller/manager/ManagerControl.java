@@ -6,6 +6,7 @@ import com.zdsub.component.annotion.ValidLog;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.hibernate.PageCondition;
 import com.zdsub.component.token.TokenBean;
+import com.zdsub.component.token.TokenPermission;
 import com.zdsub.entity.manager.increase.ManagerInc;
 import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.manager.increase.ManagerSaveInc;
@@ -22,6 +23,8 @@ import static com.zdsub.common.constant.Common.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
+
 import static com.zdsub.utils.Md5Util.*;
 /**
  * @program: zdsub
@@ -60,7 +63,7 @@ public class ManagerControl {
         res.setHeader("Access-Control-Expose-Headers", Common.AUTHORIZATION);
         //设置响应头
         res.setHeader(AUTHORIZATION, jwt);
-        //Permission
+        //设置当前用户的权限
         roleService.showActivePermission(m.getRole_id());
         logger.debug(m.getUser_name() + "成功登录系统");
         return ResponseBean.SUCCESS("登录成功！", manager.getUser_name());

@@ -129,7 +129,7 @@ public class PolicyfileControl {
      *@Return：
      *@Author： lyy
      */
-    @RequestMapping("/download")
+    @RequestMapping("download")
     public ResponseBean download(String path, HttpServletRequest req, HttpServletResponse res) throws IOException {
         System.out.println("path-------"+path);
         if(path == "" || path == null)
@@ -157,8 +157,8 @@ public class PolicyfileControl {
      *@Return：
      *@Author： lyy
      */
-    @RequestMapping("/uploadRemove")
-    public ResponseBean uploadRemove(String relaPath , HttpServletRequest req){
+    @RequestMapping("uploadRemove")
+    public ResponseBean uploadRemove(@RequestParam String relaPath , HttpServletRequest req){
         String filePath = req.getSession().getServletContext().getRealPath("/")+UPLOAD_PATH+relaPath;
         File file = new File(filePath);
         if(file.exists()){

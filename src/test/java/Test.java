@@ -123,7 +123,8 @@ public class Test {
     }
     @org.junit.Test
     public void t(){
-        String protalURL = "/manager";
+        String protalURL = "/manager/aabb";
+        System.out.println(protalURL.substring(1,protalURL.lastIndexOf("/")));
         System.out.println(protalURL.substring(protalURL.indexOf("/")+1,protalURL.length()));
     }
 }

@@ -14,5 +14,11 @@ public interface RoleService {
     void add(Role role)throws Exception;
     void update(RoleInc role) throws Exception;
     void delById(String id) throws Exception;
+    /*@description：更新当前用户登录的权限
+     *@Date：2019/9/12 18:09
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
     void showActivePermission(String id);
 }

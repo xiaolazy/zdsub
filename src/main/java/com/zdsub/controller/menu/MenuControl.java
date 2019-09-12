@@ -30,7 +30,7 @@ public class MenuControl {
     public ResponseBean menuTree(){
         return ResponseBean.SUCCESS(menuService.getMenuTree());
     }
-    /*@description：废弃
+    /*@description：不带父菜单的查询
      *@Date：2019/9/12 13:10
      *@Param：
      *@Return：

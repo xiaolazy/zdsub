@@ -18,6 +18,7 @@ public interface Common {
     static final String DESC = "DESC";
     //门户展示URL
     static final String PORTALURL="/home";
+    static final String MENU="menu";
     //根路径
     static final String ROOT = "/";
     //登录路径
@@ -26,7 +27,7 @@ public interface Common {
     static final String REGISTERURL="/manager/register";
     static final String ORIGIN = "http://localhost:2333";
     //路径截取的长度
-    static final int SUBSTRING_LENG_START = 0;
+    static final int SUBSTRING_LENG_START = 1;
     static final int SUBSTRING_LENG_END = 5;
     static final String AUTHORIZATION="Authorization";
     static final String UPLOAD_PATH = "../upload/policyfile/";

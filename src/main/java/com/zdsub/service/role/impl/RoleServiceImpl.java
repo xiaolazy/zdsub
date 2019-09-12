@@ -2,8 +2,10 @@ package com.zdsub.service.role.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.zdsub.common.constant.Common;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.token.TokenBean;
+import com.zdsub.component.token.TokenPermission;
 import com.zdsub.dao.menu.MenuDao;
 import com.zdsub.dao.role.RoleDao;
 import com.zdsub.entity.manager.Manager;
@@ -11,6 +13,7 @@ import com.zdsub.entity.menu.Menu;
 import com.zdsub.entity.role.Role;
 import com.zdsub.entity.role.increase.RoleInc;
 import com.zdsub.service.role.RoleService;
+import jdk.nashorn.internal.parser.Token;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -68,6 +71,8 @@ public class RoleServiceImpl implements RoleService {
         role.getIds().forEach(e->{
             Menu menu = menuDao.find(e);
             isNull(menu,"权限所选菜单不存在！");
+            //修改权限时更新当前用户的权限
+            TokenPermission.getInstance().add(menu.getMenu_url());
             menus.add(menu);
         });
         BeanUtils.copyProperties(role,newRole);
@@ -87,10 +92,9 @@ public class RoleServiceImpl implements RoleService {
     public void showActivePermission(String id) {
         Role role = roleDao.find(id);
         List<Menu> menus = role.getMenus();
-        List<String> permissions = Lists.newArrayList();
         menus.forEach(e->{
-            permissions.add(e.getMenu_url());
+            TokenPermission.getInstance().add(e.getMenu_url());
         });
-        TokenBean.activePermission.set(permissions);
+        TokenPermission.getInstance().add(Common.MENU);
     }
 }
