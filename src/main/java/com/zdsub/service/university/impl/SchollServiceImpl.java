@@ -1,9 +1,9 @@
 package com.zdsub.service.university.impl;
 
-import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
+import com.zdsub.component.hibernate.Page;
+import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.supportTibet.SchoolDao;
-import com.zdsub.entity.PageCondition;
 import com.zdsub.entity.university.School;
 import com.zdsub.entity.university.increase.SchoolInc;
 import com.zdsub.service.university.SchollService;
@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.zdsub.utils.PageUtil.getRestrictions;
 
 /**
  * @BelongsProject: zdsub
@@ -31,14 +33,12 @@ public class SchollServiceImpl implements SchollService {
 
     @Override
     public void add(SchoolInc schoolInc) {
-        System.out.println("----------------------------");
         School school = new School();
         BeanUtils.copyProperties(schoolInc, school);
         school.setCreate_time(DateUtil.getDateTime());
-        school.setCreate_user("===========");
+        school.setCreate_user(TokenBean.activeUserId.get());
         school.setUpdate_time(DateUtil.getDateTime());
-        school.setUpdate_user("===========");
-        System.out.println("----------------------------" + school.getSch_name());
+        school.setUpdate_user(TokenBean.activeUserId.get());
         schoolDao.save(school);
     }
 
@@ -47,7 +47,7 @@ public class SchollServiceImpl implements SchollService {
         School school = get(schoolInc.getId());
         BeanUtils.copyProperties(schoolInc, school);
         school.setUpdate_time(DateUtil.getDateTime());
-        school.setUpdate_user("----------");
+        school.setUpdate_user(TokenBean.activeUserId.get());
         schoolDao.update(school);
     }
 
@@ -58,8 +58,17 @@ public class SchollServiceImpl implements SchollService {
     }
 
     @Override
-    public Page<School> page(PageCondition<School> schoolPageCondition) {
-        return schoolDao.queryByName(schoolPageCondition);
+    public Page<School> page(Page<School> schoolPage) {
+        Page<School> rPage;
+        if (schoolPage.getCondition() == null)
+            rPage = schoolDao.findPage(schoolPage);
+        else
+            rPage = schoolDao.findPage(schoolPage, getRestrictions("sch_name", schoolPage.getCondition().getSch_name()));
+       /* List<School> resultList = rPage.getResultList();
+        rPage.setPageNo(rPage.getPageNo());
+        rPage.setPageSize(rPage.getPageSize());
+        rPage.setResultList(resultList);*/
+        return rPage;
     }
 
     @Override

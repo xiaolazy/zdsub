@@ -2,6 +2,7 @@ package com.zdsub.service.university;
 
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.entity.PageCondition;
+import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.university.increase.SchoolInc;
 import com.zdsub.entity.university.School;
 
@@ -40,13 +41,14 @@ public interface SchollService {
     /**
      * 分页查询学校
      *
-     * @param schoolPageCondition
+     * @param schoolPage
      * @return
      */
-    Page<School> page(PageCondition<School> schoolPageCondition);
+    Page<School> page(Page<School> schoolPage);
 
     /**
      * 查看学校
+     *
      * @param id
      * @return
      */

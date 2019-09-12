@@ -48,7 +48,7 @@ public interface AdverService {
      * @param page
      * @return
      */
-    Page<Adver> page(Page page);
+    Page<Adver> page(Page<Adver> page);
 
     /**
      * 查看人才并增加阅读数

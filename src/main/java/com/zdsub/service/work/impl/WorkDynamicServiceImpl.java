@@ -2,13 +2,17 @@ package com.zdsub.service.work.impl;
 
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
+import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.work.WorkDynamicDao;
+import com.zdsub.entity.work.Process;
 import com.zdsub.entity.work.WorkDynamic;
 import com.zdsub.service.work.WorkDynamicService;
 import com.zdsub.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.zdsub.utils.PageUtil.getRestrictions;
 
 /**
  * @BelongsProject: zdsub
@@ -27,16 +31,16 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
     @Override
     public void add(WorkDynamic workDynamic) {
         workDynamic.setCreate_time(DateUtil.getDateTime());
-        workDynamic.setCreate_user("===========");
+        workDynamic.setCreate_user(TokenBean.activeUserId.get());
         workDynamic.setUpdate_time(DateUtil.getDateTime());
-        workDynamic.setUpdate_user("===========");
+        workDynamic.setUpdate_user(TokenBean.activeUserId.get());
         workDynamicDao.save(workDynamic);
     }
 
     @Override
     public void edit(WorkDynamic workDynamic) {
         get(workDynamic.getId());
-        workDynamic.setUpdate_user("=========");
+        workDynamic.setUpdate_user(TokenBean.activeUserId.get());
         workDynamic.setUpdate_time(DateUtil.getDateTime());
         workDynamicDao.update(workDynamic);
     }
@@ -50,11 +54,16 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
 
     @Override
     public Page<WorkDynamic> page(Page<WorkDynamic> page) {
-        if (page.getCondition() != null) {
+        Page<WorkDynamic> workDynamicPage;
+        if (page.getCondition() == null)
+            workDynamicPage = workDynamicDao.findPage(page);
+        else
+            workDynamicPage = workDynamicDao.findPage(page, getRestrictions("title", page.getCondition().getTitle()));
+    /*    if (page.getCondition() != null) {
             WorkDynamic workDynamic = (WorkDynamic) page.getCondition();
             workDynamic.setTitle("%" + workDynamic.getTitle() + "%");
-        }
-        return workDynamicDao.findPage(page);
+        }*/
+        return workDynamicPage;
     }
 
     @Override

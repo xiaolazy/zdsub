@@ -3,6 +3,7 @@ package com.zdsub.service.recruitment.impl;
 import com.zdsub.common.constant.Common;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
+import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.recruitment.AdverDao;
 import com.zdsub.dao.supportTibet.SchoolDao;
 import com.zdsub.entity.recruitment.Adver;
@@ -14,6 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+import static com.zdsub.utils.PageUtil.getRestrictions;
 
 
 /**
@@ -39,9 +44,9 @@ public class AdverServiceImpl implements AdverService {
         School school = getSchool(adverInc);
         adver.setSchool(school);
         adver.setCreate_time(DateUtil.getDateTime());
-        adver.setCreate_user("===========");
+        adver.setCreate_user(TokenBean.activeUserId.get());
         adver.setUpdate_time(DateUtil.getDateTime());
-        adver.setUpdate_user("===========");
+        adver.setUpdate_user(TokenBean.activeUserId.get());
         adverDao.save(adver);
     }
 
@@ -51,6 +56,8 @@ public class AdverServiceImpl implements AdverService {
         School school = getSchool(adverInc);
         BeanUtils.copyProperties(adverInc, adver);
         adver.setSchool(school);
+        adver.setUpdate_time(DateUtil.getDateTime());
+        adver.setUpdate_user(TokenBean.activeUserId.get());
         adverDao.update(adver);
     }
 
@@ -90,12 +97,17 @@ public class AdverServiceImpl implements AdverService {
     }
 
     @Override
-    public Page<Adver> page(Page page) {
-        if (page.getCondition() != null) {
-            Adver adver = (Adver) page.getCondition();
-            adver.setTitle("%" + adver.getTitle() + "%");
-        }
-        return adverDao.findPage(page);
+    public Page<Adver> page(Page<Adver> page) {
+        Page<Adver> adverPage;
+        if (page.getCondition() == null)
+            adverPage = adverDao.findPage(page);
+        else
+            adverPage = adverDao.findPage(page, getRestrictions("title", page.getCondition().getTitle()));
+        List<Adver> resultList = adverPage.getResultList();
+        adverPage.setPageNo(adverPage.getPageNo());
+        adverPage.setPageSize(adverPage.getPageSize());
+        adverPage.setResultList(resultList);
+        return adverPage;
     }
 
     @Override
