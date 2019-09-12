@@ -40,6 +40,12 @@ public class ExceptionUtil {
         if(null == o)
             throw new GlobalException(msg);
     }
+    public static void isNull(String msg,Object...o){
+        for (int i = 0; i < o.length; i++) {
+            if(o[i] == null)
+                throw new GlobalException(msg);
+        }
+    }
     public static void isNull(Object o,int errorCode,String msg){
         if(null == o)
             throw new GlobalException(errorCode,msg);

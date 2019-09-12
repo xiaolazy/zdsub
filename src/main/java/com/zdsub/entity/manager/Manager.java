@@ -24,8 +24,8 @@ import java.util.Set;
 @Setter
 public class Manager {
     @Id
-    @GenericGenerator(name = "uuid",strategy = "uuid")
-    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "native",strategy = "native")
+    @GeneratedValue(generator = "native")
     protected String id;
     @NotBlank(message = "用户名不能为空！！")
     protected String user_name;
@@ -36,10 +36,6 @@ public class Manager {
     protected String role_id;
     protected String create_time;
     protected String create_user;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JsonIgnore
-    @JoinTable(name = "Manager_Role",
-    joinColumns = @JoinColumn(name = "MANAGER_ID"),
-    inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})
-    protected Set<Role> roles = new HashSet<>();
+//    @OneToOne
+//    protected Role role;
 }

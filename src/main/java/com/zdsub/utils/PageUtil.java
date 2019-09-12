@@ -11,7 +11,7 @@ import org.hibernate.criterion.SimpleExpression;
  * @generate: 2019-09-11 20:16
  **/
 public class PageUtil {
-    public static SimpleExpression getRestri(String name,String val){
+    public static SimpleExpression getRestrictions(String name,String val){
         if(StringUtils.isNotBlank(val))
             return Restrictions.like(name, "%"+val+"%");
         return Restrictions.like(name, "%%");

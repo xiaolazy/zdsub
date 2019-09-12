@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface MenuDao extends BaseDao<Menu,String> {
     List<Menu> getByPid(String pid);
+    List<Menu> findNotParent();
 }
+

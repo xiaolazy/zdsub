@@ -8,10 +8,10 @@ import lombok.Setter;
  * @program: zdsub
  * @description:
  * @author: lyy
- * @generate: 2019-09-06 11:13
+ * @generate: 2019-09-11 23:00
  **/
 @Getter@Setter
-public class ManagerInc extends Manager {
-    protected String schName;
-    protected String RoleName;
+public class ManagerSaveInc extends Manager {
+    protected String schId;
+    protected String roleId;
 }

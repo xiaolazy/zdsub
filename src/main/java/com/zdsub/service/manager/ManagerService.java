@@ -4,6 +4,7 @@ import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.hibernate.PageCondition;
 import com.zdsub.entity.manager.increase.ManagerInc;
 import com.zdsub.entity.manager.Manager;
+import com.zdsub.entity.manager.increase.ManagerSaveInc;
 import com.zdsub.entity.menu.increase.MenuInc;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface ManagerService {
      *@Return
      *@Author lyy
      */
-    Page<Manager> getPage(Page<Manager> page);
+    Page<ManagerInc> getPage(Page<Manager> page);
     /*@description：通过Id查询
      *@Date：2019/9/11 17:13
      *@Param：
@@ -31,4 +32,7 @@ public interface ManagerService {
      *@Author： lyy
      */
     Manager getById(String id);
+    void delById(String id) throws Exception;
+    void add(ManagerSaveInc m)throws Exception;
+    void update(ManagerSaveInc m)throws Exception;
 }

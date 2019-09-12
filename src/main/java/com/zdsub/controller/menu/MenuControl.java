@@ -25,5 +25,8 @@ public class MenuControl {
         String account = req.getRequestedSessionId();
         return ResponseBean.SUCCESS(menuService.getMenuTree(account));
     }
-
+    @GetMapping("findNotParent")
+    public ResponseBean findNotParent(){
+        return ResponseBean.SUCCESS(menuService.findNotParent());
+    }
 }

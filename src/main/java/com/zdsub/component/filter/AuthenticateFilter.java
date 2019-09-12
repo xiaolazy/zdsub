@@ -78,9 +78,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
                     ManagerService managerService = SpringUtil.getBean(ManagerService.class);
                     Manager m = managerService.findById(subject);
                     if(null != m){
-                        String newToken = Jwt.createJWT(claims.getIssuer(),claims.getSubject(),
-                                claims.getIssuer(),USER_LOGIN_TIME,Base64Util.Encoder(SALT));
-                        upTokenTime(authorization,newToken);
+                        setAndUpdateJwt(claims);
                         filterChain.doFilter(request,response);
                     }else{
                         TokenBean.getInstance().remove(authorization);
@@ -149,6 +147,8 @@ public class AuthenticateFilter extends OncePerRequestFilter {
     private static void setAndUpdateJwt(Claims claims){
        String token = Jwt.createJWT(claims.getIssuer(),claims.getSubject(),
                 claims.getIssuer(),USER_LOGIN_TIME,Base64Util.Encoder(SALT));
+       TokenBean.activeUser.set(claims.getIssuer());
+       TokenBean.activeUserId.set(claims.getSubject());
         upTokenTime(token,token);
     }
 }

@@ -29,6 +29,10 @@ public class MenuServiceImpl implements MenuService {
     @Resource
     private MenuIncDao menuIncDao;
     @Override
+    public List<Menu> findNotParent() {
+        return menuDao.findNotParent();
+    }
+    @Override
     public List<MenuInc> getMenuTree(String account) {
 //        managerDao.findUserByName(account);
         List<Menu> parent = menuDao.getByPid("0");

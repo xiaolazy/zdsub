@@ -8,6 +8,8 @@ import com.zdsub.component.hibernate.PageCondition;
 import com.zdsub.component.token.TokenBean;
 import com.zdsub.entity.manager.increase.ManagerInc;
 import com.zdsub.entity.manager.Manager;
+import com.zdsub.entity.manager.increase.ManagerSaveInc;
+import com.zdsub.entity.role.Role;
 import com.zdsub.service.manager.ManagerService;
 import com.zdsub.utils.Base64Util;
 import com.zdsub.utils.Jwt;
@@ -17,10 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import static com.zdsub.common.constant.Common.*;
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import static com.zdsub.utils.Md5Util.*;
 /**
@@ -69,6 +68,36 @@ public class ManagerControl {
      */
     @GetMapping("getById")
     public ResponseBean getById(String id){
-        return ResponseBean.SUCCESS();
+        return ResponseBean.SUCCESS(managerService.findById(id));
+    }
+    @GetMapping("delById")
+    public ResponseBean delById(String id){
+        try{
+            managerService.delById(id);
+            return ResponseBean.SUCCESS("删除成功！");
+        }catch (Exception e){
+            return ResponseBean.FAILD("删除用户失败！请稍候重试或联系管理");
+        }
+
+    }
+    @PostMapping("add")
+    @ValidLog
+    public ResponseBean add(@Valid @RequestBody ManagerSaveInc m,BindingResult b){
+        try{
+            managerService.add(m);
+            return ResponseBean.SUCCESS("新增成功！");
+        }catch (Exception e){
+            return ResponseBean.FAILD("新增失败，请稍候重试或联系管理员！");
+        }
+    }
+    @PostMapping("update")
+    @ValidLog
+    public ResponseBean update(@Valid @RequestBody ManagerSaveInc m,BindingResult b){
+        try{
+            managerService.update(m);
+            return ResponseBean.SUCCESS("修改成功！");
+        }catch (Exception e){
+            return ResponseBean.FAILD("修改失败，请稍候重试或联系管理员！");
+        }
     }
 }
