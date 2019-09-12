@@ -1,8 +1,8 @@
 package com.zdsub.entity;
 
-import com.zdsub.component.hibernate.Page;
-import lombok.Getter;
-import lombok.Setter;
+        import com.zdsub.component.hibernate.Page;
+        import lombok.Getter;
+        import lombok.Setter;
 
 /**
  * @BelongsProject: zdsub
@@ -16,6 +16,5 @@ import lombok.Setter;
 public class PageCondition<T> {
     private T condition;
     Page<T> page;
-
 
 }

@@ -1,4 +1,4 @@
-package com.zdsub.dao.supportTibet;
+package com.zdsub.dao.university;
 
 import com.zdsub.component.hibernate.BaseDao;
 import com.zdsub.component.hibernate.Page;

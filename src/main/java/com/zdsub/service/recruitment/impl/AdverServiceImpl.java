@@ -5,7 +5,7 @@ import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.recruitment.AdverDao;
-import com.zdsub.dao.supportTibet.SchoolDao;
+import com.zdsub.dao.university.SchoolDao;
 import com.zdsub.entity.recruitment.Adver;
 import com.zdsub.entity.recruitment.increase.AdverInc;
 import com.zdsub.entity.university.School;

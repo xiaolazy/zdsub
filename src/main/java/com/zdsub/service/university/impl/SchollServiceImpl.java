@@ -3,7 +3,7 @@ package com.zdsub.service.university.impl;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.token.TokenBean;
-import com.zdsub.dao.supportTibet.SchoolDao;
+import com.zdsub.dao.university.SchoolDao;
 import com.zdsub.entity.university.School;
 import com.zdsub.entity.university.increase.SchoolInc;
 import com.zdsub.service.university.SchollService;

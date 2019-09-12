@@ -1,8 +1,8 @@
-package com.zdsub.dao.supportTibet.Impl;
+package com.zdsub.dao.university.Impl;
 
 import com.zdsub.component.hibernate.BaseDaoImpl;
 import com.zdsub.component.hibernate.Page;
-import com.zdsub.dao.supportTibet.SchoolDao;
+import com.zdsub.dao.university.SchoolDao;
 import com.zdsub.entity.PageCondition;
 import com.zdsub.entity.university.School;
 import org.apache.commons.lang3.StringUtils;

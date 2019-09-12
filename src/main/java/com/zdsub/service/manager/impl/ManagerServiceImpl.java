@@ -1,30 +1,25 @@
 package com.zdsub.service.manager.impl;
 
-import com.google.common.base.Supplier;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.role.RoleDao;
-import com.zdsub.dao.supportTibet.SchoolDao;
+import com.zdsub.dao.university.SchoolDao;
 import com.zdsub.entity.manager.increase.ManagerInc;
 import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.manager.increase.ManagerSaveInc;
-import com.zdsub.entity.menu.Menu;
-import com.zdsub.entity.menu.increase.MenuInc;
 import com.zdsub.entity.role.Role;
 import com.zdsub.entity.university.School;
 import com.zdsub.service.manager.ManagerService;
 import com.zdsub.utils.DateUtil;
-import com.zdsub.utils.PageUtil;
+
 import static org.springframework.beans.BeanUtils.*;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import static com.zdsub.utils.ExceptionUtil.*;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static com.zdsub.utils.PageUtil.*;
 /**
