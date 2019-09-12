@@ -56,14 +56,14 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <!--    配置Session过滤器-->
-<!--    <filter>-->
-<!--        <filter-name>auth</filter-name>-->
-<!--        <filter-class>com.zdsub.component.filter.AuthenticateFilter</filter-class>-->
-<!--    </filter>-->
-<!--    <filter-mapping>-->
-<!--        <filter-name>auth</filter-name>-->
-<!--        <url-pattern>/*</url-pattern>-->
-<!--    </filter-mapping>-->
+    <filter>
+        <filter-name>auth</filter-name>
+        <filter-class>com.zdsub.component.filter.AuthenticateFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>auth</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <!--配置请求字符过滤器-->
     <filter>
         <filter-name>encoding</filter-name>

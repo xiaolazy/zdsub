@@ -12,6 +12,7 @@ public interface MenuService {
      *@Return
      *@Author lyy
      */
-    List<MenuInc> getMenuTree(String account);
+    List<MenuInc> getMenuTree();
     List<Menu> findNotParent();
+    List<Menu> findAll();
 }

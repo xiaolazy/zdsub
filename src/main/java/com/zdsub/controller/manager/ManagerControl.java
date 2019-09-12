@@ -34,22 +34,33 @@ public class ManagerControl {
     protected Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
     private ManagerService managerService;
+
+    /*@description：分页
+     *@Date：2019/9/12 12:31
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
     @RequestMapping("login")
     @ValidLog
     public ResponseBean login(@Valid @RequestBody ManagerInc manager, BindingResult b,
-                           HttpServletResponse res){
+                              HttpServletResponse res) {
         manager.setPass_word(Md5(manager.getPass_word()));
         Manager m = managerService.findUseLogin(manager);
-        if(null == m)
+        if (null == m)
             return ResponseBean.FAILD("用户名或密码错误！");
         String jwt = Jwt.createJWT(m.getUser_name(), m.getId(),
                 m.getUser_name(), USER_LOGIN_TIME, Base64Util.Encoder(SALT));
-        TokenBean.getInstance().put(jwt,jwt);
+        //存入用户登录的TOKEN
+        TokenBean.getInstance().put(jwt, jwt);
+        //用于前台可接收响应头中的TOKEN信息
         res.setHeader("Access-Control-Expose-Headers", Common.AUTHORIZATION);
-        res.setHeader(AUTHORIZATION,jwt);
-        logger.debug(m.getUser_name()+"成功登录系统");
-        return ResponseBean.SUCCESS("登录成功！",manager.getUser_name());
+        //设置响应头
+        res.setHeader(AUTHORIZATION, jwt);
+        logger.debug(m.getUser_name() + "成功登录系统");
+        return ResponseBean.SUCCESS("登录成功！", manager.getUser_name());
     }
+
     /*@description：带条件分页查询
      *@Date：2019/9/11 17:16
      *@Param：
@@ -57,9 +68,10 @@ public class ManagerControl {
      *@Author： lyy
      */
     @PostMapping("getPage")
-    public ResponseBean getPage(@RequestBody Page<Manager> page){
+    public ResponseBean getPage(@RequestBody Page<Manager> page) {
         return ResponseBean.PAGESUCCESS(managerService.getPage(page));
     }
+
     /*@description：通过ID查询
      *@Date：2019/9/11 17:16
      *@Param：
@@ -67,37 +79,62 @@ public class ManagerControl {
      *@Author： lyy
      */
     @GetMapping("getById")
-    public ResponseBean getById(String id){
+    public ResponseBean getById(String id) {
         return ResponseBean.SUCCESS(managerService.findById(id));
     }
+
     @GetMapping("delById")
-    public ResponseBean delById(String id){
-        try{
+    public ResponseBean delById(String id) {
+        try {
             managerService.delById(id);
             return ResponseBean.SUCCESS("删除成功！");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseBean.FAILD("删除用户失败！请稍候重试或联系管理");
         }
 
     }
+
+    /*@description：新增
+     *@Date：2019/9/12 12:31
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
     @PostMapping("add")
     @ValidLog
-    public ResponseBean add(@Valid @RequestBody ManagerSaveInc m,BindingResult b){
-        try{
+    public ResponseBean add(@Valid @RequestBody ManagerSaveInc m, BindingResult b) {
+        try {
             managerService.add(m);
             return ResponseBean.SUCCESS("新增成功！");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseBean.FAILD("新增失败，请稍候重试或联系管理员！");
         }
     }
+
+    /*@description：修改
+     *@Date：2019/9/12 12:32
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
     @PostMapping("update")
     @ValidLog
-    public ResponseBean update(@Valid @RequestBody ManagerSaveInc m,BindingResult b){
-        try{
+    public ResponseBean update(@Valid @RequestBody ManagerSaveInc m, BindingResult b) {
+        try {
             managerService.update(m);
             return ResponseBean.SUCCESS("修改成功！");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseBean.FAILD("修改失败，请稍候重试或联系管理员！");
         }
+    }
+    /*@description：验证用户名是否存在  用于用户新增时判断用户名称是否存在，true则是存在否则不存在
+     *@Date：2019/9/12 12:32
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
+    @GetMapping("verifyByName")
+    public ResponseBean verifyByName(String name) {
+        return ResponseBean.SUCCESS(managerService.findByName(name));
     }
 }

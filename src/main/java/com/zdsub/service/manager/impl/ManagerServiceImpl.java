@@ -122,6 +122,12 @@ public class ManagerServiceImpl implements ManagerService {
         isNull("修改时用户时，所查询学校/权限不存在！",role,school,manager);
         managerDao.save(manager);
     }
+
+    @Override
+    public boolean findByName(String name) {
+        return (managerDao.findUserByName(name) == null) ? false: true;
+    }
+
     public static void setManager(ManagerSaveInc source,Manager target,School school,Role role){
         copyProperties(source,target);
         target.setSch_id(school.getId());

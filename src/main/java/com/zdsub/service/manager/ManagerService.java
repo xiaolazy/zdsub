@@ -32,7 +32,20 @@ public interface ManagerService {
      *@Author： lyy
      */
     Manager getById(String id);
+    /*@description：通过ID删除
+     *@Date：2019/9/12 12:35
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
     void delById(String id) throws Exception;
     void add(ManagerSaveInc m)throws Exception;
     void update(ManagerSaveInc m)throws Exception;
+    /*@description：查询用户名
+     *@Date：2019/9/12 12:36
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
+    boolean findByName(String name);
 }

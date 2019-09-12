@@ -25,29 +25,58 @@ import javax.validation.Valid;
 public class RoleControl {
     @Resource
     private RoleService roleService;
+    /*@description：分页查询权限
+     *@Date：2019/9/12 13:13
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
     @PostMapping("getPage")
     public ResponseBean getPage(@RequestBody Page<Role>page){
         return ResponseBean.PAGESUCCESS(roleService.getPage(page));
     }
+    /*@description：查询所有权限
+     *@Date：2019/9/12 13:13
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
     @GetMapping("findAll")
     public ResponseBean findAll(){
         return ResponseBean.SUCCESS(roleService.findAll());
     }
+    /*@description：据ID查询权限
+     *@Date：2019/9/12 13:13
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
     @GetMapping("findById")
     public ResponseBean findById(String id){
         return ResponseBean.SUCCESS(roleService.findById(id));
     }
+    /*@description：新增
+     *@Date：2019/9/12 13:14
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
     @PostMapping("add")
     @ValidLog
-    public ResponseBean add(@Valid @RequestBody Role role, BindingResult b) throws Exception{
-        roleService.add(role);
+    public ResponseBean add(@Valid @RequestBody Role role, BindingResult b){
         try{
-
+            roleService.add(role);
             return ResponseBean.SUCCESS("权限新增成功！");
         }catch (Exception e){
             return ResponseBean.FAILD("新增权限失败！请稍候重试");
         }
     }
+    /*@description：修改
+     *@Date：2019/9/12 13:14
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
     @PostMapping("update")
     @ValidLog
     public ResponseBean update(@Valid @RequestBody RoleInc role, BindingResult b){
@@ -58,6 +87,12 @@ public class RoleControl {
             return ResponseBean.FAILD("修改权限失败！请稍候重试");
         }
     }
+    /*@description：据ID删除
+     *@Date：2019/9/12 13:14
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
     @GetMapping("delById")
     public ResponseBean delById(String id){
         try{
@@ -66,6 +101,5 @@ public class RoleControl {
         }catch (Exception e){
             return ResponseBean.FAILD("删除权限失败！请稍候重试或联系管理");
         }
-
     }
 }

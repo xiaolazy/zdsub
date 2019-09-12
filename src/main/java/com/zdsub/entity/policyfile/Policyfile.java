@@ -1,13 +1,11 @@
 package com.zdsub.entity.policyfile;
 
+import com.zdsub.entity.manager.Manager;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @program: zdsub
@@ -18,13 +16,15 @@ import javax.persistence.Table;
 @Entity@Table(name = "policyfile")@Getter@Setter
 public class Policyfile {
     @Id
-    @GenericGenerator(name = "native",strategy = "native")
-    @GeneratedValue(generator = "native")
+    @GenericGenerator(name = "uuid",strategy = "uuid")
+    @GeneratedValue(generator = "uuid")
     protected String id;
     protected String title;
     protected String url;
     protected String create_time;
-    protected String create_user;
+    @OneToOne
+    @JoinColumn(name = "create_user")
+    protected Manager create_user;
     protected String update_time;
     protected String update_user;
 }

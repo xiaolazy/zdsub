@@ -28,4 +28,5 @@ public interface Common {
     static final int SUBSTRING_LENG_START = 0;
     static final int SUBSTRING_LENG_END = 5;
     static final String AUTHORIZATION="Authorization";
+    static final String UPLOAD_PATH = "../upload/policyfile/";
 }

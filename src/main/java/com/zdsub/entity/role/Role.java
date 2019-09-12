@@ -35,7 +35,7 @@ public class Role {
     protected String cdescriprition;
     protected String context;
     @ManyToMany
-    @JoinTable(name = "MENU_ROLE",
+    @JoinTable(name = "ROLE_MENU",
             joinColumns = @JoinColumn(name = "ROLE_ID"),
             inverseJoinColumns = @JoinColumn(name = "MENU_ID"))
     protected Set<Menu> menus = new HashSet<>();

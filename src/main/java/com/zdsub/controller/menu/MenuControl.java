@@ -20,13 +20,34 @@ import javax.servlet.http.HttpServletRequest;
 public class MenuControl {
     @Resource
     private MenuService menuService;
+    /*@description：根据当前用户权限查询菜单树
+     *@Date：2019/9/12 13:10
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
     @GetMapping("menuTree")
-    public ResponseBean menuTree(HttpServletRequest req){
-        String account = req.getRequestedSessionId();
-        return ResponseBean.SUCCESS(menuService.getMenuTree(account));
+    public ResponseBean menuTree(){
+        return ResponseBean.SUCCESS(menuService.getMenuTree());
     }
+    /*@description：废弃
+     *@Date：2019/9/12 13:10
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
     @GetMapping("findNotParent")
     public ResponseBean findNotParent(){
         return ResponseBean.SUCCESS(menuService.findNotParent());
+    }
+    /*@description：查询所有菜单
+     *@Date：2019/9/12 13:12
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
+    @GetMapping("findAll")
+    public ResponseBean findAll(){
+        return ResponseBean.SUCCESS(menuService.findAll());
     }
 }

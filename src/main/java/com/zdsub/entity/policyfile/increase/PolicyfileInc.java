@@ -12,4 +12,5 @@ import lombok.Setter;
  **/
 @Getter@Setter
 public class PolicyfileInc extends Policyfile {
+    protected String createUser;
 }
