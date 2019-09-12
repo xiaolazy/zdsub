@@ -1,5 +1,6 @@
 package com.zdsub.service.role.impl;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.dao.menu.MenuDao;
@@ -54,14 +55,14 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void add(Role role)throws Exception {
         List<Menu> all = menuDao.findAll();
-        role.setMenus(Sets.newHashSet(all));
+        role.setMenus(all);
         roleDao.save(role);
     }
 
     @Override
     public void update(RoleInc role)throws Exception {
         Role newRole = roleDao.find(role.getId());
-        HashSet<Menu> menus = Sets.newHashSet();
+        List<Menu> menus = Lists.newArrayList();
         role.getIds().forEach(e->{
             Menu menu = menuDao.find(e);
             isNull(menu,"权限所选菜单不存在！");

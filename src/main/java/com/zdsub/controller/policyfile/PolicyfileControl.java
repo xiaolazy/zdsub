@@ -1,12 +1,14 @@
 package com.zdsub.controller.policyfile;
 
 import com.zdsub.common.ResultBean.ResponseBean;
+import com.zdsub.component.annotion.ValidLog;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.entity.policyfile.Policyfile;
 import com.zdsub.service.policyfile.PolicyfileService;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -14,6 +16,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -53,6 +56,40 @@ public class PolicyfileControl {
     @GetMapping("findById")
     public ResponseBean findById(String id){
         return ResponseBean.SUCCESS(policyfileService.findById(id));
+    }
+    /*@description：新增
+     *@Date：2019/9/12 14:39
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
+    @PostMapping("add")
+    @ValidLog
+    public ResponseBean add(@Valid @RequestBody Policyfile policyfile, BindingResult b) {
+        try{
+            policyfileService.add(policyfile);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseBean.FAILD("新增错误！请稍候重试或联系管理员");
+        }
+        return ResponseBean.SUCCESS("新增成功！");
+    }
+    /*@description：修改
+     *@Date：2019/9/12 14:39
+     *@Param：
+     *@Return：
+     *@Author： lyy
+     */
+    @PostMapping("update")
+    @ValidLog
+    public ResponseBean update(@Valid @RequestBody Policyfile policyfile, BindingResult b) {
+        try{
+            policyfileService.update(policyfile);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseBean.FAILD("修改错误！请稍候重试或联系管理员");
+        }
+        return ResponseBean.SUCCESS("修改成功！");
     }
     /*@description：上传附件 可公用，请求路径需为(- 代指随意,?指在磁盘创建的路径也就是请求的子包路径):
      *@Date：2019/9/12 13:49

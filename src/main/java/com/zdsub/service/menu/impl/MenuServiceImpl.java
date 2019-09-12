@@ -46,7 +46,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<MenuInc> getMenuTree() {
         Role role = roleDao.find(managerDao.find(TokenBean.activeUserId.get()).getRole_id());
-        Set<Menu> menus = role.getMenus();
+        List<Menu> menus = role.getMenus();
         List<MenuInc> trees = Lists.newArrayList();
         menus.forEach(e -> {
             if (e.getPid().equals("0"))
@@ -55,14 +55,14 @@ public class MenuServiceImpl implements MenuService {
         return trees;
     }
 
-    public MenuInc getTree(Menu s, Set<Menu> menus) {
+    public MenuInc getTree(Menu s, List<Menu> menus) {
         MenuInc t = new MenuInc();
         copyProperties(s, t);
         t.setChildrens(getChild(t.getId(), menus));
         return t;
     }
 
-    public List<MenuInc> getChild(String pid, Set<Menu> menus) {
+    public List<MenuInc> getChild(String pid, List<Menu> menus) {
         List<MenuInc> t = Lists.newArrayList();
         menus.forEach(s -> {
             if (s.getPid().equals(pid))

@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @program: zdsub
@@ -19,7 +20,9 @@ public class Policyfile {
     @GenericGenerator(name = "uuid",strategy = "uuid")
     @GeneratedValue(generator = "uuid")
     protected String id;
+    @NotBlank(message = "标题不能为空！")
     protected String title;
+    @NotBlank(message = "文件URL不有为空！")
     protected String url;
     protected String create_time;
     @OneToOne

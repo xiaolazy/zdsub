@@ -3,6 +3,7 @@ package com.zdsub.entity.role;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.common.collect.Lists;
 import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.menu.Menu;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -38,5 +40,5 @@ public class Role {
     @JoinTable(name = "ROLE_MENU",
             joinColumns = @JoinColumn(name = "ROLE_ID"),
             inverseJoinColumns = @JoinColumn(name = "MENU_ID"))
-    protected Set<Menu> menus = new HashSet<>();
+    protected List<Menu> menus = Lists.newArrayList();
 }
