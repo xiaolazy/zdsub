@@ -33,10 +33,7 @@ public class Menu {
     protected String create_user;
     protected String update_user;
     protected String pid;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "menus")
     @JsonIgnore
-    @JoinTable(name = "MENU_ROLE",
-    joinColumns = @JoinColumn(name = "MENU_ID"),
-    inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     protected Set<Role> roles = new HashSet<>();
 }

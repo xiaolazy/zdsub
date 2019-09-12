@@ -5,6 +5,7 @@ import com.zdsub.component.annotion.ValidLog;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.entity.role.Role;
+import com.zdsub.entity.role.increase.RoleInc;
 import com.zdsub.service.role.RoleService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +39,10 @@ public class RoleControl {
     }
     @PostMapping("add")
     @ValidLog
-    public ResponseBean add(@Valid @RequestBody Role role, BindingResult b){
+    public ResponseBean add(@Valid @RequestBody Role role, BindingResult b) throws Exception{
+        roleService.add(role);
         try{
-            roleService.add(role);
+
             return ResponseBean.SUCCESS("权限新增成功！");
         }catch (Exception e){
             return ResponseBean.FAILD("新增权限失败！请稍候重试");
@@ -48,7 +50,7 @@ public class RoleControl {
     }
     @PostMapping("update")
     @ValidLog
-    public ResponseBean update(@Valid @RequestBody Role role,BindingResult b){
+    public ResponseBean update(@Valid @RequestBody RoleInc role, BindingResult b){
         try{
             roleService.update(role);
             return ResponseBean.SUCCESS("修改成功！");
