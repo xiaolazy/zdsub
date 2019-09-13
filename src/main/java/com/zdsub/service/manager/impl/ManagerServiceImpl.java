@@ -47,13 +47,12 @@ public class ManagerServiceImpl implements ManagerService {
         isBlank(id,"查询用户Id不能为空！");
         ManagerInc res = new ManagerInc();
         Manager m = managerDao.find(id);
-        res.setSchName(schoolDao.find(m.getSch_id()).getSch_name());
-        res.setRoleName(roleDao.find(m.getRole_id()).getRole_name());
-        res.setCreateName(managerDao.find(m.getCreate_user()).getUser_name());
+        res.setCreateName(getManagerName(m.getCreate_user()));
+        res.setRoleName(getRoleName(m.getRole_id()));
+        res.setSchName(getSchName(m.getSch_id()));
         copyProperties(m,res);
         return res;
     }
-
     @Override
     public Page<ManagerInc> getPage(Page<Manager> page) {
         Page<ManagerInc> managerIncPage = new Page<>();
@@ -66,12 +65,9 @@ public class ManagerServiceImpl implements ManagerService {
         List<Manager> resultList = rPage.getResultList();
         resultList.forEach(e->{
             ManagerInc m = new ManagerInc();
-            Role role = roleDao.find(e.getRole_id());
-            School school = schoolDao.find(e.getSch_id());
-            Manager manager = managerDao.find(e.getCreate_user());
-            m.setCreateName(manager.getUser_name());
-            m.setRoleName(role.getRole_name());
-            m.setSchName(school.getSch_name());
+            m.setCreateName(getManagerName(e.getCreate_user()));
+            m.setRoleName(getRoleName(e.getRole_id()));
+            m.setSchName(getSchName(e.getSch_id()));
             copyProperties(e,m);
             res.add(m);
         });
@@ -130,5 +126,17 @@ public class ManagerServiceImpl implements ManagerService {
         target.setRole_id(role.getId());
         target.setCreate_time(DateUtil.getDate());
         target.setCreate_user(TokenBean.activeUserId.get());
+    }
+    private String getRoleName(String id){
+        Role role = roleDao.find(id);
+        return role == null ? "无":role.getRole_name();
+    }
+    private String getSchName(String id){
+        School school = schoolDao.find(id);
+        return school == null ? "无": school.getSch_name();
+    }
+    private String getManagerName(String id){
+        Manager manager = managerDao.find(id);
+        return manager == null ? "无":manager.getUser_name();
     }
 }

@@ -3,6 +3,7 @@ package com.zdsub.entity.manager;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zdsub.entity.role.Role;
+import com.zdsub.entity.university.School;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
