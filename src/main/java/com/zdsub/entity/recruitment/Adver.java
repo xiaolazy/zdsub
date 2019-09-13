@@ -30,7 +30,7 @@ public class Adver {
     protected int read_num;//阅读数
     protected String create_time;
     @ManyToOne
-    @JoinColumn(name = "c")
+    @JoinColumn(name = "create_user")
     protected Manager create_user;
     protected String update_time;
     protected String update_user;
