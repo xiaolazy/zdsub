@@ -1,5 +1,6 @@
 package com.zdsub.entity.recruitment;
 
+import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.university.School;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +29,9 @@ public class Adver {
     protected String context;
     protected int read_num;//阅读数
     protected String create_time;
-    protected String create_user;
+    @ManyToOne
+    @JoinColumn(name = "create_user")
+    protected Manager create_user;
     protected String update_time;
     protected String update_user;
     @ManyToOne

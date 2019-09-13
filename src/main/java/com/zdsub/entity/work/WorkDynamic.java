@@ -1,5 +1,6 @@
 package com.zdsub.entity.work;
 
+import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.university.School;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +36,9 @@ public class WorkDynamic {
     @JoinColumn(name = "sch_id")
     protected School school;
     protected String create_time;
-    protected String create_user;
+    @ManyToOne
+    @JoinColumn(name = "create_user")
+    protected Manager create_user;
     protected String uptate_time;
     protected String uptate_user;
 }

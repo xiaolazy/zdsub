@@ -4,6 +4,7 @@ import com.zdsub.common.constant.Common;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.token.TokenBean;
+import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.recruitment.AdverDao;
 import com.zdsub.dao.university.SchoolDao;
 import com.zdsub.entity.recruitment.Adver;
@@ -37,6 +38,9 @@ public class AdverServiceImpl implements AdverService {
     @Autowired
     private SchoolDao schoolDao;
 
+    @Autowired
+    private ManagerDao managerDao;
+
     @Override
     public void add(AdverInc adverInc) {
         Adver adver = new Adver();
@@ -44,7 +48,7 @@ public class AdverServiceImpl implements AdverService {
         School school = getSchool(adverInc);
         adver.setSchool(school);
         adver.setCreate_time(DateUtil.getDateTime());
-        adver.setCreate_user(TokenBean.activeUserId.get());
+        adver.setCreate_user(managerDao.find(TokenBean.activeUserId.get()));
         adver.setUpdate_time(DateUtil.getDateTime());
         adver.setUpdate_user(TokenBean.activeUserId.get());
         adverDao.save(adver);

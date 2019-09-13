@@ -3,6 +3,7 @@ package com.zdsub.service.work.impl;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.token.TokenBean;
+import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.work.ProcessDao;
 import com.zdsub.entity.recruitment.Adver;
 import com.zdsub.entity.work.Process;
@@ -31,12 +32,15 @@ public class ProcessServiceImpl implements ProcessService {
     @Autowired
     private ProcessDao processDao;
 
+    @Autowired
+    private ManagerDao managerDao;
+
     @Override
     public void add(ProcessInc processInc) {
         Process process = new Process();
         BeanUtils.copyProperties(processInc, process);
         process.setCreate_time(DateUtil.getDateTime());
-        process.setCreate_user(TokenBean.activeUserId.get());
+        process.setCreate_user(managerDao.find(TokenBean.activeUserId.get()));
         process.setUpdate_time(DateUtil.getDateTime());
         process.setUpdate_user(TokenBean.activeUserId.get());
         processDao.save(process);

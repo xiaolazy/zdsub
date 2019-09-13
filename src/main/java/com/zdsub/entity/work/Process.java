@@ -1,13 +1,11 @@
 package com.zdsub.entity.work;
 
+import com.zdsub.entity.manager.Manager;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @BelongsProject: zdsub
@@ -29,7 +27,9 @@ public class Process {
     protected String context;
     protected String sch_id;
     protected String create_time;
-    protected String create_user;
+    @ManyToOne
+    @JoinColumn(name = "create_user")
+    protected Manager create_user;
     protected String update_time;
     protected String update_user;
 

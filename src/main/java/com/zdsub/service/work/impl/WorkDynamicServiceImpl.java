@@ -4,6 +4,7 @@ import com.zdsub.common.constant.Common;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.token.TokenBean;
+import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.university.SchoolDao;
 import com.zdsub.dao.work.WorkDynamicDao;
 import com.zdsub.entity.recruitment.increase.AdverInc;
@@ -35,6 +36,8 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
 
     @Autowired
     private SchoolDao schoolDao;
+    @Autowired
+    private ManagerDao managerDao;
 
     @Override
     public void add(WorkDynamicInc workDynamicInc) {
@@ -43,9 +46,9 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
         School school = getSchool(workDynamicInc);
         workDynamic.setSchool(school);
         workDynamic.setCreate_time(DateUtil.getDateTime());
-        workDynamic.setCreate_user(TokenBean.activeUserId.get());
+        workDynamic.setCreate_user(managerDao.find(TokenBean.activeUserId.get()));
         workDynamic.setUptate_time(DateUtil.getDateTime());
-        workDynamic.setCreate_user(TokenBean.activeUserId.get());
+        workDynamic.setUptate_user(TokenBean.activeUserId.get());
         workDynamicDao.save(workDynamic);
     }
 
