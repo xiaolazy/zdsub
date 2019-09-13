@@ -62,7 +62,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
         String protalURL = protalURL(servletPath);
         //获取前台凭证
         String authorization = request.getHeader(AUTHORIZATION);
-        if (servletPath.equals(LOINGURL) || protalURL.equals(ROOT) || servletPath.equals(REGISTERURL) || protalURL.equals(PORTALURL))
+        if (servletPath.equals(LOINGURL)||servletPath.equals(LOGOUTURL) || protalURL.equals(ROOT) || servletPath.equals(REGISTERURL) || protalURL.equals(PORTALURL))
             filterChain.doFilter(request, response);
             //用户登录后，操作门户时更新Token过期时间
         else if (protalURL.equals(PORTALURL) && StringUtils.isNotBlank(authorization)) {

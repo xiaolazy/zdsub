@@ -23,6 +23,7 @@ public interface Common {
     static final String ROOT = "/";
     //登录路径
     static final String LOINGURL="/manager/login";
+    static final String LOGOUTURL="/manager/logout";
     //注册路径
     static final String REGISTERURL="/manager/register";
     static final String LOGOUT = "logout";
