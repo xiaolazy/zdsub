@@ -60,7 +60,7 @@ public class SchollController {
             e.printStackTrace();
             return ResponseBean.FAILD("删除失败！请稍候重试或联系管理员");
         }
-        return ResponseBean.SUCCESS("新增成功！");
+        return ResponseBean.SUCCESS("删除成功！");
 
     }
 

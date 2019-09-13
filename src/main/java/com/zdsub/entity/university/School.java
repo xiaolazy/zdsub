@@ -33,7 +33,7 @@ public class School {
     protected Integer rec_school;
     protected Integer is_zup;
     @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    protected transient Set<Adver> positions = new HashSet<>();
+    protected transient Set<Adver> advers = new HashSet<>();
     @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected transient Set<WorkDynamic> workDynamics = new HashSet<>();
     protected String create_time;
