@@ -36,8 +36,8 @@ public class MenuServiceImpl implements MenuService {
     private RoleDao roleDao;
 
     @Override
-    public MenuRole findNotParent() {
-        List<Menu> menus = roleDao.find(managerDao.find(TokenBean.activeUserId.get()).getRole_id()).getMenus();
+    public MenuRole findNotParent(String id) {
+        List<Menu> menus = roleDao.find(id).getMenus();
         List<String> ids = Lists.newArrayList();
         menus.forEach(e -> {
             if (!e.getMenu_url().equals(Common.ROOT))

@@ -14,6 +14,6 @@ public interface MenuService {
      *@Author lyy
      */
     List<MenuInc> getMenuTree();
-    MenuRole findNotParent();
+    MenuRole findNotParent(String id);
     List<Menu> findAll();
 }
