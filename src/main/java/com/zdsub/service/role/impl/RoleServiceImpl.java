@@ -75,6 +75,8 @@ public class RoleServiceImpl implements RoleService {
             isNull(menu, "权限所选菜单不存在！");
             menus.add(menu);
         });
+        List<Menu> parent = menuDao.getParent();
+        menus.addAll(parent);
         BeanUtils.copyProperties(role, newRole);
         newRole.setMenus(menus);
         roleDao.update(newRole);
