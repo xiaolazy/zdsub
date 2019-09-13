@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import static com.zdsub.utils.PageUtil.*;
 import static com.zdsub.utils.ExceptionUtil.*;
 import javax.annotation.Resource;
+import java.sql.Date;
 
 /**
  * @program: zdsub
@@ -29,10 +30,16 @@ public class PolicyfileServiceImpl implements PolicyfileService {
     private ManagerDao managerDao;
     @Override
     public Page<Policyfile> getPage(Page<Policyfile> page) {
+        Page<Policyfile> newPage = new Page<Policyfile>();
         if(page.getCondition() == null)
-            return policyfileDao.findPage(page);
+            newPage = policyfileDao.findPage(page);
         else
-            return policyfileDao.findPage(page,getRestrictions("title",page.getCondition().getTitle()));
+            newPage = policyfileDao.findPage(page,getRestrictions("title",page.getCondition().getTitle()));
+        newPage.getResultList().forEach(e->{
+            e.getCreate_user().setPass_word("");
+            e.getCreate_user().setTelephone("");
+        });
+        return newPage;
     }
     @Override
     public Policyfile findById(String id) {
@@ -44,6 +51,7 @@ public class PolicyfileServiceImpl implements PolicyfileService {
     public void add(Policyfile policyfile) throws Exception {
         policyfile.setCreate_user(managerDao.find(TokenBean.activeUserId.get()));
         setPolicyfile(policyfile);
+        policyfile.setCreate_time(new java.sql.Timestamp(DateUtil.getSysDate().getTime()));
         policyfileDao.save(policyfile);
     }
 
@@ -52,14 +60,12 @@ public class PolicyfileServiceImpl implements PolicyfileService {
         isBlank(policyfile.getId(),"修改失败，ID不能为空!");
         Policyfile newPo = policyfileDao.find(policyfile.getId());
         copyProperties(policyfile,newPo);
-        newPo.setUpdate_user(TokenBean.activeUserId.get());
-        newPo.setUpdate_time(DateUtil.getDate());
+        setPolicyfile(newPo);
         policyfileDao.update(newPo);
     }
 
     private static void setPolicyfile(Policyfile policyfile){
-        policyfile.setCreate_time(DateUtil.getDate());
-        policyfile.setUpdate_time(DateUtil.getDate());
+        policyfile.setUpdate_time(new java.sql.Timestamp(DateUtil.getSysDate().getTime()));
         policyfile.setUpdate_user(TokenBean.activeUserId.get());
     }
 }

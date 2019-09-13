@@ -2,6 +2,7 @@ package com.zdsub.service.menu;
 
 import com.zdsub.entity.menu.Menu;
 import com.zdsub.entity.menu.increase.MenuInc;
+import com.zdsub.entity.menu.increase.MenuRole;
 
 import java.util.List;
 
@@ -13,6 +14,6 @@ public interface MenuService {
      *@Author lyy
      */
     List<MenuInc> getMenuTree();
-    List<Menu> findNotParent();
+    MenuRole findNotParent();
     List<Menu> findAll();
 }
