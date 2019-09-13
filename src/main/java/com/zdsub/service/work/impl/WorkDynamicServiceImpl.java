@@ -103,15 +103,18 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
     private void showWorkDynamic(WorkDynamic workDynamic) {
         Manager create_user = workDynamic.getCreate_user();
         create_user.setId("");
-        create_user.setCreate_user("");
-        create_user.setSch_id("");
-        create_user.setCreate_time("");
-        create_user.setPass_word("");
         create_user.setRole_id("");
         create_user.setTelephone("");
-
-        //showManager.setUser_name(Optional.ofNullable(create_user).map(Manager::getUser_name).orElse(","));
-        //workDynamic.setCreate_user(Optional.ofNullable(showManager).get());
+        create_user.setCreate_user("");
+        create_user.setPass_word("");
+        create_user.setSch_id("");
+        create_user.setCreate_time("");
+        if (create_user != null) {
+            create_user.setUser_name(create_user.getUser_name());
+        } else {
+            create_user.setUser_name("无");
+        }
+        workDynamic.setCreate_user(create_user);
     }
 
     @Override

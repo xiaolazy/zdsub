@@ -16,10 +16,10 @@ import java.util.Date;
  * @CreateTime: 2019-09-06 09:33
  * @Description:
  */
-@Entity
-@Table(name = "advertises")
 @Getter
 @Setter
+@Entity
+@Table(name = "advertises")
 public class Adver {
     @Id
     @GenericGenerator(strategy = "uuid", name = "uuidGen")
@@ -30,7 +30,7 @@ public class Adver {
     protected int read_num;//阅读数
     protected String create_time;
     @ManyToOne
-    @JoinColumn(name = "create_user")
+    @JoinColumn(name = "c")
     protected Manager create_user;
     protected String update_time;
     protected String update_user;

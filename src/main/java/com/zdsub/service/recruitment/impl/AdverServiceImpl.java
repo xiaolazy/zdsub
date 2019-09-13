@@ -103,16 +103,21 @@ public class AdverServiceImpl implements AdverService {
         return adver;
     }
 
-    private Adver showAdver(Adver adver) {
+    private void showAdver(Adver adver) {
         Manager create_user = adver.getCreate_user();
         create_user.setId("");
-        create_user.setCreate_user("");
+
         create_user.setSch_id("");
         create_user.setCreate_time("");
         create_user.setTelephone("");
         create_user.setPass_word("");
         create_user.setRole_id("");
-        return adver;
+        create_user.setCreate_user("");
+        if (create_user != null) {
+            create_user.setUser_name(create_user.getUser_name());
+        } else {
+            create_user.setUser_name("无");
+        }
     }
 
 

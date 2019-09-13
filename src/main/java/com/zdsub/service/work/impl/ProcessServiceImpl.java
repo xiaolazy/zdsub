@@ -5,7 +5,7 @@ import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.work.ProcessDao;
-import com.zdsub.entity.recruitment.Adver;
+import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.work.Process;
 import com.zdsub.entity.work.increase.ProcessInc;
 import com.zdsub.service.work.ProcessService;
@@ -15,7 +15,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 import static com.zdsub.utils.PageUtil.getRestrictions;
 
@@ -68,7 +67,28 @@ public class ProcessServiceImpl implements ProcessService {
             processPage = processDao.findPage(page);
         else
             processPage = processDao.findPage(page, getRestrictions("path_name", page.getCondition().getPath_name()));
+
+        processPage.getResultList().forEach((process) -> {
+            showProcess(process);
+        });
         return processPage;
+    }
+
+    private void showProcess(Process process) {
+        Manager create_user = process.getCreate_user();
+        create_user.setId("");
+        create_user.setRole_id("");
+        create_user.setCreate_user("");
+        create_user.setSch_id("");
+        create_user.setCreate_time("");
+        create_user.setTelephone("");
+        create_user.setPass_word("");
+        if (create_user != null) {
+            create_user.setUser_name(create_user.getUser_name());
+        } else {
+            create_user.setUser_name("无");
+        }
+        process.setCreate_user(create_user);
     }
 
     @Override
@@ -82,6 +102,7 @@ public class ProcessServiceImpl implements ProcessService {
             log.error("查询id为" + id + "的路线，已不再数据库中了");
             throw new GlobalException("该条路线记录已被删除了");
         }
+        showProcess(process);
         return process;
     }
 }
