@@ -60,18 +60,9 @@ public class DemandManageServiceImpl implements DemandManageService {
         demandManageDao.delete(id);
     }
 
-    @Override
-    public Page<DemandManage> page(Page page) {
-        return null;
-    }
 
     @Override
-    public Page<DemandManage> page(PageCondition<DemandManage> demandManagePageCondition) {
-        return null;
-    }
-
-
-    public Page<DemandManageInc> getPage(Page<DemandManage> page) {
+    public Page<DemandManageInc> page(Page<DemandManage> page) {
         Page<DemandManageInc> demandManageIncPage = new Page<>();
         List<DemandManageInc> res = new ArrayList<>();
         Page<DemandManage> rPage = null;

@@ -30,15 +30,9 @@ public interface DemandManageService {
      */
     void remove(String id);
 
-    /**
-     * 分页查询学校
-     *
-     * @param page
-     * @return
-     */
-    Page<DemandManage> page(Page page);
 
-    Page<DemandManage> page(PageCondition<DemandManage> demandManagePageCondition);
+
+    Page<DemandManageInc> page(Page<DemandManage> page);
 
     /**
      * 查看学校
