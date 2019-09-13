@@ -36,6 +36,6 @@ public class WorkDynamic {
     protected School school;
     protected String create_time;
     protected String create_user;
-    protected String update_time;
-    protected String update_user;
+    protected String uptate_time;
+    protected String uptate_user;
 }

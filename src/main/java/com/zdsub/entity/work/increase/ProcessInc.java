@@ -23,10 +23,5 @@ public class ProcessInc {
     @Length(max = 48, message = "传入的长度不能大于48")
     protected String path_name;
     protected String context;
-    protected String sch_id;
-    protected String create_time;
-    protected String create_user;
-    protected String update_time;
-    protected String update_user;
 
 }

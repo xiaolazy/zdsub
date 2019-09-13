@@ -1,14 +1,19 @@
 package com.zdsub.service.work.impl;
 
+import com.zdsub.common.constant.Common;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.token.TokenBean;
+import com.zdsub.dao.university.SchoolDao;
 import com.zdsub.dao.work.WorkDynamicDao;
-import com.zdsub.entity.work.Process;
+import com.zdsub.entity.recruitment.increase.AdverInc;
+import com.zdsub.entity.university.School;
 import com.zdsub.entity.work.WorkDynamic;
+import com.zdsub.entity.work.increase.WorkDynamicInc;
 import com.zdsub.service.work.WorkDynamicService;
 import com.zdsub.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,20 +33,42 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
     @Autowired
     private WorkDynamicDao workDynamicDao;
 
+    @Autowired
+    private SchoolDao schoolDao;
+
     @Override
-    public void add(WorkDynamic workDynamic) {
+    public void add(WorkDynamicInc workDynamicInc) {
+        WorkDynamic workDynamic=new WorkDynamic();
+        BeanUtils.copyProperties(workDynamicInc, workDynamic);
+        School school = getSchool(workDynamicInc);
+        workDynamic.setSchool(school);
         workDynamic.setCreate_time(DateUtil.getDateTime());
         workDynamic.setCreate_user(TokenBean.activeUserId.get());
-        workDynamic.setUpdate_time(DateUtil.getDateTime());
-        workDynamic.setUpdate_user(TokenBean.activeUserId.get());
+        workDynamic.setUptate_time(DateUtil.getDateTime());
+        workDynamic.setCreate_user(TokenBean.activeUserId.get());
         workDynamicDao.save(workDynamic);
     }
 
+    /**
+     * 查找关联的学校记录存不存在
+     *
+     * @param workDynamicInc
+     * @return
+     */
+    private School getSchool(WorkDynamicInc workDynamicInc) {
+        School school = schoolDao.find(workDynamicInc.getSchId());
+        if (school == null) {
+            log.error("查找名为" + school.getId() + "的学校记录，已不再数据库中了");
+            throw new GlobalException(Common.FAIL, "选择该关联的学校记录已被删除了");
+        }
+        return school;
+    }
     @Override
-    public void edit(WorkDynamic workDynamic) {
-        get(workDynamic.getId());
-        workDynamic.setUpdate_user(TokenBean.activeUserId.get());
-        workDynamic.setUpdate_time(DateUtil.getDateTime());
+    public void edit(WorkDynamicInc workDynamicInc) {
+        WorkDynamic workDynamic = get(workDynamicInc.getId());
+        BeanUtils.copyProperties(workDynamicInc,workDynamic);
+        workDynamic.setUptate_time(DateUtil.getDateTime());
+        workDynamic.setUptate_user(TokenBean.activeUserId.get());
         workDynamicDao.update(workDynamic);
     }
 

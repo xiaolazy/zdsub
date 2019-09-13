@@ -4,6 +4,7 @@ import com.zdsub.common.ResultBean.ResponseBean;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.annotion.ValidLog;
 import com.zdsub.entity.work.WorkDynamic;
+import com.zdsub.entity.work.increase.WorkDynamicInc;
 import com.zdsub.service.work.WorkDynamicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -19,23 +20,33 @@ import javax.validation.Valid;
  * @Description:
  */
 @RestController
-@RequestMapping("/workDynamic/")
+@RequestMapping("/work/")
 public class WorkDynamicController {
     @Autowired
     private WorkDynamicService workDynamicService;
 
     @PostMapping("add")
     @ValidLog
-    public ResponseBean add(@RequestBody @Valid WorkDynamic workDynamic, BindingResult bindingResult) {
-        workDynamicService.add(workDynamic);
-        return ResponseBean.SUCCESS();
+    public ResponseBean add(@RequestBody @Valid WorkDynamicInc workDynamicInc, BindingResult bindingResult) {
+        try{
+            workDynamicService.add(workDynamicInc);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseBean.FAILD("新增错误！请稍候重试或联系管理员");
+        }
+        return ResponseBean.SUCCESS("新增成功！");
     }
 
     @PostMapping("edit")
     @ValidLog
-    public ResponseBean edit(@RequestBody @Valid WorkDynamic workDynamic,BindingResult bindingResult) {
-        workDynamicService.edit(workDynamic);
-        return ResponseBean.SUCCESS();
+    public ResponseBean edit(@RequestBody @Valid WorkDynamicInc workDynamic, BindingResult bindingResult) {
+        try{
+            workDynamicService.edit(workDynamic);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseBean.FAILD("修改错误！请稍候重试或联系管理员");
+        }
+        return ResponseBean.SUCCESS("修改成功！");
     }
 
     @GetMapping("remove/{id}")
