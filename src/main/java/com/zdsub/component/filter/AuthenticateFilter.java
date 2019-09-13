@@ -129,7 +129,6 @@ public class AuthenticateFilter extends OncePerRequestFilter {
      *@Author lyy
      */
     private static String protalURL(String url) {
-        System.out.println(url.length() + "------------");
         if (url.length() < SUBSTRING_LENG_END)
             return ROOT;
         else
