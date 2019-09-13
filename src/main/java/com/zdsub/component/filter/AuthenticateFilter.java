@@ -185,7 +185,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
      */
     private static boolean permission(String protalURL) {
         //再次处理路径
-        protalURL = protalURL.substring(0,protalURL.indexOf("/"));
+        protalURL = protalURL.substring(0,protalURL.indexOf("/")==-1 ? protalURL.length():protalURL.indexOf("/"));
         //权限认证
         if(TokenPermission.getInstance().isEmpty())
             return false;

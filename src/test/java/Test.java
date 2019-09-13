@@ -124,6 +124,7 @@ public class Test {
     }
     @org.junit.Test
     public void t(){
+        System.out.println("jdlkjf".indexOf("/"));
         System.out.println(1<<4);
         System.out.println(1>>4);
         System.out.println(16>>4);
