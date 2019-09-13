@@ -73,12 +73,8 @@ public class RoleServiceImpl implements RoleService {
         role.getIds().forEach(e -> {
             Menu menu = menuDao.find(e);
             isNull(menu, "权限所选菜单不存在！");
-            //修改权限时更新当前用户的权限
-            if (!menu.getMenu_url().equals(Common.ROOT))
-                urls.add(menu.getMenu_url());
             menus.add(menu);
         });
-        SetPermission(urls);
         BeanUtils.copyProperties(role, newRole);
         newRole.setMenus(menus);
         roleDao.update(newRole);
