@@ -126,30 +126,32 @@ public class Test {
     }
     @org.junit.Test
     public void t(){
-        List<String> menus = new ArrayList<>();
-        menus.add("88");
-        menus.add("7");
-        menus.add("9");
-        menus.add("6");
-        for (int i = 0; i < menus.size(); i++) {
-            menus.remove(2);
-        }
-        System.out.println(menus.size());
+        System.out.println(101^010);
         System.out.println();
-        System.out.println(new java.sql.Date(DateUtil.getSysDate().getTime()));
-        System.out.println("23".hashCode());
-        System.out.println("jdlkjf".indexOf("/"));
-        System.out.println(1<<4);
-        System.out.println(1>>4);
-        System.out.println(16>>4);
-        System.out.println(16>>1);
-        System.out.println(2<<4);
-        System.out.println(1<<5);
-        String protalURL = "/manager/aabb";
-        System.out.println(protalURL.contains("ma"));
-        System.out.println("ma".contains(protalURL));
-        System.out.println(protalURL.substring(1,protalURL.lastIndexOf("/")));
-        System.out.println(protalURL.substring(protalURL.indexOf("/")+1,protalURL.length()));
+//        List<String> menus = new ArrayList<>();
+//        menus.add("88");
+//        menus.add("7");
+//        menus.add("9");
+//        menus.add("6");
+//        for (int i = 0; i < menus.size(); i++) {
+//            menus.remove(2);
+//        }
+//        System.out.println(menus.size());
+//        System.out.println();
+//        System.out.println(new java.sql.Date(DateUtil.getSysDate().getTime()));
+//        System.out.println("23".hashCode());
+//        System.out.println("jdlkjf".indexOf("/"));
+//        System.out.println(1<<4);
+//        System.out.println(1>>4);
+//        System.out.println(16>>4);
+//        System.out.println(16>>1);
+//        System.out.println(2<<4);
+//        System.out.println(1<<5);
+//        String protalURL = "/manager/aabb";
+//        System.out.println(protalURL.contains("ma"));
+//        System.out.println("ma".contains(protalURL));
+//        System.out.println(protalURL.substring(1,protalURL.lastIndexOf("/")));
+//        System.out.println(protalURL.substring(protalURL.indexOf("/")+1,protalURL.length()));
     }
 }
 

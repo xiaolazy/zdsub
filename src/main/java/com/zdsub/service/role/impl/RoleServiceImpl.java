@@ -97,6 +97,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void showActivePermission(String id) {
         Role role = roleDao.find(id);
+        isNull(role,"所登录用户没有权限，请联系管理！");
         List<Menu> menus = role.getMenus();
         HashSet<String> urls = Sets.newHashSet();
         menus.forEach(e -> {
