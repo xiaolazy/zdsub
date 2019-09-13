@@ -121,7 +121,7 @@ public class PolicyfileControl {
             logger.error("IOException e 上传文件异常：读取文件异常");
             return ResponseBean.FAILD("上传文件异常！！");
         }
-        return ResponseBean.SUCCESS(savefilepath + filename);
+        return ResponseBean.SUCCESS(savefilepath);
     }
     /*@description：文件下载
      *@Date：2019/9/12 13:50
