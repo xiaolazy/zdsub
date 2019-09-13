@@ -68,14 +68,6 @@ public class ProcessServiceImpl implements ProcessService {
             processPage = processDao.findPage(page);
         else
             processPage = processDao.findPage(page, getRestrictions("path_name", page.getCondition().getPath_name()));
-        /*List<Adver> resultList = adverPage.getResultList();
-        adverPage.setPageNo(adverPage.getPageNo());
-        adverPage.setPageSize(adverPage.getPageSize());
-        adverPage.setResultList(resultList);
-        if(page.getCondition()!=null){
-            Process process = (Process) page.getCondition();
-            process.setPath_name("%" + process.getPath_name() + "%");
-        }*/
         return processPage;
     }
 

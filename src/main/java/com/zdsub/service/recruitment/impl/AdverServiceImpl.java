@@ -7,6 +7,7 @@ import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.recruitment.AdverDao;
 import com.zdsub.dao.university.SchoolDao;
+import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.recruitment.Adver;
 import com.zdsub.entity.recruitment.increase.AdverInc;
 import com.zdsub.entity.university.School;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.zdsub.utils.PageUtil.getRestrictions;
 
@@ -97,8 +99,22 @@ public class AdverServiceImpl implements AdverService {
             log.error("查找名为" + id + "的人才记录，已不再数据库中了");
             throw new GlobalException(Common.FAIL, "该条人才记录已被删除了");
         }
+        showAdver(adver);
         return adver;
     }
+
+    private Adver showAdver(Adver adver) {
+        Manager create_user = adver.getCreate_user();
+        create_user.setId("");
+        create_user.setCreate_user("");
+        create_user.setSch_id("");
+        create_user.setCreate_time("");
+        create_user.setTelephone("");
+        create_user.setPass_word("");
+        create_user.setRole_id("");
+        return adver;
+    }
+
 
     @Override
     public Page<Adver> page(Page<Adver> page) {
@@ -107,10 +123,9 @@ public class AdverServiceImpl implements AdverService {
             adverPage = adverDao.findPage(page);
         else
             adverPage = adverDao.findPage(page, getRestrictions("title", page.getCondition().getTitle()));
-        List<Adver> resultList = adverPage.getResultList();
-        adverPage.setPageNo(adverPage.getPageNo());
-        adverPage.setPageSize(adverPage.getPageSize());
-        adverPage.setResultList(resultList);
+        adverPage.getResultList().forEach((adver) -> {
+            showAdver(adver);
+        });
         return adverPage;
     }
 

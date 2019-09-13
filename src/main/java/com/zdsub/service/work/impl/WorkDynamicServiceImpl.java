@@ -7,6 +7,8 @@ import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.university.SchoolDao;
 import com.zdsub.dao.work.WorkDynamicDao;
+import com.zdsub.entity.manager.Manager;
+import com.zdsub.entity.recruitment.Adver;
 import com.zdsub.entity.recruitment.increase.AdverInc;
 import com.zdsub.entity.university.School;
 import com.zdsub.entity.work.WorkDynamic;
@@ -17,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 import static com.zdsub.utils.PageUtil.getRestrictions;
 
@@ -41,7 +45,7 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
 
     @Override
     public void add(WorkDynamicInc workDynamicInc) {
-        WorkDynamic workDynamic=new WorkDynamic();
+        WorkDynamic workDynamic = new WorkDynamic();
         BeanUtils.copyProperties(workDynamicInc, workDynamic);
         School school = getSchool(workDynamicInc);
         workDynamic.setSchool(school);
@@ -66,10 +70,11 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
         }
         return school;
     }
+
     @Override
     public void edit(WorkDynamicInc workDynamicInc) {
         WorkDynamic workDynamic = get(workDynamicInc.getId());
-        BeanUtils.copyProperties(workDynamicInc,workDynamic);
+        BeanUtils.copyProperties(workDynamicInc, workDynamic);
         workDynamic.setUptate_time(DateUtil.getDateTime());
         workDynamic.setUptate_user(TokenBean.activeUserId.get());
         workDynamicDao.update(workDynamic);
@@ -89,11 +94,24 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
             workDynamicPage = workDynamicDao.findPage(page);
         else
             workDynamicPage = workDynamicDao.findPage(page, getRestrictions("title", page.getCondition().getTitle()));
-    /*    if (page.getCondition() != null) {
-            WorkDynamic workDynamic = (WorkDynamic) page.getCondition();
-            workDynamic.setTitle("%" + workDynamic.getTitle() + "%");
-        }*/
+        workDynamicPage.getResultList().forEach((workDynamic) -> {
+            showWorkDynamic(workDynamic);
+        });
         return workDynamicPage;
+    }
+
+    private void showWorkDynamic(WorkDynamic workDynamic) {
+        Manager create_user = workDynamic.getCreate_user();
+        create_user.setId("");
+        create_user.setCreate_user("");
+        create_user.setSch_id("");
+        create_user.setCreate_time("");
+        create_user.setPass_word("");
+        create_user.setRole_id("");
+        create_user.setTelephone("");
+
+        //showManager.setUser_name(Optional.ofNullable(create_user).map(Manager::getUser_name).orElse(","));
+        //workDynamic.setCreate_user(Optional.ofNullable(showManager).get());
     }
 
     @Override
@@ -107,6 +125,7 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
             log.error("查询id为" + id + "的工作状态，已不再数据库中了");
             throw new GlobalException("该条工作状态已被删除了");
         }
+        showWorkDynamic(workDynamic);
         return workDynamic;
     }
 
