@@ -22,14 +22,12 @@ public class Process {
     @Id
     @GenericGenerator(strategy = "uuid", name = "uuidGen")
     @GeneratedValue(generator = "uuidGen")
-    protected String id ;
+    protected String id;
     protected String path_name;
     protected String context;
     protected String sch_id;
     protected String create_time;
-    @ManyToOne
-    @JoinColumn(name = "create_user")
-    protected Manager create_user;
+    protected String create_user;
     protected String update_time;
     protected String update_user;
 

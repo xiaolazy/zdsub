@@ -14,6 +14,7 @@ import com.zdsub.entity.university.School;
 import com.zdsub.service.recruitment.AdverService;
 import com.zdsub.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,7 @@ public class AdverServiceImpl implements AdverService {
         School school = getSchool(adverInc);
         adver.setSchool(school);
         adver.setCreate_time(DateUtil.getDateTime());
-        adver.setCreate_user(managerDao.find(TokenBean.activeUserId.get()));
+        adver.setCreate_user(managerDao.find(TokenBean.activeUserId.get()).getUser_name());
         adver.setUpdate_time(DateUtil.getDateTime());
         adver.setUpdate_user(TokenBean.activeUserId.get());
         adverDao.save(adver);
@@ -99,27 +100,8 @@ public class AdverServiceImpl implements AdverService {
             log.error("查找名为" + id + "的人才记录，已不再数据库中了");
             throw new GlobalException(Common.FAIL, "该条人才记录已被删除了");
         }
-        showAdver(adver);
         return adver;
     }
-
-    private void showAdver(Adver adver) {
-        Manager create_user = adver.getCreate_user();
-        create_user.setId("");
-
-        create_user.setSch_id("");
-        create_user.setCreate_time("");
-        create_user.setTelephone("");
-        create_user.setPass_word("");
-        create_user.setRole_id("");
-        create_user.setCreate_user("");
-        if (create_user != null) {
-            create_user.setUser_name(create_user.getUser_name());
-        } else {
-            create_user.setUser_name("无");
-        }
-    }
-
 
     @Override
     public Page<Adver> page(Page<Adver> page) {
@@ -128,9 +110,6 @@ public class AdverServiceImpl implements AdverService {
             adverPage = adverDao.findPage(page);
         else
             adverPage = adverDao.findPage(page, getRestrictions("title", page.getCondition().getTitle()));
-        adverPage.getResultList().forEach((adver) -> {
-            showAdver(adver);
-        });
         return adverPage;
     }
 

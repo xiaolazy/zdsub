@@ -3,6 +3,7 @@ package com.zdsub.service.university.impl;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.token.TokenBean;
+import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.university.SchoolDao;
 import com.zdsub.entity.university.School;
 import com.zdsub.entity.university.increase.SchoolInc;
@@ -30,14 +31,16 @@ public class SchollServiceImpl implements SchollService {
 
     @Autowired
     private SchoolDao schoolDao;
+    @Autowired
+    private ManagerDao managerDao;
 
     @Override
     public void add(SchoolInc schoolInc) {
         School school = new School();
         BeanUtils.copyProperties(schoolInc, school);
         school.setCreate_time(DateUtil.getDateTime());
-        school.setCreate_user(TokenBean.activeUserId.get());
         school.setUpdate_time(DateUtil.getDateTime());
+        school.setCreate_user(managerDao.find(TokenBean.activeUserId.get()).getUser_name());
         school.setUpdate_user(TokenBean.activeUserId.get());
         schoolDao.save(school);
     }
@@ -64,10 +67,6 @@ public class SchollServiceImpl implements SchollService {
             rPage = schoolDao.findPage(schoolPage);
         else
             rPage = schoolDao.findPage(schoolPage, getRestrictions("sch_name", schoolPage.getCondition().getSch_name()));
-       /* List<School> resultList = rPage.getResultList();
-        rPage.setPageNo(rPage.getPageNo());
-        rPage.setPageSize(rPage.getPageSize());
-        rPage.setResultList(resultList);*/
         return rPage;
     }
 
