@@ -36,8 +36,11 @@ public class PolicyfileServiceImpl implements PolicyfileService {
         else
             newPage = policyfileDao.findPage(page,getRestrictions("title",page.getCondition().getTitle()));
         newPage.getResultList().forEach(e->{
-            e.getCreate_user().setPass_word("");
-            e.getCreate_user().setTelephone("");
+            if(e.getCreate_user() != null){
+                e.getCreate_user().setPass_word("");
+                e.getCreate_user().setTelephone("");
+            }
+
         });
         return newPage;
     }
@@ -66,6 +69,7 @@ public class PolicyfileServiceImpl implements PolicyfileService {
 
     @Override
     public void delById(String id) throws Exception {
+        isBlank(id,"删除ID不能为空！");
         Policyfile policyfile = policyfileDao.find(id);
         isNull(policyfile,"删除失败，内容不存在");
         policyfile.setCreate_user(null);
