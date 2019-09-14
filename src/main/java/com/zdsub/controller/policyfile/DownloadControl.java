@@ -1,10 +1,13 @@
 package com.zdsub.controller.policyfile;
 
 import com.zdsub.common.ResultBean.ResponseBean;
+import com.zdsub.service.university.SchollService;
 import org.apache.commons.io.FileUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +26,8 @@ import static com.zdsub.common.constant.Common.UPLOAD_PATH;
 @RestController
 @RequestMapping("/home/")
 public class DownloadControl {
+    @Resource
+    private SchollService schollService;
     /*@description：文件下载
      *@Date：2019/9/12 13:50
      *@Param：
@@ -31,9 +36,9 @@ public class DownloadControl {
      */
     @RequestMapping("download")
     public ResponseBean download(String path, HttpServletRequest req, HttpServletResponse res) throws IOException {
-        System.out.println("path-------"+path);
         if(path == "" || path == null)
             return ResponseBean.FAILD("文件名不存在！！");
+
         String oldPath =req.getSession().getServletContext().getRealPath("/") + UPLOAD_PATH;
         String realPath = oldPath + path;
         File file = new File(oldPath,path);
@@ -50,5 +55,9 @@ public class DownloadControl {
         out.flush();
         out.close();
         return ResponseBean.SUCCESS("下载成功！！");
+    }
+    @GetMapping("listAllSch")
+    public ResponseBean listAll() {
+        return ResponseBean.SUCCESS(schollService.listAll());
     }
 }
