@@ -45,10 +45,6 @@ public class DemandManageControl {
         return ResponseBean.SUCCESS(demandManageService.get(id));
     }
 
-    @GetMapping("listAll")
-    public ResponseBean listAll() {
-        return ResponseBean.SUCCESS(demandManageService.listAll());
-    }
 
     @PostMapping("page")
     public ResponseBean page(@RequestBody Page<DemandManage> page) {

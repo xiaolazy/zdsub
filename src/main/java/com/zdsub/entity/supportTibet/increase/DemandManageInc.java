@@ -10,6 +10,6 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 public class DemandManageInc extends DemandManage {
-    protected String sch_name;
-
+    @NotBlank(message = "所选择的学校不能为空")
+    protected String schId;
 }
