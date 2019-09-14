@@ -1,6 +1,7 @@
 package com.zdsub.entity.university;
 
 import com.zdsub.entity.recruitment.Adver;
+import com.zdsub.entity.supportTibet.DemandManage;
 import com.zdsub.entity.work.WorkDynamic;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,8 @@ public class School {
     protected transient Set<Adver> advers = new HashSet<>();
     @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected transient Set<WorkDynamic> workDynamics = new HashSet<>();
+    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    protected transient Set<DemandManage> demandManages = new HashSet<>();
     protected String create_time;
     protected String create_user;
     protected String update_time;

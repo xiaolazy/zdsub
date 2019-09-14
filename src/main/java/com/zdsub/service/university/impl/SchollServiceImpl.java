@@ -49,6 +49,7 @@ public class SchollServiceImpl implements SchollService {
     private Manager findManager() {
         Manager manager = managerDao.find(TokenBean.activeUserId.get());
         if (manager == null) {
+            manager=new Manager();
             manager.setUser_name("无");
         }
         return manager;

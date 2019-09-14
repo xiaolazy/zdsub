@@ -70,8 +70,8 @@ public class IndexController {
      * @param id
      * @return
      */
-    @GetMapping("work/toAdverShow/{id}")
-    public ResponseBean workToAdverShow(@PathVariable String id) {
+    @GetMapping("toWorkDynamicShow")
+    public ResponseBean workToAdverShow(String id) {
         return ResponseBean.SUCCESS(workDynamicService.toAdverShow(id));
     }
 
@@ -92,8 +92,8 @@ public class IndexController {
      * @param id
      * @return
      */
-    @GetMapping("policy/toPolicyShow/{id}")
-    public ResponseBean policyToAdverShow(@PathVariable String id) {
+    @GetMapping("toPolicyShow")
+    public ResponseBean policyToAdverShow(String id) {
         return ResponseBean.SUCCESS(policyfileService.findById(id));
     }
 
@@ -115,8 +115,8 @@ public class IndexController {
      * @param id
      * @return
      */
-    @GetMapping("process/toProcessShow/{id}")
-    public ResponseBean processToAdverShow(@PathVariable String id) {
+    @GetMapping("toProcessShow")
+    public ResponseBean processToAdverShow(String id) {
         return ResponseBean.SUCCESS(processService.get(id));
     }
 
@@ -137,8 +137,8 @@ public class IndexController {
      * @param id
      * @return
      */
-    @GetMapping("adver/toAdverShow/{id}")
-    public ResponseBean adverToAdverShow(@PathVariable String id) {
+    @GetMapping("toAdverShow")
+    public ResponseBean adverToAdverShow(String id) {
         return ResponseBean.SUCCESS(adverService.get(id));
     }
 
@@ -160,9 +160,9 @@ public class IndexController {
      * @param id
      * @return
      */
-    @GetMapping("need/toNeedShow/{id}")
-    public ResponseBean toNeedShow(@PathVariable String id) {
-        return ResponseBean.SUCCESS(demandManageService.get(id));
+    @GetMapping("toNeedShow")
+    public ResponseBean toNeedShow(String id) {
+        return ResponseBean.SUCCESS(demandManageService.toAdverShow(id));
     }
 
     /**
@@ -172,7 +172,7 @@ public class IndexController {
      * @return
      */
 
-    @GetMapping("enterName/add")
+    @PostMapping("addEnter")
     public ResponseBean enterNameAdd(@RequestBody EnternameInc enternameInc) {
         try {
             enternameService.save(enternameInc);
@@ -201,8 +201,8 @@ public class IndexController {
      * @param id
      * @return
      */
-    @GetMapping("scholl/toSchollShow/{id}")
-    public ResponseBean schollToAdverShow(@PathVariable String id) {
+    @GetMapping("toSchollShow")
+    public ResponseBean schollToAdverShow(String id) {
         return ResponseBean.SUCCESS(schollService.get(id));
     }
 }

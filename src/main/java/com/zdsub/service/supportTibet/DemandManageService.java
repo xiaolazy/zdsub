@@ -4,48 +4,51 @@ import com.zdsub.component.hibernate.Page;
 import com.zdsub.entity.PageCondition;
 import com.zdsub.entity.supportTibet.DemandManage;
 import com.zdsub.entity.supportTibet.increase.DemandManageInc;
+import com.zdsub.entity.work.WorkDynamic;
 
 
 import java.util.List;
 
 public interface DemandManageService {
     /**
-     * 新增学校
+     * 新增需求
      *
      * @param demandManageInc
      */
     void add(DemandManageInc demandManageInc);
 
     /**
-     * 更新学校
+     * 更新需求
      *
      * @param demandManageInc
      */
     void edit(DemandManageInc demandManageInc);
 
     /**
-     * 删除学校
+     * 删除需求
      *
      * @param id
      */
     void remove(String id);
 
 
-
-    Page<DemandManageInc> page(Page<DemandManage> page);
+    /**
+     * 分页查询
+     *
+     * @param page
+     * @return
+     */
+    Page<DemandManage> page(Page<DemandManage> page);
 
     /**
-     * 查看学校
+     * 查看需求
+     *
      * @param id
      * @return
      */
     DemandManage get(String id);
 
 
-    /**
-     * 查询全部学校
-     *
-     * @return
-     */
-    List<DemandManage> listAll();
+    DemandManage toAdverShow(String id);
+
 }
