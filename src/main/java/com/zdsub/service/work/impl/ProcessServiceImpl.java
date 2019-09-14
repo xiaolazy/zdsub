@@ -39,10 +39,18 @@ public class ProcessServiceImpl implements ProcessService {
         Process process = new Process();
         BeanUtils.copyProperties(processInc, process);
         process.setCreate_time(DateUtil.getDateTime());
-        process.setCreate_user(managerDao.find(TokenBean.activeUserId.get()).getUser_name());
+        process.setCreate_user(findManager().getUser_name());
         process.setUpdate_time(DateUtil.getDateTime());
         process.setUpdate_user(TokenBean.activeUserId.get());
         processDao.save(process);
+    }
+
+    private Manager findManager() {
+        Manager manager = managerDao.find(TokenBean.activeUserId.get());
+        if (manager == null) {
+            manager.setUser_name("无");
+        }
+        return manager;
     }
 
     @Override

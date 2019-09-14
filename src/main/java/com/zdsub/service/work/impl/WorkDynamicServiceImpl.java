@@ -50,7 +50,7 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
         School school = getSchool(workDynamicInc);
         workDynamic.setSchool(school);
         workDynamic.setCreate_time(DateUtil.getDateTime());
-        workDynamic.setCreate_user(managerDao.find(TokenBean.activeUserId.get()).getUser_name());
+        workDynamic.setCreate_user(findManager().getUser_name());
         workDynamic.setUptate_time(DateUtil.getDateTime());
         workDynamic.setUptate_user(TokenBean.activeUserId.get());
         workDynamicDao.save(workDynamic);
@@ -69,6 +69,13 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
             throw new GlobalException(Common.FAIL, "选择该关联的学校记录已被删除了");
         }
         return school;
+    }
+    private Manager findManager() {
+        Manager manager = managerDao.find(TokenBean.activeUserId.get());
+        if (manager == null) {
+            manager.setUser_name("无");
+        }
+        return manager;
     }
 
     @Override

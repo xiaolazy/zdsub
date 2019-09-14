@@ -5,6 +5,7 @@ import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.university.SchoolDao;
+import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.university.School;
 import com.zdsub.entity.university.increase.SchoolInc;
 import com.zdsub.service.university.SchollService;
@@ -40,9 +41,17 @@ public class SchollServiceImpl implements SchollService {
         BeanUtils.copyProperties(schoolInc, school);
         school.setCreate_time(DateUtil.getDateTime());
         school.setUpdate_time(DateUtil.getDateTime());
-        school.setCreate_user(managerDao.find(TokenBean.activeUserId.get()).getUser_name());
+        school.setCreate_user(findManager().getUser_name());
         school.setUpdate_user(TokenBean.activeUserId.get());
         schoolDao.save(school);
+    }
+
+    private Manager findManager() {
+        Manager manager = managerDao.find(TokenBean.activeUserId.get());
+        if (manager == null) {
+            manager.setUser_name("无");
+        }
+        return manager;
     }
 
     @Override
@@ -79,7 +88,7 @@ public class SchollServiceImpl implements SchollService {
         School School = schoolDao.find(id);
         if (School == null) {
             log.error("查询名为" + id + "的学校记录，已不再数据库中了");
-            throw new GlobalException("该条学校记录已被删除了");
+            throw new GlobalException("该条学校记录已不再数据库中了");
         }
         return School;
     }

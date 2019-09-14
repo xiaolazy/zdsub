@@ -51,7 +51,7 @@ public class AdverServiceImpl implements AdverService {
         School school = getSchool(adverInc);
         adver.setSchool(school);
         adver.setCreate_time(DateUtil.getDateTime());
-        adver.setCreate_user(managerDao.find(TokenBean.activeUserId.get()).getUser_name());
+        adver.setCreate_user(findManager().getUser_name());
         adver.setUpdate_time(DateUtil.getDateTime());
         adver.setUpdate_user(TokenBean.activeUserId.get());
         adverDao.save(adver);
@@ -66,6 +66,14 @@ public class AdverServiceImpl implements AdverService {
         adver.setUpdate_time(DateUtil.getDateTime());
         adver.setUpdate_user(TokenBean.activeUserId.get());
         adverDao.update(adver);
+    }
+
+    private Manager findManager() {
+        Manager manager = managerDao.find(TokenBean.activeUserId.get());
+        if (manager == null) {
+            manager.setUser_name("无");
+        }
+        return manager;
     }
 
     /**
