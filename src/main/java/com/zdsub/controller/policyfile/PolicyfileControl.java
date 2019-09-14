@@ -1,6 +1,7 @@
 package com.zdsub.controller.policyfile;
 
 import com.zdsub.common.ResultBean.ResponseBean;
+import com.zdsub.common.constant.Common;
 import com.zdsub.component.annotion.ValidLog;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.entity.policyfile.Policyfile;
@@ -143,14 +144,14 @@ public class PolicyfileControl {
         System.out.println("path-------"+path);
         if(path == "" || path == null)
             return ResponseBean.FAILD("文件名不存在！！");
-        String realPath =req.getSession().getServletContext().getRealPath("/") + UPLOAD_PATH +path;
-        File file = new File(req.getSession().getServletContext().getRealPath("/") + UPLOAD_PATH, path);
+        String oldPath =req.getSession().getServletContext().getRealPath("/") + UPLOAD_PATH;
+        String realPath = oldPath + path;
+        File file = new File(oldPath,path);
         if (!file.exists()) {
             return ResponseBean.FAILD("文件不存在！！");
         }
         path = URLEncoder.encode(path, "UTF-8");
-//        res.setContentType("application/x-download");
-        res.setContentType("multipart/form-data");
+        res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
         res.setHeader("Content-Disposition", "attachment;filename=" + path);
         res.setContentLength((int) file.length());
         byte[] b = FileUtils.readFileToByteArray(file);

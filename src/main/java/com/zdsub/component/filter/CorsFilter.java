@@ -67,9 +67,9 @@ public class CorsFilter implements Filter {
              * 字段Access-Control-Allow-Methods非可选，它的值是逗号分隔的一个字符串，
              * 表明服务器支持的所有跨域请求的方法。
              * 注意，返回的是所有支持的方法，而不单是浏览器请求的那个方法。这是为了避免多次"预检"请求。
-             * 可按需指定：GET,POST,PUT,DELETE（无特殊情况时）
+             * 可按需指定：GET,POST,PUT,DELETE（无特殊情况时）GET,POST,PUT,DELETE
          **/
-        res.setHeader("Access-Control-Allow-Methods","GET,POST,PUT,DELETE");
+        res.setHeader("Access-Control-Allow-Methods","*");
         /**
              * 默认情况下，Cookie不包括在CORS请求之中
              * 设为true，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。
