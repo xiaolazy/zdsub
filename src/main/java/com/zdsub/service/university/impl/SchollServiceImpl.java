@@ -3,7 +3,9 @@ package com.zdsub.service.university.impl;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.token.TokenBean;
+import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.university.SchoolDao;
+import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.university.School;
 import com.zdsub.entity.university.increase.SchoolInc;
 import com.zdsub.service.university.SchollService;
@@ -30,16 +32,26 @@ public class SchollServiceImpl implements SchollService {
 
     @Autowired
     private SchoolDao schoolDao;
+    @Autowired
+    private ManagerDao managerDao;
 
     @Override
     public void add(SchoolInc schoolInc) {
         School school = new School();
         BeanUtils.copyProperties(schoolInc, school);
         school.setCreate_time(DateUtil.getDateTime());
-        school.setCreate_user(TokenBean.activeUserId.get());
         school.setUpdate_time(DateUtil.getDateTime());
+        school.setCreate_user(findManager().getUser_name());
         school.setUpdate_user(TokenBean.activeUserId.get());
         schoolDao.save(school);
+    }
+
+    private Manager findManager() {
+        Manager manager = managerDao.find(TokenBean.activeUserId.get());
+        if (manager == null) {
+            manager.setUser_name("无");
+        }
+        return manager;
     }
 
     @Override
@@ -64,10 +76,6 @@ public class SchollServiceImpl implements SchollService {
             rPage = schoolDao.findPage(schoolPage);
         else
             rPage = schoolDao.findPage(schoolPage, getRestrictions("sch_name", schoolPage.getCondition().getSch_name()));
-       /* List<School> resultList = rPage.getResultList();
-        rPage.setPageNo(rPage.getPageNo());
-        rPage.setPageSize(rPage.getPageSize());
-        rPage.setResultList(resultList);*/
         return rPage;
     }
 
@@ -80,7 +88,7 @@ public class SchollServiceImpl implements SchollService {
         School School = schoolDao.find(id);
         if (School == null) {
             log.error("查询名为" + id + "的学校记录，已不再数据库中了");
-            throw new GlobalException("该条学校记录已被删除了");
+            throw new GlobalException("该条学校记录已不再数据库中了");
         }
         return School;
     }

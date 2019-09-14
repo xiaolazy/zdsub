@@ -54,8 +54,14 @@ public class SchollController {
 
     @GetMapping("remove/{id}")
     public ResponseBean remove(@PathVariable String id) {
-        schollService.remove(id);
-        return ResponseBean.SUCCESS();
+        try{
+            schollService.remove(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseBean.FAILD("删除失败！请稍候重试或联系管理员");
+        }
+        return ResponseBean.SUCCESS("删除成功！");
+
     }
 
     @GetMapping("get/{id}")

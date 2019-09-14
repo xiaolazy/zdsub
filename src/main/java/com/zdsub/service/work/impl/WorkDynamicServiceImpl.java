@@ -50,7 +50,7 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
         School school = getSchool(workDynamicInc);
         workDynamic.setSchool(school);
         workDynamic.setCreate_time(DateUtil.getDateTime());
-        workDynamic.setCreate_user(managerDao.find(TokenBean.activeUserId.get()));
+        workDynamic.setCreate_user(findManager().getUser_name());
         workDynamic.setUptate_time(DateUtil.getDateTime());
         workDynamic.setUptate_user(TokenBean.activeUserId.get());
         workDynamicDao.save(workDynamic);
@@ -69,6 +69,13 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
             throw new GlobalException(Common.FAIL, "选择该关联的学校记录已被删除了");
         }
         return school;
+    }
+    private Manager findManager() {
+        Manager manager = managerDao.find(TokenBean.activeUserId.get());
+        if (manager == null) {
+            manager.setUser_name("无");
+        }
+        return manager;
     }
 
     @Override
@@ -94,25 +101,9 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
             workDynamicPage = workDynamicDao.findPage(page);
         else
             workDynamicPage = workDynamicDao.findPage(page, getRestrictions("title", page.getCondition().getTitle()));
-        workDynamicPage.getResultList().forEach((workDynamic) -> {
-            showWorkDynamic(workDynamic);
-        });
         return workDynamicPage;
     }
 
-    private void showWorkDynamic(WorkDynamic workDynamic) {
-        Manager create_user = workDynamic.getCreate_user();
-        create_user.setId("");
-        create_user.setCreate_user("");
-        create_user.setSch_id("");
-        create_user.setCreate_time("");
-        create_user.setPass_word("");
-        create_user.setRole_id("");
-        create_user.setTelephone("");
-
-        //showManager.setUser_name(Optional.ofNullable(create_user).map(Manager::getUser_name).orElse(","));
-        //workDynamic.setCreate_user(Optional.ofNullable(showManager).get());
-    }
 
     @Override
     public WorkDynamic get(String id) {
@@ -125,7 +116,6 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
             log.error("查询id为" + id + "的工作状态，已不再数据库中了");
             throw new GlobalException("该条工作状态已被删除了");
         }
-        showWorkDynamic(workDynamic);
         return workDynamic;
     }
 
