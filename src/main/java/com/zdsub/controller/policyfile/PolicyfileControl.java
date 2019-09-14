@@ -143,10 +143,8 @@ public class PolicyfileControl {
         System.out.println("path-------"+path);
         if(path == "" || path == null)
             return ResponseBean.FAILD("文件名不存在！！");
-//        String subpath = path.substring(0,path.indexOf("/"));
-//        String name = path.substring(path.indexOf("/"),path.length());
         String realPath =req.getSession().getServletContext().getRealPath("/") + UPLOAD_PATH +path;
-        File file = new File(realPath, path);
+        File file = new File(realPath);
         if (!file.exists()) {
             return ResponseBean.FAILD("文件不存在！！");
         }
