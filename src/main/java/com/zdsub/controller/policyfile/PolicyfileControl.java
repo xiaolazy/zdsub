@@ -144,11 +144,12 @@ public class PolicyfileControl {
         if(path == "" || path == null)
             return ResponseBean.FAILD("文件名不存在！！");
         String realPath =req.getSession().getServletContext().getRealPath("/") + UPLOAD_PATH +path;
-        File file = new File(realPath);
+        File file = new File(realPath, path);
         if (!file.exists()) {
             return ResponseBean.FAILD("文件不存在！！");
         }
         path = URLEncoder.encode(path, "UTF-8");
+        res.setContentType("application/octet-stream");
         res.setHeader("Content-Disposition", "attachment;filename=" + path);
         res.setContentLength((int) file.length());
         byte[] b = FileUtils.readFileToByteArray(file);
