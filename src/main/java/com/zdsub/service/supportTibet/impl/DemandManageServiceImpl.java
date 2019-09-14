@@ -44,6 +44,7 @@ public class DemandManageServiceImpl implements DemandManageService {
         demandManage.setCreate_user(findManager().getUser_name());
         demandManage.setSend_time(DateUtil.getDateTime());
         demandManage.setUpdate_time(DateUtil.getDateTime());
+        demandManage.setRead_num(0);
         demandManage.setUpdate_user(findManager().getUser_name());
         demandManageDao.save(demandManage);
     }
@@ -69,13 +70,9 @@ public class DemandManageServiceImpl implements DemandManageService {
     }
 
     private void IncToPo(DemandManageInc demandManageInc, DemandManage demandManage) {
-        demandManage.setId(Optional.of(demandManageInc).map(DemandManageInc::getSchId).orElse(""));
-        demandManage.setTitle(Optional.of(demandManageInc).map(DemandManageInc::getTitle).orElse(""));
+        demandManage.setTitle(Optional.of(demandManageInc).map(DemandManageInc::getTitle).orElse("无"));
         demandManage.setLevel(Optional.of(demandManageInc).map(DemandManageInc::getLevel).orElse(1));
         demandManage.setContext(Optional.of(demandManageInc).map(DemandManageInc::getContext).orElse(""));
-        demandManage.setRead_num(Optional.of(demandManageInc).map(DemandManageInc::getRead_num).orElse(0));
-        demandManage.setCreate_user(Optional.of(demandManageInc).map(DemandManageInc::getCreate_user).orElse("无"));
-        demandManage.setSend_time(Optional.of(demandManageInc).map(DemandManageInc::getSend_time).orElse(""));
     }
 
     @Override

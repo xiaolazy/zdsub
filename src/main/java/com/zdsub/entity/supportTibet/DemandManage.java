@@ -24,7 +24,7 @@ public class DemandManage {
     protected String context;
     protected Integer read_num;
     protected String send_time;
-    @NotNull(message = "需求不能为空！")
+    @NotNull(message = "需求等级不能为空！")
     protected Integer level;
     @ManyToOne
     @JoinColumn(name = "sch_id")
