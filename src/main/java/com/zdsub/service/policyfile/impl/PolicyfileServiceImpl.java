@@ -64,6 +64,14 @@ public class PolicyfileServiceImpl implements PolicyfileService {
         policyfileDao.update(newPo);
     }
 
+    @Override
+    public void delById(String id) throws Exception {
+        Policyfile policyfile = policyfileDao.find(id);
+        isNull(policyfile,"删除失败，内容不存在");
+        policyfile.setCreate_user(null);
+        policyfileDao.delete(policyfile);
+    }
+
     private static void setPolicyfile(Policyfile policyfile){
         policyfile.setUpdate_time(new java.sql.Timestamp(DateUtil.getSysDate().getTime()));
         policyfile.setUpdate_user(TokenBean.activeUserId.get());

@@ -10,4 +10,5 @@ public interface PolicyfileService {
     Policyfile findById(String id);
     void add(Policyfile policyfile) throws Exception;
     void update(Policyfile policyfile) throws Exception;
+    void delById(String id) throws Exception;
 }

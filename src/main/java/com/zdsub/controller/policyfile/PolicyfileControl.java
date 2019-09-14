@@ -91,6 +91,15 @@ public class PolicyfileControl {
         }
         return ResponseBean.SUCCESS("修改成功！");
     }
+    @GetMapping("delById")
+    public ResponseBean delById(String id){
+        try{
+            policyfileService.delById(id);
+        }catch (Exception e){
+            return ResponseBean.FAILD("删除失败，请稍候重试或联系管理员");
+        }
+        return ResponseBean.SUCCESS("修改成功！");
+    }
     /*@description：上传附件 可公用，请求路径需为(- 代指随意,?指在磁盘创建的路径也就是请求的子包路径):
      *@Date：2019/9/12 13:49
      *@Param：
