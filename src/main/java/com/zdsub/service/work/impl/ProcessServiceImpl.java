@@ -3,8 +3,9 @@ package com.zdsub.service.work.impl;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.token.TokenBean;
+import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.work.ProcessDao;
-import com.zdsub.entity.recruitment.Adver;
+import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.work.Process;
 import com.zdsub.entity.work.increase.ProcessInc;
 import com.zdsub.service.work.ProcessService;
@@ -14,7 +15,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 import static com.zdsub.utils.PageUtil.getRestrictions;
 
@@ -31,15 +31,26 @@ public class ProcessServiceImpl implements ProcessService {
     @Autowired
     private ProcessDao processDao;
 
+    @Autowired
+    private ManagerDao managerDao;
+
     @Override
     public void add(ProcessInc processInc) {
         Process process = new Process();
         BeanUtils.copyProperties(processInc, process);
         process.setCreate_time(DateUtil.getDateTime());
-        process.setCreate_user(TokenBean.activeUserId.get());
+        process.setCreate_user(findManager().getUser_name());
         process.setUpdate_time(DateUtil.getDateTime());
         process.setUpdate_user(TokenBean.activeUserId.get());
         processDao.save(process);
+    }
+
+    private Manager findManager() {
+        Manager manager = managerDao.find(TokenBean.activeUserId.get());
+        if (manager == null) {
+            manager.setUser_name("无");
+        }
+        return manager;
     }
 
     @Override
@@ -64,14 +75,7 @@ public class ProcessServiceImpl implements ProcessService {
             processPage = processDao.findPage(page);
         else
             processPage = processDao.findPage(page, getRestrictions("path_name", page.getCondition().getPath_name()));
-        /*List<Adver> resultList = adverPage.getResultList();
-        adverPage.setPageNo(adverPage.getPageNo());
-        adverPage.setPageSize(adverPage.getPageSize());
-        adverPage.setResultList(resultList);
-        if(page.getCondition()!=null){
-            Process process = (Process) page.getCondition();
-            process.setPath_name("%" + process.getPath_name() + "%");
-        }*/
+
         return processPage;
     }
 

@@ -28,15 +28,27 @@ public class ProcessController {
     @PostMapping("add")
     @ValidLog
     public ResponseBean add(@RequestBody @Valid ProcessInc processInc, BindingResult bindingResult) {
-        processService.add(processInc);
-        return ResponseBean.SUCCESS();
+        try{
+            processService.add(processInc);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseBean.FAILD("新增错误！请稍候重试或联系管理员");
+        }
+        return ResponseBean.SUCCESS("新增成功！");
+
     }
 
     @PostMapping("edit")
     @ValidLog
     public ResponseBean edit(@RequestBody @Valid ProcessInc processInc,BindingResult bindingResult) {
-        processService.edit(processInc);
-        return ResponseBean.SUCCESS();
+        try{
+            processService.edit(processInc);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseBean.FAILD("修改错误！请稍候重试或联系管理员");
+        }
+        return ResponseBean.SUCCESS("修改成功！");
+
     }
 
     @GetMapping("remove/{id}")

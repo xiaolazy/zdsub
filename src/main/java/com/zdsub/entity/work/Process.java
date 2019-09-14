@@ -1,13 +1,11 @@
 package com.zdsub.entity.work;
 
+import com.zdsub.entity.manager.Manager;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @BelongsProject: zdsub
@@ -24,7 +22,7 @@ public class Process {
     @Id
     @GenericGenerator(strategy = "uuid", name = "uuidGen")
     @GeneratedValue(generator = "uuidGen")
-    protected String id ;
+    protected String id;
     protected String path_name;
     protected String context;
     protected String sch_id;

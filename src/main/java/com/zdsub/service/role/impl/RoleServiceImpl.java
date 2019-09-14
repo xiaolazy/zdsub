@@ -73,12 +73,10 @@ public class RoleServiceImpl implements RoleService {
         role.getIds().forEach(e -> {
             Menu menu = menuDao.find(e);
             isNull(menu, "权限所选菜单不存在！");
-            //修改权限时更新当前用户的权限
-            if (!menu.getMenu_url().equals(Common.ROOT))
-                urls.add(menu.getMenu_url());
             menus.add(menu);
         });
-        SetPermission(urls);
+        List<Menu> parent = menuDao.getParent();
+        menus.addAll(parent);
         BeanUtils.copyProperties(role, newRole);
         newRole.setMenus(menus);
         roleDao.update(newRole);
@@ -97,6 +95,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void showActivePermission(String id) {
         Role role = roleDao.find(id);
+        isNull(role,"所登录用户没有权限，请联系管理！");
         List<Menu> menus = role.getMenus();
         HashSet<String> urls = Sets.newHashSet();
         menus.forEach(e -> {

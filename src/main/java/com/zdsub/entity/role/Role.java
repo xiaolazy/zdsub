@@ -34,7 +34,7 @@ public class Role {
     protected String id;
     @NotBlank(message = "权限名称不能为空！")
     protected String role_name;
-    protected String cdescriprition;
+    protected String cdescription;
     protected String context;
     @ManyToMany
     @JoinTable(name = "ROLE_MENU",

@@ -6,7 +6,6 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * @BelongsProject: zdsub
@@ -15,10 +14,10 @@ import java.util.Date;
  * @CreateTime: 2019-09-06 09:33
  * @Description:
  */
-@Entity
-@Table(name = "advertises")
 @Getter
 @Setter
+@Entity
+@Table(name = "advertises")
 public class Adver {
     @Id
     @GenericGenerator(strategy = "uuid", name = "uuidGen")

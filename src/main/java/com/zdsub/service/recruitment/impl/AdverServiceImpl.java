@@ -4,19 +4,23 @@ import com.zdsub.common.constant.Common;
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
 import com.zdsub.component.token.TokenBean;
+import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.recruitment.AdverDao;
 import com.zdsub.dao.university.SchoolDao;
+import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.recruitment.Adver;
 import com.zdsub.entity.recruitment.increase.AdverInc;
 import com.zdsub.entity.university.School;
 import com.zdsub.service.recruitment.AdverService;
 import com.zdsub.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.zdsub.utils.PageUtil.getRestrictions;
 
@@ -37,6 +41,9 @@ public class AdverServiceImpl implements AdverService {
     @Autowired
     private SchoolDao schoolDao;
 
+    @Autowired
+    private ManagerDao managerDao;
+
     @Override
     public void add(AdverInc adverInc) {
         Adver adver = new Adver();
@@ -44,7 +51,7 @@ public class AdverServiceImpl implements AdverService {
         School school = getSchool(adverInc);
         adver.setSchool(school);
         adver.setCreate_time(DateUtil.getDateTime());
-        adver.setCreate_user(TokenBean.activeUserId.get());
+        adver.setCreate_user(findManager().getUser_name());
         adver.setUpdate_time(DateUtil.getDateTime());
         adver.setUpdate_user(TokenBean.activeUserId.get());
         adverDao.save(adver);
@@ -59,6 +66,14 @@ public class AdverServiceImpl implements AdverService {
         adver.setUpdate_time(DateUtil.getDateTime());
         adver.setUpdate_user(TokenBean.activeUserId.get());
         adverDao.update(adver);
+    }
+
+    private Manager findManager() {
+        Manager manager = managerDao.find(TokenBean.activeUserId.get());
+        if (manager == null) {
+            manager.setUser_name("无");
+        }
+        return manager;
     }
 
     /**
@@ -103,10 +118,6 @@ public class AdverServiceImpl implements AdverService {
             adverPage = adverDao.findPage(page);
         else
             adverPage = adverDao.findPage(page, getRestrictions("title", page.getCondition().getTitle()));
-        List<Adver> resultList = adverPage.getResultList();
-        adverPage.setPageNo(adverPage.getPageNo());
-        adverPage.setPageSize(adverPage.getPageSize());
-        adverPage.setResultList(resultList);
         return adverPage;
     }
 

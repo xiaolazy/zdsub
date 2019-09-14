@@ -37,8 +37,8 @@ public class MenuControl {
      *@Author： lyy
      */
     @GetMapping("findNotParent")
-    public ResponseBean findNotParent(){
-        return ResponseBean.SUCCESS(menuService.findNotParent());
+    public ResponseBean findNotParent(String id){
+        return ResponseBean.SUCCESS(menuService.findNotParent(id));
     }
     /*@description：查询所有菜单
      *@Date：2019/9/12 13:12

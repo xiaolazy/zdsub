@@ -26,7 +26,12 @@ public class MenuDaoImpl extends BaseDaoImpl<Menu,String > implements MenuDao {
 
     @Override
     public List<Menu> findNotParent() {
-        return getSession().createQuery("from Menu where menu_name != ?")
+        return getSession().createQuery("from Menu where menu_url != ?")
                 .setParameter(0,"/").list();
+    }
+
+    @Override
+    public List<Menu> getParent() {
+        return getSession().createQuery("from Menu where pid = 0").list();
     }
 }

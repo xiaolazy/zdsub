@@ -62,9 +62,9 @@ public class AuthenticateFilter extends OncePerRequestFilter {
         String protalURL = protalURL(servletPath);
         //获取前台凭证
         String authorization = request.getHeader(AUTHORIZATION);
-        if (servletPath.equals(LOINGURL) || protalURL.equals(ROOT) || servletPath.equals(REGISTERURL) || protalURL.equals(PORTALURL))
+        if (servletPath.equals(LOINGURL)||servletPath.equals(LOGOUTURL) || protalURL.equals(ROOT) || servletPath.equals(REGISTERURL) || protalURL.equals(PORTALURL))
             filterChain.doFilter(request, response);
-        //用户登录后，操作门户时更新Token过期时间
+            //用户登录后，操作门户时更新Token过期时间
         else if (protalURL.equals(PORTALURL) && StringUtils.isNotBlank(authorization)) {
             Claims claims = authenticate(authorization);
             //身份认证
@@ -72,7 +72,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
                 response.setStatus(USER_NOT_LOGIN);
             else {
                 //权限验证
-                if (!permission(protalURL)){
+                if (!permission(protalURL)) {
                     response.setStatus(USER_NOT_PERMISSION);
                     return;
                 }
@@ -94,7 +94,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
                     response.setStatus(USER_NOT_LOGIN);
                 }
                 //权限验证
-                if (!permission(protalURL)){
+                if (!permission(protalURL)) {
                     response.setStatus(USER_NOT_PERMISSION);
                     return;
                 }
@@ -129,7 +129,6 @@ public class AuthenticateFilter extends OncePerRequestFilter {
      *@Author lyy
      */
     private static String protalURL(String url) {
-        System.out.println(url.length()+"------------");
         if (url.length() < SUBSTRING_LENG_END)
             return ROOT;
         else
@@ -163,6 +162,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
     private static void upTokenTime(String key, String val) {
         TokenBean.getInstance().put(key, val);
     }
+
     /*@description：设置并创建JWT
      *@Date：2019/9/11 16:08
      *@Param
@@ -185,15 +185,24 @@ public class AuthenticateFilter extends OncePerRequestFilter {
      */
     private static boolean permission(String protalURL) {
         //再次处理路径
-        protalURL = protalURL.substring(0,protalURL.indexOf("/")==-1 ? protalURL.length():protalURL.indexOf("/"));
+
+//        protalURL = protalURL.substring(0,protalURL.indexOf("/")==-1 ? protalURL.length():protalURL.indexOf("/"));
         //权限认证
-        if(TokenPermission.getInstance().isEmpty())
+        if (TokenPermission.getInstance().isEmpty())
             return false;
         HashSet hashSet = (HashSet) TokenPermission.getInstance().get(TokenBean.activeUserId);
-        for (Object url : hashSet) {
-            if (url.equals(protalURL))
-                return true;
-        }
+        //普通URL权限认证
+        if (protalURL.indexOf("/") == -SUBSTRING_LENG_START)
+            for (Object url : hashSet) {
+                if (protalURL.equals(url))
+                    return true;
+            }
+        //restFul风格的URL权限认证
+        else
+            for (Object url : hashSet) {
+                if (protalURL.contains(url.toString()))
+                    return true;
+            }
         return false;
     }
 }

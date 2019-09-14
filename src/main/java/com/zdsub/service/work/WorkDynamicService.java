@@ -2,6 +2,7 @@ package com.zdsub.service.work;
 
 import com.zdsub.component.hibernate.Page;
 import com.zdsub.entity.work.WorkDynamic;
+import com.zdsub.entity.work.increase.WorkDynamicInc;
 
 /**
  * @BelongsProject: zdsub
@@ -14,16 +15,16 @@ public interface WorkDynamicService {
     /**
      * 新增工作动态
      *
-     * @param workDynamic
+     * @param workDynamicInc
      */
-    void add(WorkDynamic workDynamic);
+    void add(WorkDynamicInc workDynamicInc);
 
     /**
      * 更新工作动态
      *
-     * @param workDynamic
+     * @param workDynamicInc
      */
-    void edit(WorkDynamic workDynamic);
+    void edit(WorkDynamicInc workDynamicInc);
 
     /**
      * 删除工作动态
