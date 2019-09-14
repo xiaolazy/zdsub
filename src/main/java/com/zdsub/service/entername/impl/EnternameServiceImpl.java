@@ -9,10 +9,12 @@ import com.zdsub.entity.university.School;
 import com.zdsub.service.entername.EnternameService;
 import static org.springframework.beans.BeanUtils.*;
 
+import com.zdsub.utils.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import static com.zdsub.utils.PageUtil.*;
 import javax.annotation.Resource;
+import java.sql.Date;
 
 /**
  * @program: zdsub
@@ -44,6 +46,7 @@ public class EnternameServiceImpl implements EnternameService {
         copyProperties(entername,newEn);
         newEn.setSchool(school);
         newEn.setSch_name(school.getSch_name());
+        newEn.setCreate_time(DateUtil.getSysTimestamp());
         enternameDao.save(newEn);
     }
 }

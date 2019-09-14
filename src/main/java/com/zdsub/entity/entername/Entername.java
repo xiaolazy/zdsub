@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -35,5 +36,5 @@ public class Entername{
     protected String user_name;
     @NotBlank(message = "学校名称不能为空！")
     protected String sch_name;
-    protected Date create_time;
+    protected Timestamp create_time;
 }
