@@ -149,7 +149,7 @@ public class PolicyfileControl {
             return ResponseBean.FAILD("文件不存在！！");
         }
         path = URLEncoder.encode(path, "UTF-8");
-        res.setContentType("application/octet-stream");
+        res.setContentType("application/x-download");
         res.setHeader("Content-Disposition", "attachment;filename=" + path);
         res.setContentLength((int) file.length());
         byte[] b = FileUtils.readFileToByteArray(file);
