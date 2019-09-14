@@ -126,8 +126,13 @@ public class Test {
     }
     @org.junit.Test
     public void t(){
-        System.out.println(101^010);
-        System.out.println();
+        int i = 1;
+        int sshift = 0;
+        while(i<7){
+            ++sshift;
+            i<<=1;
+        }
+        System.out.println(i+"----"+sshift);
 //        List<String> menus = new ArrayList<>();
 //        menus.add("88");
 //        menus.add("7");
