@@ -1,8 +1,8 @@
 package com.zdsub.service.recruitment.impl;
 
 import com.zdsub.common.constant.Common;
-import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
+import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.recruitment.AdverDao;
@@ -14,13 +14,9 @@ import com.zdsub.entity.university.School;
 import com.zdsub.service.recruitment.AdverService;
 import com.zdsub.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 import static com.zdsub.utils.PageUtil.getRestrictions;
 
@@ -85,8 +81,8 @@ public class AdverServiceImpl implements AdverService {
     private School getSchool(AdverInc adverInc) {
         School school = schoolDao.find(adverInc.getSchId());
         if (school == null) {
-            log.error("查找名为" + school.getId() + "的学校记录，已不再数据库中了");
-            throw new GlobalException(Common.FAIL, "选择该关联的学校记录已被删除了");
+            log.error("查找名为" + adverInc.getSchId() + "的学校记录，已不再数据库中了");
+            throw new GlobalException(Common.FAIL, "选择该关联的学校记录已不再数据库中了");
         }
         return school;
     }

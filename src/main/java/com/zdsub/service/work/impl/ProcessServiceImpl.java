@@ -1,7 +1,7 @@
 package com.zdsub.service.work.impl;
 
-import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
+import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.work.ProcessDao;
@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import static com.zdsub.utils.PageUtil.getRestrictions;
 
@@ -48,6 +47,7 @@ public class ProcessServiceImpl implements ProcessService {
     private Manager findManager() {
         Manager manager = managerDao.find(TokenBean.activeUserId.get());
         if (manager == null) {
+            manager=new Manager();
             manager.setUser_name("无");
         }
         return manager;
