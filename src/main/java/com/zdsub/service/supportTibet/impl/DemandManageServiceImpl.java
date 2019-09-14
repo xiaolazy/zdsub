@@ -10,7 +10,6 @@ import com.zdsub.entity.manager.Manager;
 import com.zdsub.entity.supportTibet.DemandManage;
 import com.zdsub.entity.supportTibet.increase.DemandManageInc;
 import com.zdsub.entity.university.School;
-import com.zdsub.entity.work.WorkDynamic;
 import com.zdsub.service.supportTibet.DemandManageService;
 import com.zdsub.utils.DateUtil;
 import com.zdsub.utils.ExceptionUtil;
@@ -52,6 +51,7 @@ public class DemandManageServiceImpl implements DemandManageService {
     private Manager findManager() {
         Manager manager = managerDao.find(TokenBean.activeUserId.get());
         if (manager == null) {
+            manager=new Manager();
             manager.setUser_name("无");
         }
         return manager;
