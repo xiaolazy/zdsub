@@ -1,15 +1,13 @@
 package com.zdsub.service.work.impl;
 
 import com.zdsub.common.constant.Common;
-import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.exception.GlobalException;
+import com.zdsub.component.hibernate.Page;
 import com.zdsub.component.token.TokenBean;
 import com.zdsub.dao.manager.ManagerDao;
 import com.zdsub.dao.university.SchoolDao;
 import com.zdsub.dao.work.WorkDynamicDao;
 import com.zdsub.entity.manager.Manager;
-import com.zdsub.entity.recruitment.Adver;
-import com.zdsub.entity.recruitment.increase.AdverInc;
 import com.zdsub.entity.university.School;
 import com.zdsub.entity.work.WorkDynamic;
 import com.zdsub.entity.work.increase.WorkDynamicInc;
@@ -19,8 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 import static com.zdsub.utils.PageUtil.getRestrictions;
 
@@ -65,8 +61,8 @@ public class WorkDynamicServiceImpl implements WorkDynamicService {
     private School getSchool(WorkDynamicInc workDynamicInc) {
         School school = schoolDao.find(workDynamicInc.getSchId());
         if (school == null) {
-            log.error("查找名为" + school.getId() + "的学校记录，已不再数据库中了");
-            throw new GlobalException(Common.FAIL, "选择该关联的学校记录已被删除了");
+            log.error("查找名为" + workDynamicInc.getId() + "的学校记录，已不再数据库中了");
+            throw new GlobalException(Common.FAIL, "选择该关联的学校记录已不再数据库中了");
         }
         return school;
     }
