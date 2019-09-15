@@ -119,7 +119,7 @@ public class AdverServiceImpl implements AdverService {
     }
 
     @Override
-    public Adver toAdverShow(String id) {
+    public Adver updAdverShow(String id) {
         Adver adver = get(id);
         adver.setRead_num(adver.getRead_num() + 1);
         adverDao.update(adver);

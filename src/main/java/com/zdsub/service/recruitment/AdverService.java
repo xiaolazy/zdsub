@@ -55,5 +55,5 @@ public interface AdverService {
      * @param id
      * @return
      */
-    Adver toAdverShow(String id);
+    Adver updAdverShow(String id);
 }

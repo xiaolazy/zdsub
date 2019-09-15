@@ -49,6 +49,6 @@ public interface DemandManageService {
     DemandManage get(String id);
 
 
-    DemandManage toAdverShow(String id);
+    DemandManage updAdverShow(String id);
 
 }
