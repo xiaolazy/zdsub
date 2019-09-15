@@ -76,7 +76,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
                     response.setStatus(USER_NOT_PERMISSION);
                     return;
                 }
-                setAndUpdateJwt(claims);
+                setAndUpdateJwt(authorization,claims);
                 filterChain.doFilter(request, response);
             }
             //用户操作后台时验证用户信息与更新Token过期时间
@@ -102,7 +102,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
                     ManagerService managerService = SpringUtil.getBean(ManagerService.class);
                     Manager m = managerService.findById(subject);
                     if (null != m) {
-                        setAndUpdateJwt(claims);
+                        setAndUpdateJwt(authorization,claims);
                         filterChain.doFilter(request, response);
                     } else {
                         //此用户已被删除, 此时删除Token
@@ -169,7 +169,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
      *@Return
      *@Author lyy
      */
-    private static void setAndUpdateJwt(Claims claims) {
+    private static void setAndUpdateJwt(String key,Claims claims) {
         String token = Jwt.createJWT(claims.getIssuer(), claims.getSubject(),
                 claims.getIssuer(), USER_LOGIN_TIME, Base64Util.Encoder(SALT));
         TokenBean.activeUser.set(claims.getIssuer());

@@ -9,7 +9,7 @@ public interface Common {
     static final int USER_NOT_LOGIN = 401;
     static final int USER_NOT_PERMISSION = 402;
     //用户登录时间限制
-    static final int USER_LOGIN_TIME=1800000;
+    static final int USER_LOGIN_TIME=1800000000;
     //jwt签名
     static final String SALT = "lyy+";
     //升序排序
