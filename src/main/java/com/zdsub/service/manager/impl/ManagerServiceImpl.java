@@ -13,6 +13,7 @@ import com.zdsub.entity.university.School;
 import com.zdsub.service.manager.ManagerService;
 import com.zdsub.utils.DateUtil;
 
+import static com.zdsub.utils.Md5Util.Md5;
 import static org.springframework.beans.BeanUtils.*;
 
 import org.springframework.stereotype.Service;
@@ -124,6 +125,7 @@ public class ManagerServiceImpl implements ManagerService {
         copyProperties(source,target);
         target.setSch_id(school.getId());
         target.setRole_id(role.getId());
+        target.setPass_word(Md5(source.getPass_word()));
         target.setCreate_time(DateUtil.getDate());
         target.setCreate_user(TokenBean.activeUserId.get());
     }

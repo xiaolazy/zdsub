@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static com.zdsub.common.constant.Common.SALT;
 import static com.zdsub.common.constant.Common.USER_LOGIN_TIME;
+import static com.zdsub.utils.Md5Util.Md5;
 
 /**
  * @program: zdsub
@@ -128,6 +129,8 @@ public class Test {
     }
     @org.junit.Test
     public void t(){
+
+        System.out.println(Md5("098f6bcd4621d373cade4e832627b4f6"));
         Set<Object> obj = new HashSet<Object>();
         obj.add("a");
         obj.add("b");
