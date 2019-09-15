@@ -80,7 +80,7 @@ public class ManagerControl {
         //设置响应头
         res.setHeader(AUTHORIZATION, jwt);
         //设置当前用户的权限
-        roleService.showActivePermission(m.getRole_id());
+        roleService.showActivePermission(m.getRole_id(),m.getId());
         logger.debug(m.getUser_name() + "成功登录系统");
         return ResponseBean.SUCCESS("登录成功！", manager.getUser_name());
     }
@@ -97,7 +97,7 @@ public class ManagerControl {
             return ResponseBean.FAILD("注销失败,用户信息不存在!");
         TokenBean.activeUserId.set("");
         TokenBean.activeUser.set("");
-        if (TokenPermission.getInstance().remove(TokenBean.activeUserId) == null)
+        if (TokenBean.activeUserId.get() == null ?TokenPermission.getInstance().remove(TokenBean.activeUserId.get()) == null :false)
             return ResponseBean.FAILD("用户权限信息不存在，但是已强制为您注销！");
         return ResponseBean.SUCCESS("欢迎下次再来!");
     }

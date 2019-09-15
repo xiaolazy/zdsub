@@ -20,5 +20,5 @@ public interface RoleService {
      *@Return：
      *@Author： lyy
      */
-    void showActivePermission(String id);
+    void showActivePermission(String id,String uId);
 }

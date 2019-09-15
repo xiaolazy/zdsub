@@ -69,7 +69,6 @@ public class RoleServiceImpl implements RoleService {
     public void update(RoleInc role) throws Exception {
         Role newRole = roleDao.find(role.getId());
         List<Menu> menus = Lists.newArrayList();
-        HashSet<String> urls = Sets.newHashSet();
         role.getIds().forEach(e -> {
             Menu menu = menuDao.find(e);
             isNull(menu, "权限所选菜单不存在！");
@@ -93,26 +92,27 @@ public class RoleServiceImpl implements RoleService {
 
 
     @Override
-    public void showActivePermission(String id) {
+    public void showActivePermission(String id, String uId) {
         Role role = roleDao.find(id);
-        isNull(role,"所登录用户没有权限，请联系管理！");
+        isNull(role, "所登录用户没有权限，请联系管理！");
         List<Menu> menus = role.getMenus();
         HashSet<String> urls = Sets.newHashSet();
         menus.forEach(e -> {
             if (!e.getMenu_url().equals(Common.ROOT))
                 urls.add(e.getMenu_url());
         });
-        SetPermission(urls);
+        SetPermission(urls, uId);
     }
+
     /*@description：设置权限的默认信息
      *@Date：2019/9/12 22:18
      *@Param：
      *@Return：
      *@Author： lyy
      */
-    public static void SetPermission(HashSet<String> urls){
+    public static void SetPermission(HashSet<String> urls, String uId) {
         urls.add(Common.MENU);
         urls.add(Common.LOGOUT);
-        TokenPermission.getInstance().put(TokenBean.activeUserId,urls);
+        TokenPermission.getInstance().put(uId, urls);
     }
 }

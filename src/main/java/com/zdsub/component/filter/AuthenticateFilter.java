@@ -72,7 +72,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
                 response.setStatus(USER_NOT_LOGIN);
             else {
                 //权限验证
-                if (!permission(protalURL)) {
+                if (!permission(protalURL,claims.getSubject())) {
                     response.setStatus(USER_NOT_PERMISSION);
                     return;
                 }
@@ -94,7 +94,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
                     response.setStatus(USER_NOT_LOGIN);
                 }
                 //权限验证
-                if (!permission(protalURL)) {
+                if (!permission(protalURL,claims.getSubject())) {
                     response.setStatus(USER_NOT_PERMISSION);
                     return;
                 }
@@ -174,7 +174,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
                 claims.getIssuer(), USER_LOGIN_TIME, Base64Util.Encoder(SALT));
         TokenBean.activeUser.set(claims.getIssuer());
         TokenBean.activeUserId.set(claims.getSubject());
-        upTokenTime(token, token);
+        upTokenTime(key, token);
     }
 
     /*@description：权限认证，拦截非法的REQUEST
@@ -183,14 +183,14 @@ public class AuthenticateFilter extends OncePerRequestFilter {
      *@Return：
      *@Author： lyy
      */
-    private static boolean permission(String protalURL) {
+    private static boolean permission(String protalURL,String id) {
         //再次处理路径
 
 //        protalURL = protalURL.substring(0,protalURL.indexOf("/")==-1 ? protalURL.length():protalURL.indexOf("/"));
         //权限认证
         if (TokenPermission.getInstance().isEmpty())
             return false;
-        HashSet hashSet = (HashSet) TokenPermission.getInstance().get(TokenBean.activeUserId);
+        HashSet hashSet = (HashSet) TokenPermission.getInstance().get(id);
         //普通URL权限认证
         if (protalURL.indexOf("/") == -SUBSTRING_LENG_START)
             for (Object url : hashSet) {
