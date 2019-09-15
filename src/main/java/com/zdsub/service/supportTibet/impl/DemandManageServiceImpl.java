@@ -103,12 +103,10 @@ public class DemandManageServiceImpl implements DemandManageService {
     }
 
     @Override
-    public DemandManage toAdverShow(String id) {
+    public DemandManage updAdverShow(String id) {
         DemandManage demandManage = get(id);
         demandManage.setRead_num(demandManage.getRead_num() + 1);
         demandManageDao.update(demandManage);
         return demandManage;
     }
-
-
 }

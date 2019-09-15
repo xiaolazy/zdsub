@@ -139,7 +139,7 @@ public class IndexController {
      */
     @GetMapping("toAdverShow")
     public ResponseBean adverToAdverShow(String id) {
-        return ResponseBean.SUCCESS(adverService.get(id));
+        return ResponseBean.SUCCESS(adverService.updAdverShow(id));
     }
 
 
@@ -162,7 +162,7 @@ public class IndexController {
      */
     @GetMapping("toNeedShow")
     public ResponseBean toNeedShow(String id) {
-        return ResponseBean.SUCCESS(demandManageService.toAdverShow(id));
+        return ResponseBean.SUCCESS(demandManageService.updAdverShow(id));
     }
 
     /**

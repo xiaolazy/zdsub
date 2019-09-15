@@ -64,7 +64,7 @@ public class AdverController {
 
     @GetMapping("/toAdverShow/{id}")
     public ResponseBean toAdverShow(@PathVariable String id) {
-        return ResponseBean.SUCCESS(adverService.toAdverShow(id));
+        return ResponseBean.SUCCESS(adverService.updAdverShow(id));
     }
 
     @PostMapping("page")
