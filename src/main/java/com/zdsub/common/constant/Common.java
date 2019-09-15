@@ -28,7 +28,7 @@ public interface Common {
     static final String REGISTERURL="/manager/register";
     static final String LOGOUT = "logout";
     //接收的域名
-    static final String ORIGIN = "http://localhost:2333";
+    static final String ORIGIN = "http://182.92.64.223:3000";
     //路径截取的长度
     static final int SUBSTRING_LENG_START = 1;
     static final int SUBSTRING_LENG_END = 5;

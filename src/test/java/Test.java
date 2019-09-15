@@ -1,3 +1,5 @@
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.common.hash.Hasher;
 import com.zdsub.common.constant.Common;
 import com.zdsub.component.exception.GlobalException;
@@ -126,13 +128,44 @@ public class Test {
     }
     @org.junit.Test
     public void t(){
-        int i = 1;
-        int sshift = 0;
-        while(i<7){
-            ++sshift;
-            i<<=1;
+        Set<Object> obj = new HashSet<Object>();
+        obj.add("a");
+        obj.add("b");
+        obj.add("c");
+        System.out.println("移除前：" + obj.toString());
+        Iterator<Object> it = obj.iterator();
+        for(int i=0; i<obj.size(); i++){
+            System.out.println(i);
+            Object name = it.next();
+            if("a".equals(name) || "b".equals(name)){
+                it.remove();
+                i--;
+            }
         }
-        System.out.println(i+"----"+sshift);
+        System.out.println("移除后： " + obj.toString());
+        Set<Object> objects = Sets.newHashSet();
+        objects.add("2233");
+        objects.add("4");
+        objects.add("5");
+        objects.add("6");
+        objects.add("7");
+        Iterator<Object> iterator = objects.iterator();
+        for (int i = 0; i < objects.size(); i++) {
+            System.out.println(2222);
+            if(iterator.next().equals("7"))
+            {
+                iterator.remove();
+                i--;
+            }
+        }
+        System.out.println(objects.size()+"-------");
+//        int i = 1;
+//        int sshift = 0;
+//        while(i<7){
+//            ++sshift;
+//            i<<=1;
+//        }
+//        System.out.println(i+"----"+sshift);
 //        List<String> menus = new ArrayList<>();
 //        menus.add("88");
 //        menus.add("7");

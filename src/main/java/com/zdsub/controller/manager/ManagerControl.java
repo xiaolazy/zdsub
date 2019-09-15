@@ -15,18 +15,21 @@ import com.zdsub.service.manager.ManagerService;
 import com.zdsub.service.role.RoleService;
 import com.zdsub.utils.Base64Util;
 import com.zdsub.utils.Jwt;
+import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import static com.zdsub.common.constant.Common.*;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static com.zdsub.utils.Md5Util.*;
+
 /**
  * @program: zdsub
  * @description:
@@ -41,6 +44,7 @@ public class ManagerControl {
     private ManagerService managerService;
     @Resource
     private RoleService roleService;
+
     /*@description：分页
      *@Date：2019/9/12 12:31
      *@Param：
@@ -55,6 +59,17 @@ public class ManagerControl {
         Manager m = managerService.findUseLogin(manager);
         if (null == m)
             return ResponseBean.FAILD("用户名或密码错误！");
+        //**********************************//
+        TokenBean tokens = TokenBean.getInstance();
+       Iterator<String> it = tokens.isEmpty() ? new HashSet().iterator() : tokens.keySet().iterator();
+        for (int i = 0; i < tokens.size(); i++) {
+            String key = it.next();
+            Claims claims = Jwt.parseJWT(key, Base64Util.Encoder(SALT));
+            if(claims!= null && claims.getSubject().equals(m.getId())){
+                it.remove();
+                i--;
+            }
+        }
         String jwt = Jwt.createJWT(m.getUser_name(), m.getId(),
                 m.getUser_name(), USER_LOGIN_TIME, Base64Util.Encoder(SALT));
 
@@ -69,6 +84,7 @@ public class ManagerControl {
         logger.debug(m.getUser_name() + "成功登录系统");
         return ResponseBean.SUCCESS("登录成功！", manager.getUser_name());
     }
+
     /*@description：登出系统
      *@Date：2019/9/12 22:21
      *@Param：
@@ -76,15 +92,16 @@ public class ManagerControl {
      *@Author： lyy
      */
     @GetMapping("logout")
-    public ResponseBean logout(String key){
-        if(TokenBean.getInstance().remove(key) == null)
+    public ResponseBean logout(String key) {
+        if (TokenBean.getInstance().remove(key) == null)
             return ResponseBean.FAILD("注销失败,用户信息不存在!");
         TokenBean.activeUserId.set("");
         TokenBean.activeUser.set("");
-        if(TokenPermission.getInstance().remove(TokenBean.activeUserId) == null)
+        if (TokenPermission.getInstance().remove(TokenBean.activeUserId) == null)
             return ResponseBean.FAILD("用户权限信息不存在，但是已强制为您注销！");
         return ResponseBean.SUCCESS("欢迎下次再来!");
     }
+
     /*@description：带条件分页查询
      *@Date：2019/9/11 17:16
      *@Param：
@@ -151,6 +168,7 @@ public class ManagerControl {
             return ResponseBean.FAILD("修改失败，请稍候重试或联系管理员！");
         }
     }
+
     /*@description：验证用户名是否存在  用于用户新增时判断用户名称是否存在，true则是存在否则不存在
      *@Date：2019/9/12 12:32
      *@Param：
