@@ -24,7 +24,7 @@ import java.sql.Date;
  **/
 @Service
 public class EnternameServiceImpl implements EnternameService {
-    @Resource
+    @Resource//把enterNameDao注入到此处调用Dao层分页查询
     private EnternameDao enternameDao;
     @Resource
     private SchoolDao schoolDao;
