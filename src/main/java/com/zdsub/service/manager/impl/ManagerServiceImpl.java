@@ -118,7 +118,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public void update(ManagerSaveInc m) throws Exception {
+        public void update(ManagerSaveInc m) throws Exception {
         String schId = m.getSchId();
         isNull(m, "所修改用户信息丢失，请稍候重试或联系管理员！");
         Role role = roleDao.find(m.getRoleId());
